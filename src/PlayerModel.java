@@ -3,6 +3,10 @@ import java.io.IOException;
 
 public class PlayerModel
 {
+	/** PlayerModel is the player character class
+	 *  Everything about our nameless (?) hero is in here
+	 *  including future level/stats/gear/inventory-data
+	 */
 	private String name;
 	private int roomX;
 	private int roomY;
@@ -14,8 +18,10 @@ public class PlayerModel
 	
 	public PlayerModel(CharacterView cV, MapRenderModel mRM) throws IOException
 	{
-		characterView = cV;
-		mapRenderModel = mRM;
+		// the characterView object is necessary for PlayerModel to update the rendering
+		characterView = cV; 
+		// the mapRenderModel object is necessary to check information about the world (the type of ground mostly)
+		mapRenderModel = mRM; 
 		name = "test";
 		roomX = 0;
 		roomY = 0;
@@ -25,6 +31,7 @@ public class PlayerModel
 		characterView.updateCellGrid(cellX, cellY, true); //initial placing of character
 		mapRenderModel.updateMapRenderModel(roomX, roomY);
 	}
+	/* The functions commented below are currently not in use, but may be useful in future versions
 	public int getCellX()
 	{
 		return cellX;
@@ -40,15 +47,16 @@ public class PlayerModel
 	public void setCellY(int y)
 	{
 		cellY = y;
-	}
+	}*/
 	private boolean moveNorth()
 	{
-		cellY--;
-		if(cellY < 0)
+		//X=0, Y=0 is Top Left (because everything always is in graphical programming (for some reason))
+		cellY--; 
+		if(cellY < 0) //this means we went outside the current rooms borders
 		{
-			cellY = 15;
-			roomY--;
-			return true;
+			cellY = 15; //we therefore set our new position at the opposite side in the new room
+			roomY--; //and change room...
+			return true; //...and tells the move-method about it
 		}
 		return false;
 	}
@@ -90,7 +98,7 @@ public class PlayerModel
 	{
 		char lastMove = 'N'; //must be initialized for the moveRevert-method
 		boolean roomChange = false;
-		characterView.updateCellGrid(cellX, cellY, false);
+		characterView.updateCellGrid(cellX, cellY, false); // causes the picture of the character to disappear
 		if(direction == 'N')
 		{
 			roomChange = moveNorth();
@@ -113,17 +121,17 @@ public class PlayerModel
 		}
 		
 		if(roomChange)
-			mapRenderModel.updateMapRenderModel(roomX, roomY);
+			mapRenderModel.updateMapRenderModel(roomX, roomY); //changes room and displays it, if necessary
 		
-		if(!mapRenderModel.isWalkable(cellX, cellY))
+		if(!mapRenderModel.isWalkable(cellX, cellY)) //some cells (mountains, water...) are not walkable
 		{
-			
+			//we revert the last move we made, and check again if we changed room (if so, we display the new (old) room again
 			roomChange = moveRevert(lastMove);
 			if(roomChange)
 				mapRenderModel.updateMapRenderModel(roomX, roomY);
 			
 		}
-		characterView.updateCellGrid(cellX, cellY, true);
+		characterView.updateCellGrid(cellX, cellY, true); //turn on display of the character again (in his new position)
 	}
 	
 	private boolean moveRevert(char direction)

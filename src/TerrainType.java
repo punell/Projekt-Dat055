@@ -9,6 +9,9 @@ import javax.swing.JLabel;
 
 public abstract class TerrainType extends JLabel
 {
+	/** Everything common for all types of terrain goes here
+	 * 
+	 */
 	private boolean walkable;
 	private BufferedImage terrainImage;
 	

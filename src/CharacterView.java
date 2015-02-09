@@ -3,7 +3,9 @@ import javax.swing.JPanel;
 
 public class CharacterView extends JPanel
 {
-	private Cell transparentCell;
+	/** Controls the display of the player character as well as things such as
+	 *  monsters, chests, non-player characters
+	 */
 	private Cell[][] cellGrid;
 	public CharacterView(int screenResolutionWidth, int screenResolutionHeight)
 	{
@@ -12,12 +14,11 @@ public class CharacterView extends JPanel
 		setLayout(new GridLayout(16,16));
 		int cellX = 0;
 		int cellY = 0;
-		cellGrid = new Cell[16][16];
+		cellGrid = new Cell[16][16]; // same size as the Map, this could potentially be based on screen-resolution
 		for(int i=0;i<16*16;i++)
 		{
-			transparentCell = new Cell(cellX, cellY);
-			cellGrid[cellX][cellY] = transparentCell;
-			add(transparentCell);
+			// create new cell and put it both in the cellGrid and in the JPanel
+			add(cellGrid[cellX][cellY] = new Cell(cellX, cellY)); 
 			
 			if(cellX < 15)
 				cellX++;
@@ -31,7 +32,7 @@ public class CharacterView extends JPanel
 	
 	public void updateCellGrid(int x, int y, boolean isVisible)
 	{
-		transparentCell = cellGrid[x][y];
-		transparentCell.showPlayerCharacter(isVisible);
+		// just turn on/off showing the playerCharacter-picture in this cell
+		cellGrid[x][y].showPlayerCharacter(isVisible); 
 	}
 }

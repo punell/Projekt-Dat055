@@ -5,6 +5,10 @@ import java.io.IOException;
 
 public class Controller extends KeyAdapter
 {	
+	/** Controller creates and keeps track of all the different Model-objects
+	 *  in the game. It waits for keyboard-input and sends those inputs to the
+	 *  correct object
+	 */
 	private MapRenderModel map;
 	private PlayerModel player;
 	

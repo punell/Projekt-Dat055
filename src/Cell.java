@@ -9,8 +9,12 @@ import javax.swing.JLabel;
 
 public class Cell extends JLabel 
 {
-	private int cellX;
-	private int cellY;
+	/** Cell is basically just an invisible filler, but it's used to display
+	 *  different things on top of the Map-layer
+	 */
+	//Cell-coordinates might be useful sometime in the future...
+	//private int cellX;
+	//private int cellY;
 	private BufferedImage playerCharacterImage;
 	private ImageIcon playerCharacterIcon;
 	
@@ -25,9 +29,9 @@ public class Cell extends JLabel
 		{
 		}
 		playerCharacterIcon = new ImageIcon(playerCharacterImage);
-		setOpaque(false);
-		cellX = x;
-		cellY = y;
+		setOpaque(false); // turn transparency on
+		//cellX = x;
+		//cellY = y;
 	}
 	
 	public void showPlayerCharacter(boolean isVisible)
