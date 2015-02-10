@@ -14,6 +14,7 @@ public class MapRenderModel
 	private MapRenderView mapRenderView;
 	private char[][] worldMap;
 	private char[][] undergroundMap;
+	private char[][] mapToLoad; 
 	
 	public MapRenderModel(MapRenderView mapRenderView)
 	{
@@ -25,10 +26,14 @@ public class MapRenderModel
 		undergroundMap = readMap("undergroundmap.txt");
 	}
 	
-	public void updateMapRenderModel(int roomX, int roomY) throws IOException
+	public void updateMapRenderModel(int roomX, int roomY, String areaToLoad) throws IOException
 	{
 		//this method has to be cleaned up and generalized, so we can load different places
 		//see worldMap and undergroundMap in constructor above
+		if(areaToLoad.equals("underground"))
+			mapToLoad = undergroundMap;
+		else if(areaToLoad.equals("overworld"))
+			mapToLoad = worldMap;
 		try
 		{
 			int cellY=0; 
@@ -37,16 +42,7 @@ public class MapRenderModel
 				int cellX=0;
 				for(int col=roomX*16;col<(roomX+1)*16;col++)
 				{
-					if(worldMap[col][row] == 'G')
-						terrainGrid[cellX][cellY] = new TerrainGrass();
-					else if(worldMap[col][row] == 'M')
-						terrainGrid[cellX][cellY] = new TerrainMountain();
-					else if(worldMap[col][row] == 'W')
-						terrainGrid[cellX][cellY] = new TerrainWater();
-					else if(worldMap[col][row] == 'C')
-						terrainGrid[cellX][cellY] = new TerrainCaveEntrance();
-					else //these are the "voids" after the line in the worldmap.txt ended
-						terrainGrid[cellX][cellY] = new TerrainVoid(); 
+					terrainGrid[cellX][cellY] = getNewTerrainTile(mapToLoad[col][row]);
 					cellX++;
 				}
 				cellY++;
@@ -59,9 +55,24 @@ public class MapRenderModel
 		mapRenderView.updateMapRenderView(terrainGrid);
 	}
 	
+	private TerrainType getNewTerrainTile(char terrainTile) throws IOException
+	{
+		switch(terrainTile)
+		{
+			case 'G': return new TerrainGrass();
+			case 'M': return new TerrainMountain();
+			case 'W': return new TerrainWater();
+			case 'C': return new TerrainCaveEntrance();
+			default: return new TerrainVoid();
+		}
+	}
 	public boolean isWalkable(int cellX, int cellY)
 	{
 		return terrainGrid[cellX][cellY].isWalkable();
+	}
+	public boolean isCaveEntrance(int cellX, int cellY)
+	{
+		return terrainGrid[cellX][cellY].isCaveEntrance();
 	}
 	public void typeOfTerrain(int cellX, int cellY) // test/debug function
 	{

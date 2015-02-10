@@ -6,7 +6,7 @@ public class TerrainCaveEntrance extends TerrainType
 
 	public TerrainCaveEntrance() throws IOException 
 	{
-		super(true, "caveEntrance.jpg");
+		super(true, true, "caveEntrance.jpg");
 	}
 	
 }

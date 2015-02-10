@@ -5,7 +5,7 @@ public class TerrainMountain extends TerrainType
 {
 	public TerrainMountain() throws IOException 
 	{
-		super(false, "mountain.jpg");
+		super(false, false, "mountain.jpg");
 	}
 
 }

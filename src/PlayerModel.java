@@ -12,7 +12,7 @@ public class PlayerModel
 	private int roomY;
 	private int cellX;
 	private int cellY;
-	private boolean underground;
+	private String currentArea;
 	private CharacterView characterView;
 	private MapRenderModel mapRenderModel;
 	
@@ -27,9 +27,9 @@ public class PlayerModel
 		roomY = 0;
 		cellX = 1;
 		cellY = 1;
-		underground = false;
+		currentArea = "overworld";
 		characterView.updateCellGrid(cellX, cellY, true); //initial placing of character
-		mapRenderModel.updateMapRenderModel(roomX, roomY);
+		mapRenderModel.updateMapRenderModel(roomX, roomY, currentArea);
 	}
 	/* The functions commented below are currently not in use, but may be useful in future versions
 	public int getCellX()
@@ -121,15 +121,21 @@ public class PlayerModel
 		}
 		
 		if(roomChange)
-			mapRenderModel.updateMapRenderModel(roomX, roomY); //changes room and displays it, if necessary
+			mapRenderModel.updateMapRenderModel(roomX, roomY, currentArea); //changes room and displays it, if necessary
 		
 		if(!mapRenderModel.isWalkable(cellX, cellY)) //some cells (mountains, water...) are not walkable
 		{
 			//we revert the last move we made, and check again if we changed room (if so, we display the new (old) room again
 			roomChange = moveRevert(lastMove);
 			if(roomChange)
-				mapRenderModel.updateMapRenderModel(roomX, roomY);
+				mapRenderModel.updateMapRenderModel(roomX, roomY, currentArea);
 			
+		}
+
+		if(mapRenderModel.isCaveEntrance(cellX, cellY))
+		{
+			changeCurrentArea("underground");
+			mapRenderModel.updateMapRenderModel(roomX, roomY, currentArea);
 		}
 		characterView.updateCellGrid(cellX, cellY, true); //turn on display of the character again (in his new position)
 	}
@@ -148,5 +154,25 @@ public class PlayerModel
 		return roomChange;
 	}
 	
+	private void changeCurrentArea(String changeTo)
+	{
+		/* Using a string for this gives us the ability to change to 
+		 * a lot of different places (temples, buildings, dungeons...)
+		 */
+		
+		//supposed to be seen as a switch between underground on/off
+		//this is a bit of a special case, because "on/off switching" is 
+		//probably only ever done for overworld <-> underground
+		if(changeTo.equals("underground")) 
+		{
+			if(currentArea.equals("underground"))
+				currentArea = new String("overworld");
+			else if(currentArea.equals("overworld"))
+				currentArea = new String("underground");
+					
+		}
+		else
+			currentArea = new String(changeTo);
+	}
 
 }

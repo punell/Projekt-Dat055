@@ -13,9 +13,10 @@ public abstract class TerrainType extends JLabel
 	 * 
 	 */
 	private boolean walkable;
+	private boolean caveEntrance;
 	private BufferedImage terrainImage;
 	
-	public TerrainType(boolean walkable, String filename)
+	public TerrainType(boolean walkable, boolean caveEntrance, String filename)
 	{
 		super();
 		try
@@ -23,6 +24,7 @@ public abstract class TerrainType extends JLabel
 			terrainImage = ImageIO.read(new File(filename));
 			setIcon(new ImageIcon(terrainImage));
 			this.walkable = walkable;
+			this.caveEntrance = caveEntrance;
 		}
 		catch(IOException e)
 		{
@@ -32,5 +34,9 @@ public abstract class TerrainType extends JLabel
 	public boolean isWalkable()
 	{
 		return walkable;
+	}
+	public boolean isCaveEntrance()
+	{
+		return caveEntrance;
 	}
 }
