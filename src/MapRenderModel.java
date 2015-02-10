@@ -28,8 +28,6 @@ public class MapRenderModel
 	
 	public void updateMapRenderModel(int roomX, int roomY, String areaToLoad) throws IOException
 	{
-		//this method has to be cleaned up and generalized, so we can load different places
-		//see worldMap and undergroundMap in constructor above
 		if(areaToLoad.equals("underground"))
 			mapToLoad = undergroundMap;
 		else if(areaToLoad.equals("overworld"))
@@ -93,6 +91,7 @@ public class MapRenderModel
 			int r=0;
 			while(line != null)
 			{
+				line = line.replaceAll(",",""); //replace all commas ',' with nothing, effectively deleting them
 				for(int c=0;c<(line.length() + line.length() % 16);c++) //make sure we read the "void" after the line ends
 				{
 					try
@@ -115,7 +114,7 @@ public class MapRenderModel
 		return worldMap;
 	}
 	
-	public int[] countRowsAndColumns(String filename) 
+	private int[] countRowsAndColumns(String filename) 
 	{
 	    BufferedReader reader = null;
 	    int[] rowsAndColumns = new int[2];
@@ -126,9 +125,11 @@ public class MapRenderModel
 	    	
 	    	while(line != null)
 	    	{
+	    		line = line.replaceAll(",",""); //strip all commas
 	    		rowsAndColumns[0]++; //count each row
 	    		if(line.length() > rowsAndColumns[1])
 	    			rowsAndColumns[1] = line.length(); //only keep the longest line, its the maximum line length
+	    		
 	    		line = reader.readLine();
 	    	}
 	    	reader.close();
@@ -139,6 +140,7 @@ public class MapRenderModel
 		//make sure both rows and columns are a multiple of 16 (enables half rooms, which are good for... something...) it solves a potential bug
 	    rowsAndColumns[0] += 16 % rowsAndColumns[0];
 	    rowsAndColumns[1] += 16 % rowsAndColumns[1];
+	    
 	    /* Another solution, the one above is cleaner/better, but does it ALWAYS work?
 	     * while(rowsAndColumns[0] % 16 != 0)
 	    	rowsAndColumns[0]++;
@@ -147,4 +149,6 @@ public class MapRenderModel
 	    
 	    return rowsAndColumns;
 	}
+
+
 }
