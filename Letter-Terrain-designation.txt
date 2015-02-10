@@ -22,7 +22,7 @@ R=
 S=
 T=
 U=
-V=
+V= Void(false, false, 0%) Void is special, fills up everything on the map where there isn't anything
 W= Water(false, false, 0%) see M= Mountain
 X=
 Y=
