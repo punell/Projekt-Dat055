@@ -1,0 +1,32 @@
+In here we list all the different terrain types and their letter in the following form
+Letter= TerrainType(isWalkable(true/false), isCaveEntrance(true/false, riskOfMonsters(percent)), more variables to come here) very short description
+
+A=
+B=
+C= CaveEntrance(true, true, 0%) for shifting between overworld and underworld, no chance of monsters because potential for bugs
+D=
+E=
+F=
+G= Grass(true, false, 10%) basic grass to walk on, medium chance to encounter monsters (subject to change)
+H=
+I=
+J=
+K=
+L=
+M= Mountain(false, false, 0%) basic mountain to construct a map with (no chance to encounter monsters because not walkable)
+N=
+O=
+P= Path(true, false, 0%) paths are nice because no monsters (currently not in the game)
+Q=
+R=
+S=
+T=
+U=
+V=
+W= Water(false, false, 0%) see M= Mountain
+X=
+Y=
+Z=
+
+
+Take whatever letters you want guys! =)
