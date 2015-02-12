@@ -1,0 +1,8 @@
+# Create comment-lines with # as first character
+# Below is the blueprint for creating terrains, don't forget to create image-file
+# Letter= walkable, isLink, filename, linksTo
+G= true, false, grass.jpg, null
+M= false, false, mountain.jpg, null
+W= false, false, water.jpg, null
+V= false, false, void.jpg, null
+C= true, true, caveEntrance.jpg, underground

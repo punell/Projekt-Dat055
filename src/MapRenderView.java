@@ -16,7 +16,7 @@ public class MapRenderView extends JPanel
 		setLayout(new GridLayout(16,16));
 	}
 	
-	public void updateMapRenderView(TerrainType[][] terrainGrid)
+	public void updateMapRenderView(TerrainTile[][] terrainGrid)
 	{
 		removeAll(); // remove to allow a refill
 		for(int row=0; row<16;row++)

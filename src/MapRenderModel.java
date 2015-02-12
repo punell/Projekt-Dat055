@@ -1,6 +1,7 @@
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.HashMap;
 
 
 
@@ -10,20 +11,52 @@ public class MapRenderModel
 	 *  terrain necessary to display it. This can potentially create many different
 	 *  worlds, such as an underworld or different in-door worlds (buildings, temples, dungeons etc)
 	 */
-	private TerrainType[][] terrainGrid;
+	//private TerrainType[][] terrainGrid;
+	private TerrainTile[][] terrainGrid;
 	private MapRenderView mapRenderView;
 	private char[][] worldMap;
 	private char[][] undergroundMap;
 	private char[][] mapToLoad; 
+	private HashMap<Character, TerrainProperties> terrainSet;
 	
 	public MapRenderModel(MapRenderView mapRenderView)
 	{
 		this.mapRenderView = mapRenderView;
-		terrainGrid = new TerrainType[16][16];
+		terrainGrid = new TerrainTile[16][16];
 		//this char holds the entire worldMap, so we only read this during the start of the game and never again
 		worldMap = readMap("worldmap.txt");
 		//should work for other maps as well...
 		undergroundMap = readMap("undergroundmap.txt");
+		terrainSet = new HashMap<Character, TerrainProperties>();
+		populateTerrainSet();
+	}
+	
+	private void populateTerrainSet()
+	{
+		BufferedReader reader = null;
+		char terrainSetKey;
+		String[] terrainSetValue;
+		TerrainProperties TP;
+		String subLine;
+		try
+		{
+			reader = new BufferedReader(new FileReader("terrainDesignations.txt"));
+			String line = reader.readLine();
+			while(line != null)
+			{
+				while(line.charAt(0) == '#')
+					line = reader.readLine();
+				terrainSetKey = line.charAt(0);
+				subLine = line.substring(3);
+				terrainSetValue = subLine.split(", ");
+				TP = new TerrainProperties(terrainSetValue);
+				terrainSet.put(terrainSetKey, TP);
+				line = reader.readLine();
+			}
+		}
+		catch(IOException e)
+		{
+		}
 	}
 	
 	public void updateMapRenderModel(int roomX, int roomY, String areaToLoad) throws IOException
@@ -32,22 +65,25 @@ public class MapRenderModel
 			mapToLoad = undergroundMap;
 		else if(areaToLoad.equals("overworld"))
 			mapToLoad = worldMap;
-		try
+		int cellY=0; 
+		for(int row=roomY*16;row<(roomY+1)*16;row++) //taking room-coordinates into account allows us to display the correct room
 		{
-			int cellY=0; 
-			for(int row=roomY*16;row<(roomY+1)*16;row++) //taking room-coordinates into account allows us to display the correct room
+			int cellX=0;
+			for(int col=roomX*16;col<(roomX+1)*16;col++)
 			{
-				int cellX=0;
-				for(int col=roomX*16;col<(roomX+1)*16;col++)
+				//terrainGrid[cellX][cellY] = getNewTerrainTile(mapToLoad[col][row]);
+				try
 				{
-					terrainGrid[cellX][cellY] = getNewTerrainTile(mapToLoad[col][row]);
+					terrainGrid[cellX][cellY] = new TerrainTile(terrainSet.get(mapToLoad[col][row]));
 					cellX++;
 				}
-				cellY++;
+				catch(Exception e)
+				{
+					terrainGrid[cellX][cellY] = new TerrainTile(terrainSet.get('V'));
+					cellX++;
+				}
 			}
-		}
-		catch(IOException e)
-		{
+			cellY++;
 		}
 		
 		mapRenderView.updateMapRenderView(terrainGrid);
@@ -70,7 +106,7 @@ public class MapRenderModel
 	}
 	public boolean isCaveEntrance(int cellX, int cellY)
 	{
-		return terrainGrid[cellX][cellY].isCaveEntrance();
+		return terrainGrid[cellX][cellY].isLink();
 	}
 	public void typeOfTerrain(int cellX, int cellY) // test/debug function
 	{
