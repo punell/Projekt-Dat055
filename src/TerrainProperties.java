@@ -5,6 +5,7 @@ public class TerrainProperties
 	public boolean isLink = false;
 	public String filename;
 	public String linksTo;
+	public int riskOfEncounter;
 	
 	public TerrainProperties(String[] properties)
 	{
@@ -18,5 +19,6 @@ public class TerrainProperties
 		}
 		filename = properties[2];
 		linksTo = properties[3];
+		riskOfEncounter = Integer.parseInt(properties[4]);
 	}
 }

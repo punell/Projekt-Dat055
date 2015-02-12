@@ -11,6 +11,7 @@ public class TerrainTile extends JLabel
 {
 	private boolean walkable;
 	private boolean isLink;
+	private int riskOfEncounter;
 	private String linksTo;
 	private BufferedImage terrainImage;
 	
@@ -20,6 +21,8 @@ public class TerrainTile extends JLabel
 		walkable = TP.walkable;
 		isLink = TP.isLink;
 		linksTo = TP.linksTo;
+		riskOfEncounter = TP.riskOfEncounter;
+		
 		try
 		{
 			terrainImage = ImageIO.read(new File(TP.filename));

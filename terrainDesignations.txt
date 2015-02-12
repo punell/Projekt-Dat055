@@ -1,9 +1,11 @@
 # Create comment-lines with # as first character
 # Below is the blueprint for creating terrains, don't forget to create image-file
-# Letter= walkable, isLink, filename, linksTo
+# Letter= walkable, isLink, filename, linksTo, riskOfEncounter(percent)
 # OBS, all spaces matter VERY much, don't forget them
-G= true, false, grass.jpg, null
-M= false, false, mountain.jpg, null
-W= false, false, water.jpg, null
-V= false, false, void.jpg, null
-C= true, true, caveEntrance.jpg, underground
+# and there can be NO empty lines, and no comments after the list (don't know why yet, is a bug, will be fixed)
+#
+G= true, false, grass.jpg, null, 10
+M= false, false, mountain.jpg, null, 0
+W= false, false, water.jpg, null, 0
+V= false, false, void.jpg, null, 0
+C= true, true, caveEntrance.jpg, underground, 0
