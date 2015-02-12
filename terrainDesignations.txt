@@ -1,6 +1,7 @@
 # Create comment-lines with # as first character
 # Below is the blueprint for creating terrains, don't forget to create image-file
 # Letter= walkable, isLink, filename, linksTo
+# OBS, all spaces matter VERY much, don't forget them
 G= true, false, grass.jpg, null
 M= false, false, mountain.jpg, null
 W= false, false, water.jpg, null
