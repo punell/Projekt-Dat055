@@ -10,18 +10,20 @@ public class MapRenderModel
 	/** Reads the text-documents that makes up the world, and creates the
 	 *  terrain necessary to display it. This can potentially create many different
 	 *  worlds, such as an underworld or different in-door worlds (buildings, temples, dungeons etc)
+	 *  
+	 *  This class is way to big. We can cut out the whole terrain-creation-part and maybe make
+	 *  some sort of factory from it.
 	 */
-	//private TerrainType[][] terrainGrid;
 	private TerrainTile[][] terrainGrid;
-	private MapRenderView mapRenderView;
 	private char[][] worldMap;
 	private char[][] undergroundMap;
 	private char[][] mapToLoad; 
+	private int[] currentRoom;
+	private String currentArea;
 	private HashMap<Character, TerrainProperties> terrainSet;
 	
-	public MapRenderModel(MapRenderView mapRenderView)
+	public MapRenderModel()
 	{
-		this.mapRenderView = mapRenderView;
 		terrainGrid = new TerrainTile[16][16];
 		//this char holds the entire worldMap, so we only read this during the start of the game and never again
 		worldMap = readMap("worldmap.txt");
@@ -29,10 +31,17 @@ public class MapRenderModel
 		undergroundMap = readMap("undergroundmap.txt");
 		terrainSet = new HashMap<Character, TerrainProperties>();
 		populateTerrainSet();
+		currentRoom = new int[2];
+		currentRoom[0] = 0;
+		currentRoom[1] = 0;
+		currentArea = "overworld";
+		updateMapRenderModel(0,0,"overworld");
+		
 	}
 	
 	private void populateTerrainSet()
 	{
+		//Fills the HashMap with references to all types of terrain
 		BufferedReader reader = null;
 		char terrainSetKey;
 		String[] terrainSetValue;
@@ -59,19 +68,33 @@ public class MapRenderModel
 		}
 	}
 	
-	public void updateMapRenderModel(int roomX, int roomY, String areaToLoad) throws IOException
+	private void toggleArea(String areaToLoad)
 	{
-		if(areaToLoad.equals("underground"))
-			mapToLoad = undergroundMap;
-		else if(areaToLoad.equals("overworld"))
+		// Decides which area to actually load 
+		if(areaToLoad.equals(currentArea))
+		{
+			currentArea = "overworld";
 			mapToLoad = worldMap;
+		}
+		else // this else will be fixed with a hashmap containing all areas
+			//This allows us to exchange our "areatoload"-string for a "maptoload"-char-array
+		{
+			currentArea = areaToLoad;
+			mapToLoad = undergroundMap;
+		}
+	}
+	
+	public void updateMapRenderModel(int roomX, int roomY, String areaToLoad)
+	{
+		currentRoom[0] = roomX;
+		currentRoom[1] = roomY;
+		toggleArea(areaToLoad); 
 		int cellY=0; 
 		for(int row=roomY*16;row<(roomY+1)*16;row++) //taking room-coordinates into account allows us to display the correct room
 		{
 			int cellX=0;
 			for(int col=roomX*16;col<(roomX+1)*16;col++)
 			{
-				//terrainGrid[cellX][cellY] = getNewTerrainTile(mapToLoad[col][row]);
 				try
 				{
 					terrainGrid[cellX][cellY] = new TerrainTile(terrainSet.get(mapToLoad[col][row]));
@@ -85,37 +108,34 @@ public class MapRenderModel
 			}
 			cellY++;
 		}
-		
-		mapRenderView.updateMapRenderView(terrainGrid);
 	}
 	
-	private TerrainType getNewTerrainTile(char terrainTile) throws IOException
+	public TerrainTile[][] getUpdatedMap()
 	{
-		switch(terrainTile)
-		{
-			case 'G': return new TerrainGrass();
-			case 'M': return new TerrainMountain();
-			case 'W': return new TerrainWater();
-			case 'C': return new TerrainCaveEntrance();
-			default: return new TerrainVoid();
-		}
+		return terrainGrid;
 	}
+	
+	public int[] getCurrentRoom()
+	{
+		return currentRoom;
+	}
+
 	public boolean isWalkable(int cellX, int cellY)
 	{
 		return terrainGrid[cellX][cellY].isWalkable();
 	}
-	public boolean isCaveEntrance(int cellX, int cellY)
+	public boolean isLink(int cellX, int cellY)
 	{
 		return terrainGrid[cellX][cellY].isLink();
 	}
-	public void typeOfTerrain(int cellX, int cellY) // test/debug function
+	public String linksTo(int cellX, int cellY)
 	{
-		System.out.println(terrainGrid[cellX][cellY].getClass());		
+		return terrainGrid[cellX][cellY].linksTo();
 	}
 	
-	private char[][] readMap(String mapName)
+	private char[][] readMap(String mapName) 
 	{
-		
+		//This method and the one below it are probably better of in another class which acts as a factory...
 		BufferedReader reader = null;
 		//read number of lines and length of longest line, place in rows/cols
 		int[] rowsAndColumns = countRowsAndColumns(mapName);

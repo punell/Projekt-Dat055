@@ -40,7 +40,7 @@ public class TerrainTile extends JLabel
 	{
 		return isLink;
 	}
-	public String getLink()
+	public String linksTo()
 	{
 		return linksTo;
 	}

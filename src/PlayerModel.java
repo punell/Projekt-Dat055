@@ -1,4 +1,4 @@
-import java.io.IOException;
+
 
 
 public class PlayerModel
@@ -13,42 +13,34 @@ public class PlayerModel
 	private int cellX;
 	private int cellY;
 	private String currentArea;
-	private CharacterView characterView;
-	private MapRenderModel mapRenderModel;
 	
-	public PlayerModel(CharacterView cV, MapRenderModel mRM) throws IOException
+	public PlayerModel()
 	{
-		// the characterView object is necessary for PlayerModel to update the rendering
-		characterView = cV; 
-		// the mapRenderModel object is necessary to check information about the world (the type of ground mostly)
-		mapRenderModel = mRM; 
 		name = "test";
 		roomX = 0;
 		roomY = 0;
 		cellX = 1;
 		cellY = 1;
-		currentArea = "overworld";
-		characterView.updateCellGrid(cellX, cellY, true); //initial placing of character
-		mapRenderModel.updateMapRenderModel(roomX, roomY, currentArea);
+		currentArea = "overworld"; //not entirely sure what this was supposed to be for... I'll leave it here just in case
 	}
-	/* The functions commented below are currently not in use, but may be useful in future versions
-	public int getCellX()
+	
+	public int[] getPlayerCoords()
 	{
-		return cellX;
+		int[] coords = {cellX, cellY, roomX, roomY};
+		return coords;
 	}
-	public int getCellY()
+	public int[] getPlayerRoom()
 	{
-		return cellY;
+		int[] room = {roomX, roomY};
+		return room;
 	}
-	public void setCellX(int x)
+	public int[] getPlayerCell()
 	{
-		cellX = x;
+		int[] cell = {cellX, cellY};
+		return cell;
 	}
-	public void setCellY(int y)
-	{
-		cellY = y;
-	}*/
-	private boolean moveNorth()
+
+	protected void moveNorth() //protected because we can... no real reason
 	{
 		//X=0, Y=0 is Top Left (because everything always is in graphical programming (for some reason))
 		cellY--; 
@@ -56,123 +48,36 @@ public class PlayerModel
 		{
 			cellY = 15; //we therefore set our new position at the opposite side in the new room
 			roomY--; //and change room...
-			return true; //...and tells the move-method about it
 		}
-		return false;
 	}
-	private boolean moveEast()
+	protected void moveEast()
 	{
 		cellX++;
 		if(cellX > 15)
 		{
 			cellX = 0;
 			roomX++;
-			return true;
 		}
-		return false;
 	}
-	private boolean moveSouth()
+	protected void moveSouth()
 	{
 		cellY++;
 		if(cellY > 15)
 		{
 			cellY = 0;
 			roomY++;
-			return true;
 		}
-		return false;
 	}
-	private boolean moveWest()
+	protected void moveWest()
 	{
 		cellX--;
 		if(cellX < 0)
 		{
 			cellX = 15;
 			roomX--;
-			return true;
 		}
-		return false;
 	}
 	
-	public void move(char direction) throws IOException
-	{
-		char lastMove = 'N'; //must be initialized for the moveRevert-method
-		boolean roomChange = false;
-		characterView.updateCellGrid(cellX, cellY, false); // causes the picture of the character to disappear
-		if(direction == 'N')
-		{
-			roomChange = moveNorth();
-			lastMove = 'S';
-		}	
-		else if(direction == 'E')
-		{
-			roomChange = moveEast();
-			lastMove = 'W';
-		}
-		else if(direction == 'S')
-		{
-			roomChange = moveSouth();
-			lastMove = 'N';
-		}
-		else if(direction == 'W')
-		{
-			roomChange = moveWest();
-			lastMove = 'E';
-		}
-		
-		if(roomChange)
-			mapRenderModel.updateMapRenderModel(roomX, roomY, currentArea); //changes room and displays it, if necessary
-		
-		if(!mapRenderModel.isWalkable(cellX, cellY)) //some cells (mountains, water...) are not walkable
-		{
-			//we revert the last move we made, and check again if we changed room (if so, we display the new (old) room again
-			roomChange = moveRevert(lastMove);
-			if(roomChange)
-				mapRenderModel.updateMapRenderModel(roomX, roomY, currentArea);
-			
-		}
 
-		if(mapRenderModel.isCaveEntrance(cellX, cellY))
-		{
-			changeCurrentArea("underground");
-			mapRenderModel.updateMapRenderModel(roomX, roomY, currentArea);
-		}
-		characterView.updateCellGrid(cellX, cellY, true); //turn on display of the character again (in his new position)
-	}
-	
-	private boolean moveRevert(char direction)
-	{
-		boolean roomChange = false;
-		if(direction == 'N')
-			roomChange = moveNorth();
-		else if(direction == 'E')
-			roomChange = moveEast();
-		else if(direction == 'S')
-			roomChange = moveSouth();
-		else if(direction == 'W')
-			roomChange = moveWest();
-		return roomChange;
-	}
-	
-	private void changeCurrentArea(String changeTo)
-	{
-		/* Using a string for this gives us the ability to change to 
-		 * a lot of different places (temples, buildings, dungeons...)
-		 */
-		
-		//supposed to be seen as a switch between underground on/off
-		//this is a bit of a special case, because "on/off switching" is 
-		//probably only ever done for overworld <-> underground
-		if(changeTo.equals("underground")) 
-		{
-			if(currentArea.equals("underground"))
-				currentArea = new String("overworld");
-			else if(currentArea.equals("overworld"))
-				currentArea = new String("underground");
-					
-		}
-		else
-			currentArea = new String(changeTo);
-	}
 
 }
