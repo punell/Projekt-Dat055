@@ -8,7 +8,7 @@ public class MenuController
 	public MenuController(int screenResolutionWidth,int screenResolutionHeight)
 	{
 		menuModel = new MenuRenderModel();
-		//menuView = new MenuRenderView(menuModel, screenResolutionWidth, screenResolutionHeight);
+		menuView = new MenuRenderView(menuModel, screenResolutionWidth, screenResolutionHeight);
 	}
 	
 	public MenuRenderView getView()
