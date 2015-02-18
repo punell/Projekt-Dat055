@@ -39,7 +39,7 @@ public class CharacterView extends JPanel
 		// just turn on/off showing the playerCharacter-picture in this cell
 		if(character.equals("player"))
 		{
-			int[] coords = playerModel.getPlayerCoords();
+			int[] coords = playerModel.getPlayerCoords('c');
 			cellGrid[coords[0]][coords[1]].showPlayerCharacter(isVisible); 
 		}
 	}

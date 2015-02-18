@@ -24,7 +24,7 @@ public class PlayerModel
 		currentArea = "overworld"; //not entirely sure what this was supposed to be for... I'll leave it here just in case
 	}
 	
-	public int[] getPlayerCoords()
+	/*public int[] getPlayerCoords()
 	{
 		int[] coords = {cellX, cellY, roomX, roomY};
 		return coords;
@@ -38,6 +38,26 @@ public class PlayerModel
 	{
 		int[] cell = {cellX, cellY};
 		return cell;
+	}*/
+	
+	public int[] getPlayerCoords(char flag)
+	{
+		if(flag == 'r')
+		{
+			int[] coords = {roomX, roomY};
+			return coords;
+		}
+		else if(flag == 'c')
+		{
+			int[] coords = {cellX, cellY};
+			return coords;
+		}
+		else
+		{
+			int[] coords = {cellX, cellY, roomX, roomY};
+			return coords;
+		}
+		
 	}
 
 	protected void moveNorth() //protected because we can... no real reason

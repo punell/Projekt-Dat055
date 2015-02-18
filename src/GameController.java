@@ -5,7 +5,8 @@ public class GameController
 {
 	private PlayerModel playerModel;
 	private CharacterView charView;
-	private char lastMove;
+	//private char lastMove;
+	private String lastMove;
 	public GameController(int screenResolutionWidth, int screenResolutionHeight)
 	{
 		playerModel = new PlayerModel();
@@ -18,42 +19,23 @@ public class GameController
 		return charView;
 	}
 	
-	public int[] getPlayerCoords() //all coords (cellx, celly, roomx, roomy)
+	public int[] getPlayerCoords(char flag) // use flag to change what to get (r for room, c for cell, anything else for both)
 	{
-		return playerModel.getPlayerCoords();
-	}
-	public int[] getPlayerRoom() //room coords
-	{
-		return playerModel.getPlayerRoom();
-	}
-	public int[] getPlayerCell() //cell coords
-	{
-		return playerModel.getPlayerCell();
+		
+		return playerModel.getPlayerCoords(flag);
 	}
 	
-	public void move(char direction) 
+	public void move(String direction) 
 	{
 		//this can easily be moved into PlayerModel if ever necessary (might be if we want to move monsters as well)
 		charView.updateCharacterView("player", false); // causes the picture of the player character to disappear
-		if(direction == 'N')
+
+		switch(direction)
 		{
-			playerModel.moveNorth();
-			lastMove = 'S';
-		}
-		else if(direction == 'E')
-		{
-			playerModel.moveEast();
-			lastMove = 'W';
-		}
-		else if(direction == 'S')
-		{
-			playerModel.moveSouth();
-			lastMove = 'N';
-		}
-		else if(direction == 'W')
-		{
-			playerModel.moveWest();
-			lastMove = 'E';
+			case "Up": playerModel.moveNorth(); lastMove = "Down"; break;
+			case "Right": playerModel.moveEast(); lastMove = "Left"; break;
+			case "Down": playerModel.moveSouth(); lastMove = "Up"; break;
+			case "Left": playerModel.moveWest(); lastMove = "Right"; break;
 		}
 		charView.updateCharacterView("player", true); // makes it appear again
 	}
