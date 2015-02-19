@@ -1,3 +1,5 @@
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
@@ -15,7 +17,7 @@ public class MainController extends KeyAdapter
 	private MapController mapControl;
 	private GameController gameControl;
 	private HashMap<Integer, String> keyMap;
-	//private MenuController menuControl;
+	private MenuController menuControl;
 	//private EncounterController encounterControl;
 	private int screenResolutionWidth = 1920; //future versions might allow for changes based on the resolution
 	private int screenResolutionHeight = 1080;
@@ -27,14 +29,16 @@ public class MainController extends KeyAdapter
 		mainWindow = new MainView(title);
 		mapControl = new MapController(screenResolutionWidth, screenResolutionHeight);
 		gameControl = new GameController(screenResolutionWidth, screenResolutionHeight);
+		menuControl = new MenuController(screenResolutionHeight, screenResolutionHeight);
 		mainWindow.setContentPane(mapControl.getView());
 		mainWindow.setGlassPane(gameControl.getView());
 		mainWindow.getGlassPane().setVisible(true);
 		mainWindow.addKeyListener(this);
 		keyMap = new HashMap<Integer, String>();
 		populateKeyMap();
+		//((Container) mainWindow.getGlassPane()).setLayout(new BorderLayout());
+		
 
-		//menuControl = new MenuController();
 		//encounterControl = new EncounterController;
 		
 		
@@ -54,15 +58,26 @@ public class MainController extends KeyAdapter
 		//checks if gameControl is the current glasspane (i.e. what is actually seen by the player right now)
 		if(mainWindow.getGlassPane().equals(gameControl.getView())) 
 		{
-			gameControl.move(command);
-			mapControl.updateView(gameControl.getPlayerCoords('a'));
-			if(!mapControl.isWalkable(gameControl.getPlayerCoords('c')))
+			if(command.equals ("Esc"))
+				changeGlassPane(menuControl.getView());
+			else
 			{
-				gameControl.moveRevert();
+				gameControl.move(command);
 				mapControl.updateView(gameControl.getPlayerCoords('a'));
+				if(!mapControl.isWalkable(gameControl.getPlayerCoords('c')))
+				{
+					gameControl.moveRevert();
+					mapControl.updateView(gameControl.getPlayerCoords('a'));
+				}
 			}
-		}		
+		}
+		else if(mainWindow.getGlassPane().equals(menuControl.getView()))
+		{
+			if(command.equals ("Esc"))
+				changeGlassPane(gameControl.getView());
+		}
 	}
+	
 	
 	private void changeContentPane(JPanel changeTo)
 	{

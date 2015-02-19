@@ -8,8 +8,10 @@ public class MenuRenderView extends JPanel
 	 **/
 	
 	private MenuRenderModel menuModel;
-	public MenuRenderView(MenuRenderModel menuModel, int screenResolutionWidth, int screenResolutionHeight)
+	public MenuRenderView(MenuRenderModel mMD, int screenResolutionWidth, int screenResolutionHeight)
 	{
-		
+		super();
+		menuModel = mMD;
+		setSize(screenResolutionWidth, screenResolutionHeight);
 	} 
 }
