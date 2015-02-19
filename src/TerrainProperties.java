@@ -1,3 +1,4 @@
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,10 +11,9 @@ public class TerrainProperties
 {
 	public boolean walkable = false;
 	public boolean isLink = false;
-	public String filename;
 	public String linksTo;
 	public int riskOfEncounter;
-	public BufferedImage terrainImage;
+	public Image terrainImage;
 	public ImageIcon terrainIcon;
 	
 	public TerrainProperties(String[] properties)
@@ -26,12 +26,12 @@ public class TerrainProperties
 		{
 			isLink = true;
 		}
-		filename = properties[2];
 		linksTo = properties[3];
 		riskOfEncounter = Integer.parseInt(properties[4]);
 		try
 		{
-			terrainImage = ImageIO.read(new File(filename));
+			terrainImage = ImageIO.read(new File(properties[2]));
+			terrainImage = terrainImage.getScaledInstance(64, 64, Image.SCALE_DEFAULT);
 			terrainIcon = new ImageIcon(terrainImage);
 		}
 		catch(IOException e)
