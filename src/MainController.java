@@ -36,7 +36,6 @@ public class MainController extends KeyAdapter
 		mainWindow.addKeyListener(this);
 		keyMap = new HashMap<Integer, String>();
 		populateKeyMap();
-		//((Container) mainWindow.getGlassPane()).setLayout(new BorderLayout());
 		
 
 		//encounterControl = new EncounterController;
