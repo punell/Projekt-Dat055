@@ -1,9 +1,8 @@
-import java.awt.BorderLayout;
-import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -19,14 +18,17 @@ public class MainController extends KeyAdapter
 	private HashMap<Integer, String> keyMap;
 	private MenuController menuControl;
 	//private EncounterController encounterControl;
-	private int screenResolutionWidth = 1920; //future versions might allow for changes based on the resolution
-	private int screenResolutionHeight = 1080;
-	//private char[] command;
+	private Dimension screenSize;
+	private int screenResolutionWidth; //future versions might allow for changes based on the resolution
+	private int screenResolutionHeight;
 	private String command;
 	private MainController(String title) throws IOException
 	{
-		//command = new char[2];
-		mainWindow = new MainView(title);
+		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		screenResolutionWidth = (int)screenSize.getWidth();
+		screenResolutionHeight = (int)screenSize.getHeight();
+		
+		mainWindow = new MainView(title, screenResolutionWidth, screenResolutionHeight);
 		mapControl = new MapController(screenResolutionWidth, screenResolutionHeight);
 		gameControl = new GameController(screenResolutionWidth, screenResolutionHeight);
 		menuControl = new MenuController(screenResolutionHeight, screenResolutionHeight);
@@ -57,7 +59,7 @@ public class MainController extends KeyAdapter
 		//checks if gameControl is the current glasspane (i.e. what is actually seen by the player right now)
 		if(mainWindow.getGlassPane().equals(gameControl.getView())) 
 		{
-			if(command.equals ("Esc"))
+			if(command.equals("Esc"))
 				changeGlassPane(menuControl.getView());
 			else
 			{
@@ -72,7 +74,7 @@ public class MainController extends KeyAdapter
 		}
 		else if(mainWindow.getGlassPane().equals(menuControl.getView()))
 		{
-			if(command.equals ("Esc"))
+			if(command.equals("Esc"))
 				changeGlassPane(gameControl.getView());
 		}
 	}

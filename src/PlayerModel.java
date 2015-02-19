@@ -66,14 +66,14 @@ public class PlayerModel
 		cellY--; 
 		if(cellY < 0) //this means we went outside the current rooms borders
 		{
-			cellY = 15; //we therefore set our new position at the opposite side in the new room
+			cellY = 17; //we therefore set our new position at the opposite side in the new room
 			roomY--; //and change room...
 		}
 	}
 	protected void moveEast()
 	{
 		cellX++;
-		if(cellX > 15)
+		if(cellX > 31)
 		{
 			cellX = 0;
 			roomX++;
@@ -82,7 +82,7 @@ public class PlayerModel
 	protected void moveSouth()
 	{
 		cellY++;
-		if(cellY > 15)
+		if(cellY > 17)
 		{
 			cellY = 0;
 			roomY++;
@@ -93,7 +93,7 @@ public class PlayerModel
 		cellX--;
 		if(cellX < 0)
 		{
-			cellX = 15;
+			cellX = 31;
 			roomX--;
 		}
 	}

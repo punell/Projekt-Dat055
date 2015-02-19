@@ -1,6 +1,7 @@
 import javax.swing.*;
 
 import java.awt.BorderLayout;
+import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Observable;
@@ -12,12 +13,13 @@ public class MainView extends JFrame
 	 *  displays the different view-objects in the JFrames different layers
 	 *  It also listens for input
 	 */
-	public MainView(String title) throws IOException
+	public MainView(String title, int screenResolutionWidth, int screenResolutionHeight) throws IOException
 	{
 		super(title);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLayout(new BorderLayout());
-		
+		//setSize(screenResolutionWidth, screenResolutionHeight); //Does this or the one below work best?
+		setState(Frame.NORMAL); //Maximizes the frame
+		setLayout(new BorderLayout());		
 	}
 	
 	

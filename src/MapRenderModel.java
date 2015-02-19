@@ -24,7 +24,8 @@ public class MapRenderModel
 	
 	public MapRenderModel()
 	{
-		terrainGrid = new TerrainTile[16][16];
+		//terrainGrid = new TerrainTile[16][16];
+		terrainGrid = new TerrainTile[32][18];
 		//this char holds the entire worldMap, so we only read this during the start of the game and never again
 		worldMap = readMap("worldmap.txt");
 		//should work for other maps as well...
@@ -90,10 +91,12 @@ public class MapRenderModel
 		currentRoom[1] = roomY;
 		toggleArea(areaToLoad); 
 		int cellY=0; 
-		for(int row=roomY*16;row<(roomY+1)*16;row++) //taking room-coordinates into account allows us to display the correct room
+		//for(int row=roomY*16;row<(roomY+1)*16;row++) //taking room-coordinates into account allows us to display the correct room
+		for(int row=roomY*18;row<(roomY+1)*18;row++)
 		{
 			int cellX=0;
-			for(int col=roomX*16;col<(roomX+1)*16;col++)
+			//for(int col=roomX*16;col<(roomX+1)*16;col++)
+			for(int col=roomX*32;col<(roomX+1)*32;col++)
 			{
 				try
 				{
@@ -148,7 +151,8 @@ public class MapRenderModel
 			while(line != null)
 			{
 				line = line.replaceAll(",",""); //replace all commas ',' with nothing, effectively deleting them
-				for(int c=0;c<(line.length() + line.length() % 16);c++) //make sure we read the "void" after the line ends
+				//for(int c=0;c<(line.length() + line.length() % 16);c++) //make sure we read the "void" after the line ends
+				for(int c=0;c<(line.length() + line.length() % 32);c++)
 				{
 					try
 					{
@@ -194,8 +198,8 @@ public class MapRenderModel
 	    {
 	    }
 		//make sure both rows and columns are a multiple of 16 (enables half rooms, which are good for... something...) it solves a potential bug
-	    rowsAndColumns[0] += 16 % rowsAndColumns[0];
-	    rowsAndColumns[1] += 16 % rowsAndColumns[1];
+	    rowsAndColumns[0] += 18 % rowsAndColumns[0];
+	    rowsAndColumns[1] += 32 % rowsAndColumns[1];
 	    
 	    /* Another solution, the one above is cleaner/better, but does it ALWAYS work?
 	     * while(rowsAndColumns[0] % 16 != 0)
