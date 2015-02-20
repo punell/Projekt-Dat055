@@ -17,7 +17,7 @@ public class MainController extends KeyAdapter
 	private GameController gameControl;
 	private HashMap<Integer, String> keyMap;
 	private MenuController menuControl;
-	//private EncounterController encounterControl;
+	private EncounterController encounterControl;
 	private Dimension screenSize;
 	private int screenResolutionWidth; //future versions might allow for changes based on the resolution
 	private int screenResolutionHeight;
@@ -31,8 +31,10 @@ public class MainController extends KeyAdapter
 		mainWindow = new MainView(title, screenResolutionWidth, screenResolutionHeight);
 		mapControl = new MapController(screenResolutionWidth, screenResolutionHeight);
 		gameControl = new GameController(screenResolutionWidth, screenResolutionHeight);
-		menuControl = new MenuController(screenResolutionHeight, screenResolutionHeight);
-		mainWindow.setContentPane(mapControl.getView());
+		menuControl = new MenuController(screenResolutionWidth, screenResolutionHeight);
+		encounterControl = new EncounterController(screenResolutionWidth, screenResolutionWidth);
+		//mainWindow.setContentPane(mapControl.getView());
+		mainWindow.setContentPane(encounterControl.getView());
 		mainWindow.setGlassPane(gameControl.getView());
 		mainWindow.getGlassPane().setVisible(true);
 		mainWindow.addKeyListener(this);
@@ -40,7 +42,7 @@ public class MainController extends KeyAdapter
 		populateKeyMap();
 		
 
-		//encounterControl = new EncounterController;
+		
 		
 		
 	}
