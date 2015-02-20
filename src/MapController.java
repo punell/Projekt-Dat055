@@ -24,7 +24,7 @@ public class MapController
 		
 		if(roomCoords[0] != currentRoom[0] || roomCoords[1] != currentRoom[1]) //checks if we have ventured beyond the room-borders
 		{
-			mapModel.updateMapRenderModel(roomCoords[0], roomCoords[1], "overworld");
+			mapModel.updateMapRenderModel(roomCoords[0], roomCoords[1], null);
 			mapView.updateMapRenderView();
 		}
 			

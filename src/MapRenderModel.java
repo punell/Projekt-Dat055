@@ -89,7 +89,8 @@ public class MapRenderModel
 	{
 		currentRoom[0] = roomX;
 		currentRoom[1] = roomY;
-		toggleArea(areaToLoad); 
+		if(areaToLoad != null)
+			toggleArea(areaToLoad); 
 		int cellY=0; 
 		//for(int row=roomY*16;row<(roomY+1)*16;row++) //taking room-coordinates into account allows us to display the correct room
 		for(int row=roomY*18;row<(roomY+1)*18;row++)

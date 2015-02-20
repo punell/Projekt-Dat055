@@ -53,7 +53,7 @@ public class CharacterView extends JPanel
 		catch(IOException e)
 		{
 		}
-		playerCharacterImage = playerCharacterImage.getScaledInstance(64, 64, Image.SCALE_DEFAULT);
+		playerCharacterImage = playerCharacterImage.getScaledInstance(60, 60, Image.SCALE_DEFAULT);
 		playerCharacterIcon = new ImageIcon(playerCharacterImage);
 		for(int i=0;i<576;i++) //32 x 18 = 576
 		{
