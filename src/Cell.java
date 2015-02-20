@@ -1,8 +1,3 @@
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -15,23 +10,15 @@ public class Cell extends JLabel
 	//Cell-coordinates might be useful sometime in the future...
 	//private int cellX;
 	//private int cellY;
-	private BufferedImage playerCharacterImage;
 	private ImageIcon playerCharacterIcon;
 	
-	public Cell(int x, int y)
+	public Cell(int x, int y, ImageIcon playerCharacterIcon)
 	{
 		super();
-		try
-		{
-			playerCharacterImage = ImageIO.read(new File("playerCharacter.png"));
-		}
-		catch(IOException e)
-		{
-		}
-		playerCharacterIcon = new ImageIcon(playerCharacterImage);
 		setOpaque(false); // turn transparency on
 		//cellX = x;
 		//cellY = y;
+		this.playerCharacterIcon = playerCharacterIcon;
 	}
 	
 	public void showPlayerCharacter(boolean isVisible)
