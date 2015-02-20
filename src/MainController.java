@@ -33,8 +33,8 @@ public class MainController extends KeyAdapter
 		gameControl = new GameController(screenResolutionWidth, screenResolutionHeight);
 		menuControl = new MenuController(screenResolutionWidth, screenResolutionHeight);
 		encounterControl = new EncounterController(screenResolutionWidth, screenResolutionWidth);
-		//mainWindow.setContentPane(mapControl.getView());
-		mainWindow.setContentPane(encounterControl.getView());
+		mainWindow.setContentPane(mapControl.getView());
+		//mainWindow.setContentPane(encounterControl.getView());
 		mainWindow.setGlassPane(gameControl.getView());
 		mainWindow.getGlassPane().setVisible(true);
 		mainWindow.addKeyListener(this);

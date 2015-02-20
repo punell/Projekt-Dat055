@@ -28,9 +28,9 @@ public class MapRenderModel
 		terrainGrid = new TerrainTile[32][18];
 		mapFactory = new MapFactory();
 		//this char holds the entire worldMap, so we only read this during the start of the game and never again
-		worldMap = mapFactory.readMap("worldmap.txt");
+		worldMap = mapFactory.readMap("worldmap.csv");
 		//should work for other maps as well...
-		undergroundMap = mapFactory.readMap("undergroundmap.txt");
+		undergroundMap = mapFactory.readMap("undergroundmap.csv");
 		terrainSet = new HashMap<Character, TerrainProperties>();
 		populateTerrainSet();
 		currentRoom = new int[2];

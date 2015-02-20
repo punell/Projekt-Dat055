@@ -4,9 +4,23 @@
 # OBS, all spaces matter VERY much, don't forget them
 # and there can be NO empty lines, and no comments after the list (don't know why yet, is a bug, will be fixed)
 #
-G= true, false, grass2.jpg, null, 0
+G= true, false, grass.jpg, null, 0
 M= false, false, mountain.jpg, null, 0
 W= false, false, water.jpg, null, 0
 V= false, false, void.jpg, null, 0
-C= true, true, caveEntrance.jpg, underground, 0
-F= true, false, forest.jpg, null, 0
+C= true, true, caveEntrance1.jpg, underground, 0
+E= true, true, caveEntrance2.jpg, underground, 0
+T= false, false, tree.jpg, null, 0
+R= true, false, road.jpg, null, 0
+0= false, false, house0.jpg, null, 0
+1= false, false, house1.jpg, null, 0
+2= false, false, house2.jpg, null, 0
+3= false, false, house3.jpg, null, 0
+4= false, false, house4.jpg, null, 0
+5= false, false, house5.jpg, null, 0
+6= false, false, house6.jpg, null, 0
+7= false, false, house7.jpg, null, 0
+8= false, false, house8.jpg, null, 0
+9= false, false, house9.jpg, null, 0
+S= false, false, stone.jpg, null, 0
+D= true, false, dirt.jpg, null, 0
