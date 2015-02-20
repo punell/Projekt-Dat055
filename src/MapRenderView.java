@@ -13,7 +13,6 @@ public class MapRenderView extends JPanel
 		super();
 		mapModel = mRM;
 		setSize(screenResolutionWidth, screenResolutionHeight);
-		//setLayout(new GridLayout(16,16));
 		setLayout(new GridLayout(18,32));
 		updateMapRenderView();
 	}

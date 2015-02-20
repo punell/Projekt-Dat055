@@ -21,12 +21,10 @@ public class CharacterView extends JPanel
 		super();
 		playerModel = pM;
 		setSize(screenResolutionWidth, screenResolutionHeight);
-		//setLayout(new GridLayout(16,16));
 		setLayout(new GridLayout(18,32));
 		setOpaque(false); //to allow for transparent placement on MainViews glasspane
-
-		//cellGrid = new Cell[16][16]; // same size as the Map, this could potentially be based on screen-resolution
-		cellGrid = new Cell[32][18];
+		
+		cellGrid = new Cell[32][18]; //same size as the map
 		fillCellGrid();
 		
 		updateCharacterView("player", true);
@@ -58,9 +56,9 @@ public class CharacterView extends JPanel
 		for(int i=0;i<576;i++) //32 x 18 = 576
 		{
 			// create new cell and put it both in the cellGrid and in the JPanel
-			add(cellGrid[cellX][cellY] = new Cell(cellX, cellY, playerCharacterIcon)); 
+			add(cellGrid[cellX][cellY] = new Cell(playerCharacterIcon)); 
 			
-			if(cellX < 31) //15 for old style
+			if(cellX < 31) 
 				cellX++;
 			else
 			{

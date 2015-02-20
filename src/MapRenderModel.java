@@ -21,15 +21,16 @@ public class MapRenderModel
 	private int[] currentRoom;
 	private String currentArea;
 	private HashMap<Character, TerrainProperties> terrainSet;
+	private MapFactory mapFactory;
 	
 	public MapRenderModel()
 	{
-		//terrainGrid = new TerrainTile[16][16];
 		terrainGrid = new TerrainTile[32][18];
+		mapFactory = new MapFactory();
 		//this char holds the entire worldMap, so we only read this during the start of the game and never again
-		worldMap = readMap("worldmap.txt");
+		worldMap = mapFactory.readMap("worldmap.txt");
 		//should work for other maps as well...
-		undergroundMap = readMap("undergroundmap.txt");
+		undergroundMap = mapFactory.readMap("undergroundmap.txt");
 		terrainSet = new HashMap<Character, TerrainProperties>();
 		populateTerrainSet();
 		currentRoom = new int[2];
@@ -92,11 +93,9 @@ public class MapRenderModel
 		if(areaToLoad != null)
 			toggleArea(areaToLoad); 
 		int cellY=0; 
-		//for(int row=roomY*16;row<(roomY+1)*16;row++) //taking room-coordinates into account allows us to display the correct room
 		for(int row=roomY*18;row<(roomY+1)*18;row++)
 		{
 			int cellX=0;
-			//for(int col=roomX*16;col<(roomX+1)*16;col++)
 			for(int col=roomX*32;col<(roomX+1)*32;col++)
 			{
 				try
@@ -136,80 +135,5 @@ public class MapRenderModel
 	{
 		return terrainGrid[cellX][cellY].linksTo();
 	}
-	
-	private char[][] readMap(String mapName) 
-	{
-		//This method and the one below it are probably better of in another class which acts as a factory...
-		BufferedReader reader = null;
-		//read number of lines and length of longest line, place in rows/cols
-		int[] rowsAndColumns = countRowsAndColumns(mapName);
-		char[][] worldMap = new char[rowsAndColumns[1]][rowsAndColumns[0]]; 
-		try
-		{
-			reader = new BufferedReader(new FileReader(mapName));
-			String line = reader.readLine();
-			int r=0;
-			while(line != null)
-			{
-				line = line.replaceAll(",",""); //replace all commas ',' with nothing, effectively deleting them
-				//for(int c=0;c<(line.length() + line.length() % 16);c++) //make sure we read the "void" after the line ends
-				for(int c=0;c<(line.length() + line.length() % 32);c++)
-				{
-					try
-					{
-						worldMap[c][r] = line.charAt(c);
-					}
-					catch(Exception e)
-					{
-						worldMap[c][r] = 'V'; // V for void, this turns out to be necessary
-					}
-				}
-				line = reader.readLine();
-				r++;
-			}
-			reader.close();
-		}
-		catch(IOException e)
-		{
-		}
-		return worldMap;
-	}
-	
-	private int[] countRowsAndColumns(String filename) 
-	{
-	    BufferedReader reader = null;
-	    int[] rowsAndColumns = new int[2];
-	    try
-	    {
-	    	reader = new BufferedReader(new FileReader(filename));
-	    	String line = reader.readLine();
-	    	
-	    	while(line != null)
-	    	{
-	    		line = line.replaceAll(",",""); //strip all commas
-	    		rowsAndColumns[0]++; //count each row
-	    		if(line.length() > rowsAndColumns[1])
-	    			rowsAndColumns[1] = line.length(); //only keep the longest line, its the maximum line length
-	    		
-	    		line = reader.readLine();
-	    	}
-	    	reader.close();
-	    }
-	    catch(IOException e)
-	    {
-	    }
-		//make sure both rows and columns are a multiple of 16 (enables half rooms, which are good for... something...) it solves a potential bug
-	    rowsAndColumns[0] += 18 % rowsAndColumns[0];
-	    rowsAndColumns[1] += 32 % rowsAndColumns[1];
-	    
-	    /* Another solution, the one above is cleaner/better, but does it ALWAYS work?
-	     * while(rowsAndColumns[0] % 16 != 0)
-	    	rowsAndColumns[0]++;
-	    while(rowsAndColumns[1] % 16 != 0)
-	    	rowsAndColumns[1]++;*/
-	    
-	    return rowsAndColumns;
-	}
-
 
 }

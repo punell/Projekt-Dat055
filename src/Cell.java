@@ -7,17 +7,12 @@ public class Cell extends JLabel
 	/** Cell is basically just an invisible filler, but it's used to display
 	 *  different things on top of the Map-layer
 	 */
-	//Cell-coordinates might be useful sometime in the future...
-	//private int cellX;
-	//private int cellY;
 	private ImageIcon playerCharacterIcon;
 	
-	public Cell(int x, int y, ImageIcon playerCharacterIcon)
+	public Cell(ImageIcon playerCharacterIcon)
 	{
 		super();
 		setOpaque(false); // turn transparency on
-		//cellX = x;
-		//cellY = y;
 		this.playerCharacterIcon = playerCharacterIcon;
 	}
 	
