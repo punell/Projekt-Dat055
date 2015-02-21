@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.swing.JPanel;
@@ -17,22 +18,24 @@ public class MainController extends KeyAdapter
 	private GameController gameControl;
 	private HashMap<Integer, String> keyMap;
 	private MenuController menuControl;
-	private EncounterController encounterControl;
+	//private EncounterController encounterControl;
+	private SaveAndLoadController saveLoadControl;
 	private Dimension screenSize;
-	private int screenResolutionWidth; //future versions might allow for changes based on the resolution
-	private int screenResolutionHeight;
+	private int screenWidth; //future versions might allow for changes based on the resolution
+	private int screenHeight;
 	private String command;
 	private MainController(String title) throws IOException
 	{
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		screenResolutionWidth = (int)screenSize.getWidth();
-		screenResolutionHeight = (int)screenSize.getHeight();
+		screenWidth = (int)screenSize.getWidth();
+		screenHeight = (int)screenSize.getHeight();
 		
-		mainWindow = new MainView(title, screenResolutionWidth, screenResolutionHeight);
-		mapControl = new MapController(screenResolutionWidth, screenResolutionHeight);
-		gameControl = new GameController(screenResolutionWidth, screenResolutionHeight);
-		menuControl = new MenuController(screenResolutionWidth, screenResolutionHeight);
-		encounterControl = new EncounterController(screenResolutionWidth, screenResolutionWidth);
+		mainWindow = new MainView(title, screenWidth, screenHeight);
+		mapControl = new MapController(screenWidth, screenHeight);
+		gameControl = new GameController(screenWidth, screenHeight);
+		menuControl = new MenuController(screenWidth, screenHeight);
+		//encounterControl = new EncounterController(screenResolutionWidth, screenResolutionWidth);
+		saveLoadControl = new SaveAndLoadController();
 		mainWindow.setContentPane(mapControl.getView());
 		//mainWindow.setContentPane(encounterControl.getView());
 		mainWindow.setGlassPane(gameControl.getView());
@@ -58,21 +61,42 @@ public class MainController extends KeyAdapter
 	
 	private void checkInput()
 	{
-		//checks if gameControl is the current glasspane (i.e. what is actually seen by the player right now)
+		//checks if gameControl is the current glasspane 
+		//(i.e. what is actually seen by the player right now)
 		if(mainWindow.getGlassPane().equals(gameControl.getView())) 
 		{
 			if(command.equals("Esc"))
 				changeGlassPane(menuControl.getView());
-			else
+			
+			else if(command.equals("Save"))
+				saveLoadControl.saveGame(gameControl.getPlayer());
+			
+			else if(command.equals("Load"))
 			{
+				PlayerModel fromLoad = saveLoadControl.loadGame();
+				gameControl.setPlayer(fromLoad);
+				gameControl.getView().updateCharacterViewPlayerModel(fromLoad);
+				gameControl.getView().updateCharacterView();
+				mapControl.setCurrentArea(gameControl.getPlayerArea());
+				mapControl.updateMapRenderView(gameControl.getPlayerCoords('r'));
+			}
+			//movement, all other commands come first, because movement has
+			//four invokers (four directions), while others only have one each
+			else 
+			{
+				int[] oldRoomCoords = gameControl.getPlayerCoords('r');				
 				gameControl.move(command);
-				mapControl.updateView(gameControl.getPlayerCoords('a'));
+				moveLogic(oldRoomCoords);
+				
 				if(!mapControl.isWalkable(gameControl.getPlayerCoords('c')))
 				{
+					oldRoomCoords = gameControl.getPlayerCoords('r');	
 					gameControl.moveRevert();
-					mapControl.updateView(gameControl.getPlayerCoords('a'));
+					moveLogic(oldRoomCoords);
 				}
 			}
+			
+			
 		}
 		else if(mainWindow.getGlassPane().equals(menuControl.getView()))
 		{
@@ -81,18 +105,45 @@ public class MainController extends KeyAdapter
 		}
 	}
 	
+	private void moveLogic(int[] oldRoomCoords)
+	{
+		if(!Arrays.equals(oldRoomCoords, gameControl.getPlayerCoords('r')))
+		{
+			mapControl.updateMapRenderView(gameControl.getPlayerCoords('r'));
+		}
+		
+		if(mapControl.isLink(gameControl.getPlayerCoords('c')))
+		{
+			String link = mapControl.linksTo(gameControl.getPlayerCoords('c'));
+			if(link.equals(gameControl.getPlayerArea()))
+			{
+				gameControl.setPlayerArea("overworld");
+				mapControl.setCurrentArea("overworld");
+			}
+			else
+			{
+				gameControl.setPlayerArea(link);
+				mapControl.setCurrentArea(link);
+			}
+			
+			mapControl.updateMapRenderView(gameControl.getPlayerCoords('r'));
+		}
+	}
+	
 	
 	private void changeContentPane(JPanel changeTo)
 	{
-		//This method is a stub, made to illustrate how easily we want to be able to change
+		//This method is a stub, made to illustrate how 
+		//easily we want to be able to change
 		//between the map-view and the encounter-view
 		mainWindow.setContentPane(changeTo); 
 	}
 	
 	private void changeGlassPane(JPanel changeTo)
 	{
-		//This method is a stub, made to illustrate how easily we want to be able to change
-		//between the character-view and the menu-view
+		//This method is a stub, made to illustrate how 
+		//easily we want to be able to change
+		//between the character-view and the menu-view (needed?)
 		mainWindow.setGlassPane(changeTo); 
 	}
 	
@@ -136,7 +187,7 @@ public class MainController extends KeyAdapter
 	}
 	public static void main(String[] args) throws IOException 
 	{
-		MainController app = new MainController("spelet v0.20 (changed entire design)");
+		MainController app = new MainController("spelet v0.30 (Save and Load!)");
 		app.pack();
 		app.setVisible(true);
 	}

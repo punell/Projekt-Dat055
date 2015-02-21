@@ -1,7 +1,9 @@
+import java.io.Serializable;
 
 
 
-public class PlayerModel
+
+public class PlayerModel implements Serializable
 {
 	/** PlayerModel is the player character class
 	 *  Everything about our nameless (?) hero is in here
@@ -24,22 +26,6 @@ public class PlayerModel
 		currentArea = "overworld"; //not entirely sure what this was supposed to be for... I'll leave it here just in case
 	}
 	
-	/*public int[] getPlayerCoords()
-	{
-		int[] coords = {cellX, cellY, roomX, roomY};
-		return coords;
-	}
-	public int[] getPlayerRoom()
-	{
-		int[] room = {roomX, roomY};
-		return room;
-	}
-	public int[] getPlayerCell()
-	{
-		int[] cell = {cellX, cellY};
-		return cell;
-	}*/
-	
 	public int[] getPlayerCoords(char flag)
 	{
 		if(flag == 'r')
@@ -58,6 +44,14 @@ public class PlayerModel
 			return coords;
 		}
 		
+	}
+	public String getPlayerArea()
+	{
+		return currentArea;
+	}
+	public void setPlayerArea(String area)
+	{
+		currentArea = area;
 	}
 
 	protected void moveNorth() //protected because we can... no real reason

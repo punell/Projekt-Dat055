@@ -30,7 +30,8 @@ public class TerrainProperties
 		riskOfEncounter = Integer.parseInt(properties[4]);
 		try
 		{
-			terrainImage = ImageIO.read(new File(properties[2]));
+			String filename = "textures/"+properties[2];
+			terrainImage = ImageIO.read(new File(filename));
 			terrainImage = terrainImage.getScaledInstance(64, 64, Image.SCALE_DEFAULT);
 			terrainIcon = new ImageIcon(terrainImage);
 		}

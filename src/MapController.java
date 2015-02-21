@@ -16,23 +16,26 @@ public class MapController
 		return mapView;
 	}
 	
-	public void updateView(int[] coords)
+	public void setCurrentArea(String area)
 	{
-		int[] cellCoords = { coords[0], coords[1] };
-		int[] roomCoords = { coords[2], coords[3] };
-		int[] currentRoom = mapModel.getCurrentRoom();
-		
-		if(roomCoords[0] != currentRoom[0] || roomCoords[1] != currentRoom[1]) //checks if we have ventured beyond the room-borders
-		{
-			mapModel.updateMapRenderModel(roomCoords[0], roomCoords[1], null);
+		mapModel.setCurrentArea(area);
+	}
+	public String getCurrentArea()
+	{
+		return mapModel.getCurrentArea();
+	}
+	public void updateMapRenderView(int[] coords)
+	{	
+			mapModel.updateMapRenderModel(coords[0], coords[1]);
 			mapView.updateMapRenderView();
-		}
-			
-		else if(mapModel.isLink(cellCoords[0], cellCoords[1]))
-		{
-			mapModel.updateMapRenderModel(roomCoords[0], roomCoords[1], mapModel.linksTo(cellCoords[0], cellCoords[1])); //checks if tile is link
-			mapView.updateMapRenderView();
-		}
+	}
+	public boolean isLink(int[] playerCoords)
+	{
+		return mapModel.isLink(playerCoords[0], playerCoords[1]);
+	}
+	public String linksTo(int[] playerCoords)
+	{
+		return mapModel.linksTo(playerCoords[0], playerCoords[1]);
 	}
 	
 	public boolean isWalkable(int[] playerCoords)

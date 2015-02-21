@@ -24,12 +24,18 @@ public class GameController
 		
 		return playerModel.getPlayerCoords(flag);
 	}
+	public String getPlayerArea()
+	{
+		return playerModel.getPlayerArea();
+	}
+	public void setPlayerArea(String area)
+	{
+		playerModel.setPlayerArea(area);
+	}
 	
 	public void move(String direction) 
 	{
 		//this can easily be moved into PlayerModel if ever necessary (might be if we want to move monsters as well)
-		charView.updateCharacterView("player", false); // causes the picture of the player character to disappear
-
 		switch(direction)
 		{
 			case "Up": playerModel.moveNorth(); lastMove = "Down"; break;
@@ -37,12 +43,23 @@ public class GameController
 			case "Down": playerModel.moveSouth(); lastMove = "Up"; break;
 			case "Left": playerModel.moveWest(); lastMove = "Right"; break;
 		}
-		charView.updateCharacterView("player", true); // makes it appear again
+		System.out.println("walked, new coords: "+playerModel.getPlayerCoords('c')[0]+","+playerModel.getPlayerCoords('c')[1]);
+		charView.updateCharacterView();
 	}
 	
 	public void moveRevert()
 	{
 		move(lastMove);
+	}
+
+	public PlayerModel getPlayer() 
+	{
+		return playerModel;
+	}
+
+	public void setPlayer(PlayerModel fromLoad) 
+	{
+		playerModel = fromLoad;
 	}
 	
 	

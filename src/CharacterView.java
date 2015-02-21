@@ -16,6 +16,7 @@ public class CharacterView extends JPanel
 	private Cell[][] cellGrid;
 	private Image playerCharacterImage;
 	private ImageIcon playerCharacterIcon;
+	private int[] previousPlayerCoords;
 	public CharacterView(PlayerModel pM, int screenResolutionWidth, int screenResolutionHeight)
 	{
 		super();
@@ -26,18 +27,21 @@ public class CharacterView extends JPanel
 		
 		cellGrid = new Cell[32][18]; //same size as the map
 		fillCellGrid();
+		previousPlayerCoords = playerModel.getPlayerCoords('c');
 		
-		updateCharacterView("player", true);
+		updateCharacterView();
 	}
 	
-	public void updateCharacterView(String character, boolean isVisible) //supports different characters/things via the string
+	public void updateCharacterView() //this method either updates everything = easy, or it can have a parameter to decide what to update...
 	{
-		// just turn on/off showing the playerCharacter-picture in this cell
-		if(character.equals("player"))
-		{
-			int[] coords = playerModel.getPlayerCoords('c');
-			cellGrid[coords[0]][coords[1]].showPlayerCharacter(isVisible); 
-		}
+		cellGrid[previousPlayerCoords[0]][previousPlayerCoords[1]].showPlayerCharacter(false); //turn off the old icon at the old coords
+		previousPlayerCoords = playerModel.getPlayerCoords('c'); //get the new coords
+		cellGrid[previousPlayerCoords[0]][previousPlayerCoords[1]].showPlayerCharacter(true); //turn on the old icon at the new coords
+	}
+	
+	public void updateCharacterViewPlayerModel(PlayerModel player)
+	{
+		playerModel = player;
 	}
 	
 	private void fillCellGrid()
@@ -46,7 +50,7 @@ public class CharacterView extends JPanel
 		int cellY = 0;
 		try
 		{
-			playerCharacterImage = ImageIO.read(new File("playerCharacter.png"));
+			playerCharacterImage = ImageIO.read(new File("textures/playerCharacter.png"));
 		}
 		catch(IOException e)
 		{

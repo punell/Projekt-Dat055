@@ -15,7 +15,7 @@ public class MapRenderModel
 	 *  some sort of factory from it.
 	 */
 	private TerrainTile[][] terrainGrid;
-	private char[][] worldMap;
+	private char[][] overworldMap;
 	private char[][] undergroundMap;
 	private char[][] mapToLoad; 
 	private int[] currentRoom;
@@ -27,8 +27,8 @@ public class MapRenderModel
 	{
 		terrainGrid = new TerrainTile[32][18];
 		mapFactory = new MapFactory();
-		//this char holds the entire worldMap, so we only read this during the start of the game and never again
-		worldMap = mapFactory.readMap("worldmap.csv");
+		//this char holds the entire overworldMap, so we only read this during the start of the game and never again
+		overworldMap = mapFactory.readMap("overworldmap.csv");
 		//should work for other maps as well...
 		undergroundMap = mapFactory.readMap("undergroundmap.csv");
 		terrainSet = new HashMap<Character, TerrainProperties>();
@@ -37,8 +37,17 @@ public class MapRenderModel
 		currentRoom[0] = 0;
 		currentRoom[1] = 0;
 		currentArea = "overworld";
-		updateMapRenderModel(0,0,"overworld");
+		updateMapRenderModel(0,0);
 		
+	}
+	
+	public String getCurrentArea()
+	{
+		return currentArea;
+	}
+	public void setCurrentArea(String area)
+	{
+		currentArea = area;
 	}
 	
 	private void populateTerrainSet()
@@ -70,28 +79,18 @@ public class MapRenderModel
 		}
 	}
 	
-	private void toggleArea(String areaToLoad)
-	{
-		// Decides which area to actually load 
-		if(areaToLoad.equals(currentArea))
-		{
-			currentArea = "overworld";
-			mapToLoad = worldMap;
-		}
-		else // this else will be fixed with a hashmap containing all areas
-			//This allows us to exchange our "areatoload"-string for a "maptoload"-char-array
-		{
-			currentArea = areaToLoad;
-			mapToLoad = undergroundMap;
-		}
-	}
-	
-	public void updateMapRenderModel(int roomX, int roomY, String areaToLoad)
+	public void updateMapRenderModel(int roomX, int roomY)
 	{
 		currentRoom[0] = roomX;
 		currentRoom[1] = roomY;
-		if(areaToLoad != null)
-			toggleArea(areaToLoad); 
+		if(currentArea.equals("overworld"))
+		{
+			mapToLoad = overworldMap;
+		}
+		else if(currentArea.equals("underground"))
+		{
+			mapToLoad = undergroundMap;
+		}
 		int cellY=0; 
 		for(int row=roomY*18;row<(roomY+1)*18;row++)
 		{
