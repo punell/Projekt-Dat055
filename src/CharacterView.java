@@ -1,7 +1,13 @@
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -12,14 +18,18 @@ public class CharacterView extends JPanel
 	/** Controls the display of the player character as well as things such as
 	 *  monsters, chests, non-player characters
 	 */
+	private CharacterModel charModel;
 	private PlayerModel playerModel;
 	private Cell[][] cellGrid;
 	private Image playerCharacterImage;
 	private ImageIcon playerCharacterIcon;
 	private int[] previousPlayerCoords;
-	public CharacterView(PlayerModel pM, int screenResolutionWidth, int screenResolutionHeight)
+	private LinkedList<CellProperties> cellGridItems;
+	
+	public CharacterView(CharacterModel cM, PlayerModel pM, int screenResolutionWidth, int screenResolutionHeight)
 	{
 		super();
+		charModel = cM;
 		playerModel = pM;
 		setSize(screenResolutionWidth, screenResolutionHeight);
 		setLayout(new GridLayout(18,32));
@@ -27,21 +37,57 @@ public class CharacterView extends JPanel
 		
 		cellGrid = new Cell[32][18]; //same size as the map
 		fillCellGrid();
+		cellGridItems = new LinkedList<>();
 		previousPlayerCoords = playerModel.getPlayerCoords('c');
 		
-		updateCharacterView();
+		updatePlayerPosition();
+		updateCellGrid();
 	}
 	
-	public void updateCharacterView() //this method either updates everything = easy, or it can have a parameter to decide what to update...
+	public void updatePlayerPosition() //this method either updates everything = easy, or it can have a parameter to decide what to update...
 	{
 		cellGrid[previousPlayerCoords[0]][previousPlayerCoords[1]].showPlayerCharacter(false); //turn off the old icon at the old coords
 		previousPlayerCoords = playerModel.getPlayerCoords('c'); //get the new coords
 		cellGrid[previousPlayerCoords[0]][previousPlayerCoords[1]].showPlayerCharacter(true); //turn on the old icon at the new coords
 	}
 	
-	public void updateCharacterViewPlayerModel(PlayerModel player)
+	public Item getCellContents(int[] cellCoords)
 	{
-		playerModel = player;
+		int cellX = cellCoords[0];
+		int cellY = cellCoords[1];
+		charModel.removeItemFromMap(playerModel.getPlayerCoords('a'), playerModel.getPlayerArea());
+		return cellGrid[cellX][cellY].pickUpContents();
+	}
+	
+	public void updateCellGrid()
+	{
+		int cellX, cellY;
+		// First delete items from old list
+		for(CellProperties cell : cellGridItems)
+		{
+			cellX = cell.cellCoords[0];
+			cellY = cell.cellCoords[1];
+			cellGrid[cellX][cellY].setContents(null);
+		}
+		
+		cellGridItems = charModel.getItemList();
+		// Then place items from new list
+		for(CellProperties cell : cellGridItems)
+		{
+			if(cell.area.equals(playerModel.getPlayerArea()) &&
+					Arrays.equals(cell.roomCoords, playerModel.getPlayerCoords('r')))
+			{
+				cellX = cell.cellCoords[0];
+				cellY = cell.cellCoords[1];
+				cellGrid[cellX][cellY].setContents(cell.item);
+			}
+		}
+	}
+	
+	public void updateCharacterViewModels(CharacterModel cM, PlayerModel pM)
+	{
+		charModel = cM;
+		playerModel = pM;
 	}
 	
 	private void fillCellGrid()
@@ -55,7 +101,7 @@ public class CharacterView extends JPanel
 		catch(IOException e)
 		{
 		}
-		playerCharacterImage = playerCharacterImage.getScaledInstance(60, 60, Image.SCALE_DEFAULT);
+		playerCharacterImage = playerCharacterImage.getScaledInstance(64, 64, Image.SCALE_DEFAULT);
 		playerCharacterIcon = new ImageIcon(playerCharacterImage);
 		for(int i=0;i<576;i++) //32 x 18 = 576
 		{
@@ -70,5 +116,5 @@ public class CharacterView extends JPanel
 				cellY++;
 			}
 		}
-	}
+	}	
 }

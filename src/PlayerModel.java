@@ -10,6 +10,9 @@ public class PlayerModel implements Serializable
 	 *  including future level/stats/gear/inventory-data
 	 */
 	private String name;
+	private int maxHealth;
+	private int currentHealth;
+	private Inventory backpack;
 	private int roomX;
 	private int roomY;
 	private int cellX;
@@ -19,13 +22,15 @@ public class PlayerModel implements Serializable
 	public PlayerModel()
 	{
 		name = "test";
+		maxHealth = 50;
+		currentHealth = 30;
+		backpack = new Inventory(50, 50);
 		roomX = 0;
 		roomY = 0;
 		cellX = 1;
 		cellY = 1;
 		currentArea = "overworld"; //not entirely sure what this was supposed to be for... I'll leave it here just in case
 	}
-	
 	public int[] getPlayerCoords(char flag)
 	{
 		if(flag == 'r')
@@ -52,6 +57,41 @@ public class PlayerModel implements Serializable
 	public void setPlayerArea(String area)
 	{
 		currentArea = area;
+	}
+	
+	public int getHealth()
+	{
+		return currentHealth;
+	}
+	public Item getItem(String itemName)
+	{
+		return backpack.get(itemName);
+	}
+	public void checkInventory()
+	{
+		for(Item x : backpack.checkContents())
+		{
+			System.out.println(x.getName());
+		}
+		//return backpack.checkContents();
+	}
+	public void addItem(Item item)
+	{
+		backpack.put(item);
+	}
+	public void healPlayer(int heal) //heals cannot go above maxHealth
+	{
+		currentHealth += heal;
+		if(currentHealth >= maxHealth)
+			currentHealth = maxHealth;
+	}
+	public boolean damagePlayer(int damage) //returns true on death
+	{
+		currentHealth -= damage;
+		if(currentHealth <= 0)
+			return true;
+		else
+			return false;
 	}
 
 	protected void moveNorth() //protected because we can... no real reason
@@ -89,6 +129,14 @@ public class PlayerModel implements Serializable
 		{
 			cellX = 31;
 			roomX--;
+		}
+	}
+	public void useItem(String itemName) 
+	{
+		ItemConsumable item = (ItemConsumable)backpack.get(itemName); //holding in hand...
+		switch(item.getEffect())
+		{
+			case "heal": healPlayer(item.getEffectValue()); break;
 		}
 	}
 	

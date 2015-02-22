@@ -8,13 +8,38 @@ public class Cell extends JLabel
 	 *  different things on top of the Map-layer
 	 */
 	private ImageIcon playerCharacterIcon;
+	private Item contents;
 	
 	public Cell(ImageIcon playerCharacterIcon)
 	{
 		super();
 		setOpaque(false); // turn transparency on
 		this.playerCharacterIcon = playerCharacterIcon;
+		contents = null;
 	}
+	
+	public void setContents(Item item)
+	{
+		contents = item;
+		if(contents != null)
+			setIcon(item.getIcon());
+		else
+			setIcon(null);
+		
+	}
+	
+	public Item checkContents()
+	{
+		return contents;
+	}
+	
+	public Item pickUpContents()
+	{
+		Item temp = contents;
+		setContents(null);
+		return temp;
+	}
+	
 	
 	public void showPlayerCharacter(boolean isVisible)
 	{

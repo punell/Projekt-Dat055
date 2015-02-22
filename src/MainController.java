@@ -69,16 +69,29 @@ public class MainController extends KeyAdapter
 				changeGlassPane(menuControl.getView());
 			
 			else if(command.equals("Save"))
-				saveLoadControl.saveGame(gameControl.getPlayer());
+				saveLoadControl.saveGame(gameControl.getPlayer(), gameControl.getCharModel());
 			
 			else if(command.equals("Load"))
 			{
-				PlayerModel fromLoad = saveLoadControl.loadGame();
-				gameControl.setPlayer(fromLoad);
-				gameControl.getView().updateCharacterViewPlayerModel(fromLoad);
-				gameControl.getView().updateCharacterView();
+				saveLoadControl.loadGame();
+				PlayerModel pmFromLoad = saveLoadControl.getPlayer();
+				CharacterModel cmFromLoad = saveLoadControl.getCharModel();
+				gameControl.updateGameControllerModels(pmFromLoad, cmFromLoad);
+				gameControl.getView().updateCharacterViewModels(cmFromLoad, pmFromLoad);
+				gameControl.getView().updatePlayerPosition();
+				gameControl.getView().updateCellGrid();
 				mapControl.setCurrentArea(gameControl.getPlayerArea());
 				mapControl.updateMapRenderView(gameControl.getPlayerCoords('r'));
+			}
+			
+			else if(command.equals("CheckInventory"))
+				gameControl.checkInventory();
+			
+			else if(command.equals("DrinkHealthPotion"))
+			{
+				System.out.println(gameControl.getHealth());
+				gameControl.playerUseItem("Health Potion");
+				System.out.println(gameControl.getHealth());
 			}
 			//movement, all other commands come first, because movement has
 			//four invokers (four directions), while others only have one each
@@ -110,6 +123,7 @@ public class MainController extends KeyAdapter
 		if(!Arrays.equals(oldRoomCoords, gameControl.getPlayerCoords('r')))
 		{
 			mapControl.updateMapRenderView(gameControl.getPlayerCoords('r'));
+			gameControl.updateCellGrid();
 		}
 		
 		if(mapControl.isLink(gameControl.getPlayerCoords('c')))

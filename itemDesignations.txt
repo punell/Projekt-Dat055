@@ -1,0 +1,11 @@
+# ItemDesignations
+# create items in here
+# Consumables: (name, effect, value, image)
+#
+Health Potion, heal, 20, healthpot.png
+Small Key, unlock, smallDoor, smallkey.png
+#
+# Equipment: (name, type/slot, effect, value, image)
+#
+Basic Sword, weapon, bonusdamage, 10, basicsword.png
+Chainmail, chest, bonusarmor, 10, chainmail.png

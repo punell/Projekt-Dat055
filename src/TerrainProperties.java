@@ -13,6 +13,7 @@ public class TerrainProperties
 	public boolean isLink = false;
 	public String linksTo;
 	public int riskOfEncounter;
+	public String description;
 	public Image terrainImage;
 	public ImageIcon terrainIcon;
 	
@@ -28,6 +29,7 @@ public class TerrainProperties
 		}
 		linksTo = properties[3];
 		riskOfEncounter = Integer.parseInt(properties[4]);
+		description = properties[5];
 		try
 		{
 			String filename = "textures/"+properties[2];

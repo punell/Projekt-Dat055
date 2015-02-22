@@ -1,0 +1,7 @@
+# This is the item map, it describes what items (based on names) goes where
+# Yes, placement becomes hard, but the MapRenderer does not really allow for item placement
+# in this form: (where area is overworld or underground (or other not yet implemented areas))
+# cellX:cellY, roomX:roomY, area, itemName, filename (must be png)
+#
+5:5, 0:0, overworld, Health Potion
+6:6, 0:0, overworld, Health Potion

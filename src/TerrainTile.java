@@ -7,6 +7,7 @@ public class TerrainTile extends JLabel
 	private boolean isLink;
 	private int riskOfEncounter;
 	private String linksTo;
+	private String description;
 	
 	public TerrainTile(TerrainProperties TP)
 	{
@@ -15,6 +16,7 @@ public class TerrainTile extends JLabel
 		isLink = TP.isLink;
 		linksTo = TP.linksTo;
 		riskOfEncounter = TP.riskOfEncounter;
+		description = TP.description;
 		setIcon(TP.terrainIcon);
 	}
 	public boolean isWalkable()

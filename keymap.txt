@@ -6,3 +6,5 @@ Down= 40
 Esc= 27
 Save= 117
 Load= 123
+DrinkHealthPotion= 72
+CheckInventory= 73

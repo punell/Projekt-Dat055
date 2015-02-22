@@ -7,17 +7,20 @@ import java.io.ObjectOutputStream;
 
 public class SaveAndLoadController 
 {
+	private PlayerModel player;
+	private CharacterModel charModel;
 	public SaveAndLoadController()
 	{
 		
 	}
 	
-	public boolean saveGame(PlayerModel player)
+	public boolean saveGame(PlayerModel player, CharacterModel charModel)
 	{
 		try
 		{
 			ObjectOutputStream saveStream = new ObjectOutputStream(new FileOutputStream("savefile.sav"));
 			saveStream.writeObject(player);
+			saveStream.writeObject(charModel);
 			saveStream.close();
 			System.out.println("Saving Game...");
 			return true;
@@ -28,15 +31,26 @@ public class SaveAndLoadController
 		}
 	}
 	
-	public PlayerModel loadGame()
+	public CharacterModel getCharModel()
+	{
+		return charModel;
+	}
+	
+	public PlayerModel getPlayer()
+	{
+		return player;
+	}
+	
+	public void loadGame()
 	{
 		try
 		{
 			ObjectInputStream loadStream = new ObjectInputStream(new FileInputStream("savefile.sav"));
-			PlayerModel player = (PlayerModel)loadStream.readObject();
+			player = (PlayerModel)loadStream.readObject();
+			charModel = (CharacterModel)loadStream.readObject();
 			loadStream.close();
 			System.out.println("Loading Game...");
-			return player;
+			
 		}
 		catch(IOException e)
 		{
@@ -46,6 +60,6 @@ public class SaveAndLoadController
 		{
 			System.out.println(e.getLocalizedMessage());
 		}
-		return null;
+		
 	}
 }
