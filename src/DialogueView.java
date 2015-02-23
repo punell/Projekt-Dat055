@@ -17,8 +17,10 @@ public class DialogueView extends JFrame
 	{
 		super();
 		dialogueModel = dM;
-		setSize(screenResolutionWidth, screenResolutionHeight);
-		setLayout(new GridLayout());		
+		setSize(screenResolutionWidth/2, screenResolutionHeight/2);
+		setLayout(new GridLayout());	
+		setVisible(true);
+		pack();
 		labelList = dialogueModel.getFrame(); 
 		addFrame();
 	}

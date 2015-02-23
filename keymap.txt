@@ -8,3 +8,4 @@ Save= 117
 Load= 123
 DrinkHealthPotion= 72
 CheckInventory= 73
+CheckDialogue= 32
