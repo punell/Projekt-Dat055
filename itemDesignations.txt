@@ -7,6 +7,6 @@ Small Key, unlock, smallDoor, smallkey.png
 #
 # Equipment: (name, type/slot, effect, value, image)
 #
-Basic Sword, weapon, bonusdamage, 10, basicsword.png
+Short Sword, weapon, bonusdamage, 10, shortsword.png
 Bastard Sword, weapon, bonusdamage, 20, bastardsword.png
-Chainmail, chest, bonusarmor, 10, chainmail.png
+Scalemail, chest, bonusarmor, 10, scalemail.png

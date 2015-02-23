@@ -3,7 +3,8 @@
 # in this form: (where area is overworld or underground (or other not yet implemented areas))
 # cellX:cellY, roomX:roomY, area, itemName, filename (must be png)
 #
-5:5, 0:0, overworld, Health Potion
-6:6, 0:0, overworld, Health Potion
-#8:8, 0:0, overworld, Basic Sword
-7:7, 0:0, overworld, Bastard Sword
+10:1, 0:0, overworld, Health Potion
+11:16, 0:0, overworld, Health Potion
+2:6, 0:0, overworld, Short Sword
+1:16, 0:1, overworld, Bastard Sword
+18:13, 0:0, overworld, Scalemail
