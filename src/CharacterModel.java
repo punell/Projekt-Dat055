@@ -114,7 +114,7 @@ public class CharacterModel implements Serializable
 				
 				else //(itemEquipmentSet.containsKey(splittedLine[5])) everything that isn't consumable is EQ...
 				{
-					String filename = itemConsumableSet.get(itemName)[4];
+					String filename = itemEquipmentSet.get(itemName)[4];
 					itemImage = ImageIO.read(new File("textures/"+filename));
 					itemImage = itemImage.getScaledInstance(screenWidth/32, screenHeight/18, Image.SCALE_DEFAULT);
 					item = new ItemEquipment(itemEquipmentSet.get(itemName), itemImage);
