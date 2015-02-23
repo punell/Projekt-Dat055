@@ -17,10 +17,13 @@ public class CharacterModel implements Serializable
 	private HashMap<String, String[]> itemConsumableSet;
 	private HashMap<String, String[]> itemEquipmentSet;
 	private LinkedList<CellProperties> cellGridItems;
+	private int screenWidth;
+	private int screenHeight;
 	
-	public CharacterModel()
+	public CharacterModel(int screenWidth, int screenHeight)
 	{
-		
+		this.screenWidth = screenWidth;
+		this.screenHeight = screenHeight;
 		itemConsumableSet = new HashMap<>();
 		itemEquipmentSet = new HashMap<>();
 		populateItemSet();
@@ -105,6 +108,7 @@ public class CharacterModel implements Serializable
 				{
 					String filename = itemConsumableSet.get(itemName)[3];
 					itemImage = ImageIO.read(new File("textures/"+filename));
+					itemImage = itemImage.getScaledInstance(screenWidth/32, screenHeight/18, Image.SCALE_DEFAULT);
 					item = new ItemConsumable(itemConsumableSet.get(itemName), itemImage);
 				}
 				
@@ -112,6 +116,7 @@ public class CharacterModel implements Serializable
 				{
 					String filename = itemConsumableSet.get(itemName)[4];
 					itemImage = ImageIO.read(new File("textures/"+filename));
+					itemImage = itemImage.getScaledInstance(screenWidth/32, screenHeight/18, Image.SCALE_DEFAULT);
 					item = new ItemEquipment(itemEquipmentSet.get(itemName), itemImage);
 				}
 				

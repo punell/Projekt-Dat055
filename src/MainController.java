@@ -11,6 +11,7 @@ import java.util.HashMap;
 import javax.swing.JPanel;
 
 
+
 public class MainController extends KeyAdapter
 {
 	private MainView mainWindow;
@@ -201,7 +202,7 @@ public class MainController extends KeyAdapter
 	}
 	public static void main(String[] args) throws IOException 
 	{
-		MainController app = new MainController("spelet v0.30 (Save and Load!)");
+		MainController app = new MainController("spelet v0.40 (Inventory and items!)");
 		app.pack();
 		app.setVisible(true);
 	}

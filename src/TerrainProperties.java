@@ -17,7 +17,7 @@ public class TerrainProperties
 	public Image terrainImage;
 	public ImageIcon terrainIcon;
 	
-	public TerrainProperties(String[] properties)
+	public TerrainProperties(String[] properties, int screenWidth, int screenHeight)
 	{
 		if(properties[0].equals("true"))
 		{
@@ -34,7 +34,7 @@ public class TerrainProperties
 		{
 			String filename = "textures/"+properties[2];
 			terrainImage = ImageIO.read(new File(filename));
-			terrainImage = terrainImage.getScaledInstance(64, 64, Image.SCALE_DEFAULT);
+			terrainImage = terrainImage.getScaledInstance(screenWidth/32, screenHeight/18, Image.SCALE_DEFAULT);
 			terrainIcon = new ImageIcon(terrainImage);
 		}
 		catch(IOException e)

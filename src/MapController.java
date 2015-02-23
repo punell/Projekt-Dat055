@@ -7,7 +7,7 @@ public class MapController
 	private MapRenderView mapView;
 	public MapController(int screenResolutionWidth, int screenResolutionHeight)
 	{
-		mapModel = new MapRenderModel();
+		mapModel = new MapRenderModel(screenResolutionWidth, screenResolutionHeight);
 		mapView = new MapRenderView(mapModel, screenResolutionWidth, screenResolutionHeight);
 	}
 	

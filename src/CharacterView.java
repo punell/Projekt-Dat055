@@ -25,13 +25,17 @@ public class CharacterView extends JPanel
 	private ImageIcon playerCharacterIcon;
 	private int[] previousPlayerCoords;
 	private LinkedList<CellProperties> cellGridItems;
+	private int screenWidth;
+	private int screenHeight;
 	
-	public CharacterView(CharacterModel cM, PlayerModel pM, int screenResolutionWidth, int screenResolutionHeight)
+	public CharacterView(CharacterModel cM, PlayerModel pM, int screenWidth, int screenHeight)
 	{
 		super();
 		charModel = cM;
 		playerModel = pM;
-		setSize(screenResolutionWidth, screenResolutionHeight);
+		this.screenWidth = screenWidth;
+		this.screenHeight = screenHeight;
+		setSize(screenWidth, screenHeight);
 		setLayout(new GridLayout(18,32));
 		setOpaque(false); //to allow for transparent placement on MainViews glasspane
 		
@@ -101,7 +105,7 @@ public class CharacterView extends JPanel
 		catch(IOException e)
 		{
 		}
-		playerCharacterImage = playerCharacterImage.getScaledInstance(64, 64, Image.SCALE_DEFAULT);
+		playerCharacterImage = playerCharacterImage.getScaledInstance(screenWidth/32, screenHeight/18, Image.SCALE_DEFAULT);
 		playerCharacterIcon = new ImageIcon(playerCharacterImage);
 		for(int i=0;i<576;i++) //32 x 18 = 576
 		{

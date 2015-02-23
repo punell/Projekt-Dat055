@@ -8,11 +8,11 @@ public class GameController
 	private CharacterView charView;
 	//private char lastMove;
 	private String lastMove;
-	public GameController(int screenResolutionWidth, int screenResolutionHeight)
+	public GameController(int screenWidth, int screenHeight)
 	{
-		charModel = new CharacterModel();
+		charModel = new CharacterModel(screenWidth, screenHeight);
 		playerModel = new PlayerModel();
-		charView = new CharacterView(charModel, playerModel, screenResolutionWidth, screenResolutionHeight);
+		charView = new CharacterView(charModel, playerModel, screenWidth, screenHeight);
 	}
 	
 	public CharacterView getView() //MainView uses this

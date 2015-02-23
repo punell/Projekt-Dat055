@@ -22,9 +22,13 @@ public class MapRenderModel
 	private String currentArea;
 	private HashMap<Character, TerrainProperties> terrainSet;
 	private MapFactory mapFactory;
+	private int screenWidth;
+	private int screenHeight;
 	
-	public MapRenderModel()
+	public MapRenderModel(int screenWidth, int screenHeight)
 	{
+		this.screenWidth = screenWidth;
+		this.screenHeight = screenHeight;
 		terrainGrid = new TerrainTile[32][18];
 		mapFactory = new MapFactory();
 		//this char holds the entire overworldMap, so we only read this during the start of the game and never again
@@ -69,7 +73,7 @@ public class MapRenderModel
 				terrainSetKey = line.charAt(0);
 				subLine = line.substring(3);
 				terrainSetValue = subLine.split(", ");
-				TP = new TerrainProperties(terrainSetValue);
+				TP = new TerrainProperties(terrainSetValue, screenWidth, screenHeight);
 				terrainSet.put(terrainSetKey, TP);
 				line = reader.readLine();
 			}
