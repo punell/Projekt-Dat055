@@ -30,6 +30,8 @@ public class MainController extends KeyAdapter
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		screenWidth = (int)screenSize.getWidth();
 		screenHeight = (int)screenSize.getHeight();
+		//Jockes superspecial-solution, VERY temporary
+		if(screenWidth==3968) screenWidth=2048;
 		
 		mainWindow = new MainView(title, screenWidth, screenHeight);
 		mapControl = new MapController(screenWidth, screenHeight);
@@ -93,6 +95,13 @@ public class MainController extends KeyAdapter
 				System.out.println(gameControl.getHealth());
 				gameControl.playerUseItem("Health Potion");
 				System.out.println(gameControl.getHealth());
+			}
+			else if(command.equals("CheckDialogue")) //Temporary for Jeppes dialogue-testing
+			{
+				DialogueController test = new DialogueController(50,50);
+				test.getView().pack();
+				test.getView().setVisible(true);
+				
 			}
 			//movement, all other commands come first, because movement has
 			//four invokers (four directions), while others only have one each
