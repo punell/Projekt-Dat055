@@ -1,6 +1,7 @@
 package encounterLayer;
+import java.io.IOException;
 
-//Har ej tagit bort kommenteringen i MainController �n, f�r att slippa git-problem. 
+
 
 public class EncounterController 
 {
@@ -8,7 +9,7 @@ public class EncounterController
 	private EncounterModel encounterModel;
 	private EncounterView encounterView;
 	
-	public EncounterController(int screenResolutionWidth, int screenResolutionHeight)
+	public EncounterController(int screenResolutionWidth, int screenResolutionHeight) throws IOException
 	{
 		encounterModel = new EncounterModel();
 		encounterView = new EncounterView(encounterModel, screenResolutionWidth, screenResolutionHeight);
@@ -19,8 +20,6 @@ public class EncounterController
 	{
 		return encounterView;
 	}
-	
-	
 	
 	
 	
