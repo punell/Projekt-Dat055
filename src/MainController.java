@@ -1,3 +1,7 @@
+import gameLayer.CharacterModel;
+import gameLayer.GameController;
+import gameLayer.PlayerModel;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
@@ -9,6 +13,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.swing.JPanel;
+
+import dialogue.DialogueController;
+import mapRenderer.MapController;
+import menuRenderer.MenuController;
 
 
 

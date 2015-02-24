@@ -1,3 +1,4 @@
+package encounterLayer;
 
 public class EncounterModel 
 {

@@ -1,5 +1,6 @@
+package encounterLayer;
 
-//Har ej tagit bort kommenteringen i MainController än, för att slippa git-problem. 
+//Har ej tagit bort kommenteringen i MainController ï¿½n, fï¿½r att slippa git-problem. 
 
 public class EncounterController 
 {

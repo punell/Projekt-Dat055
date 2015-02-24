@@ -1,4 +1,6 @@
+package mapRenderer;
 import java.awt.GridLayout;
+
 import javax.swing.JPanel;
 
 

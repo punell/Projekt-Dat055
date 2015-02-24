@@ -1,3 +1,4 @@
+package encounterLayer;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;

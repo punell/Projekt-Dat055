@@ -1,3 +1,4 @@
+package gameLayer;
 import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;

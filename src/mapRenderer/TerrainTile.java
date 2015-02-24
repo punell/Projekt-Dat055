@@ -1,3 +1,4 @@
+package mapRenderer;
 import javax.swing.JLabel;
 
 

@@ -1,3 +1,4 @@
+package dialogue;
 
 public class DialogueController 
 {

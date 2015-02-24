@@ -1,3 +1,6 @@
+import gameLayer.CharacterModel;
+import gameLayer.PlayerModel;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
