@@ -43,4 +43,10 @@ public class MapController
 	{
 		return mapModel.isWalkable(playerCoords[0], playerCoords[1]);
 	}
+	
+	public void restoreFromLoad(String area, int[] coords)
+	{
+		setCurrentArea(area);
+		updateMapRenderView(coords);
+	}
 }

@@ -1,5 +1,7 @@
 package gameLayer;
 
+import SaveAndLoad.SaveGame;
+
 
 
 public class GameController 
@@ -93,11 +95,19 @@ public class GameController
 	{
 		return charModel;
 	}
-
-	public void updateGameControllerModels(PlayerModel pmFromLoad, CharacterModel cmFromLoad) 
+	
+	public SaveGame packageForSave()
 	{
-		playerModel = pmFromLoad;
-		charModel = cmFromLoad;
+		return new SaveGame(playerModel, charModel);
+	}
+
+	public void restoreFromLoad(SaveGame fromLoad) 
+	{
+		playerModel = fromLoad.getPlayer();
+		charModel = fromLoad.getCharModel();
+		charView.updateCharacterViewModels(charModel, playerModel);
+		charView.updatePlayerPosition();
+		charView.updateCellGrid();
 	}
 	
 	

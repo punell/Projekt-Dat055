@@ -14,6 +14,7 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
+import SaveAndLoad.SaveAndLoadController;
 import dialogue.DialogueController;
 import mapRenderer.MapController;
 import menuRenderer.MenuController;
@@ -72,71 +73,40 @@ public class MainController extends KeyAdapter
 	
 	private void checkInput()
 	{
-		//checks if gameControl is the current glasspane 
-		//(i.e. what is actually seen by the player right now)
-		if(mainWindow.getGlassPane().equals(gameControl.getView())) 
+		switch(command)
 		{
-			if(command.equals("Esc"))
-				changeGlassPane(menuControl.getView());
-			
-			else if(command.equals("Save"))
-				saveLoadControl.saveGame(gameControl.getPlayer(), gameControl.getCharModel());
-			
-			else if(command.equals("Load"))
-			{
-				saveLoadControl.loadGame();
-				PlayerModel pmFromLoad = saveLoadControl.getPlayer();
-				CharacterModel cmFromLoad = saveLoadControl.getCharModel();
-				gameControl.updateGameControllerModels(pmFromLoad, cmFromLoad);
-				gameControl.getView().updateCharacterViewModels(cmFromLoad, pmFromLoad);
-				gameControl.getView().updatePlayerPosition();
-				gameControl.getView().updateCellGrid();
-				mapControl.setCurrentArea(gameControl.getPlayerArea());
-				mapControl.updateMapRenderView(gameControl.getPlayerCoords('r'));
-			}
-			
-			else if(command.equals("CheckInventory"))
-				gameControl.checkInventory();
-			
-			else if(command.equals("DrinkHealthPotion"))
-			{
-				System.out.println(gameControl.getHealth());
-				gameControl.playerUseItem("Health Potion");
-				System.out.println(gameControl.getHealth());
-			}
-			else if(command.equals("CheckDialogue")) //Temporary for Jeppes dialogue-testing
-			{
-				DialogueController test = new DialogueController(50,50);
-				test.getView().pack();
-				test.getView().setVisible(true);
-				
-			}
-			//movement, all other commands come first, because movement has
-			//four invokers (four directions), while others only have one each
-			else 
-			{
-				int[] oldRoomCoords = gameControl.getPlayerCoords('r');				
-				gameControl.move(command);
-				moveLogic(oldRoomCoords);
-				
-				if(!mapControl.isWalkable(gameControl.getPlayerCoords('c')))
-				{
-					oldRoomCoords = gameControl.getPlayerCoords('r');	
-					gameControl.moveRevert();
-					moveLogic(oldRoomCoords);
-				}
-			}
-			
-			
+			case "Esc":  changeGlassPane(menuControl.getView()); break;
+			case "Save": saveLoadControl.save(gameControl.packageForSave()); break;
+			case "Load": gameControl.restoreFromLoad(saveLoadControl.load());
+						 mapControl.restoreFromLoad(gameControl.getPlayerArea(), 
+						 gameControl.getPlayerCoords('r')); break;
+						 
+			case "CheckInventory": 		gameControl.checkInventory(); break;
+			case "DrinkHealthPotion": 	gameControl.playerUseItem("Health Potion"); break;
+			case "CheckDialogue": 		DialogueController test = new DialogueController(50,50);
+									    test.getView().pack();
+									    test.getView().setVisible(true); break;
+								  
+			default: playerMovement(); break;
 		}
-		else if(mainWindow.getGlassPane().equals(menuControl.getView()))
+		
+	}
+	
+	private void playerMovement()
+	{
+		int[] oldRoomCoords = gameControl.getPlayerCoords('r');				
+		gameControl.move(command);
+		playerMovementLogic(oldRoomCoords);
+		
+		if(!mapControl.isWalkable(gameControl.getPlayerCoords('c')))
 		{
-			if(command.equals("Esc"))
-				changeGlassPane(gameControl.getView());
+			oldRoomCoords = gameControl.getPlayerCoords('r');	
+			gameControl.moveRevert();
+			playerMovementLogic(oldRoomCoords);
 		}
 	}
 	
-	private void moveLogic(int[] oldRoomCoords)
+	private void playerMovementLogic(int[] oldRoomCoords)
 	{
 		if(!Arrays.equals(oldRoomCoords, gameControl.getPlayerCoords('r')))
 		{

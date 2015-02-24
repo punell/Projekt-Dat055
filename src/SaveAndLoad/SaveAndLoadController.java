@@ -1,5 +1,4 @@
-import gameLayer.CharacterModel;
-import gameLayer.PlayerModel;
+package SaveAndLoad;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,20 +9,18 @@ import java.io.ObjectOutputStream;
 
 public class SaveAndLoadController 
 {
-	private PlayerModel player;
-	private CharacterModel charModel;
+	private SaveGame fromLoad;
 	public SaveAndLoadController()
 	{
 		
 	}
 	
-	public boolean saveGame(PlayerModel player, CharacterModel charModel)
+	public boolean save(SaveGame packageForSave)
 	{
 		try
 		{
 			ObjectOutputStream saveStream = new ObjectOutputStream(new FileOutputStream("savefile.sav"));
-			saveStream.writeObject(player);
-			saveStream.writeObject(charModel);
+			saveStream.writeObject(packageForSave);
 			saveStream.close();
 			System.out.println("Saving Game...");
 			return true;
@@ -34,26 +31,15 @@ public class SaveAndLoadController
 		}
 	}
 	
-	public CharacterModel getCharModel()
-	{
-		return charModel;
-	}
-	
-	public PlayerModel getPlayer()
-	{
-		return player;
-	}
-	
-	public void loadGame()
+	public SaveGame load()
 	{
 		try
 		{
 			ObjectInputStream loadStream = new ObjectInputStream(new FileInputStream("savefile.sav"));
-			player = (PlayerModel)loadStream.readObject();
-			charModel = (CharacterModel)loadStream.readObject();
+			fromLoad = (SaveGame)loadStream.readObject();
 			loadStream.close();
 			System.out.println("Loading Game...");
-			
+			return fromLoad;
 		}
 		catch(IOException e)
 		{
@@ -63,6 +49,7 @@ public class SaveAndLoadController
 		{
 			System.out.println(e.getLocalizedMessage());
 		}
+		return null;
 		
 	}
 }
