@@ -16,8 +16,10 @@ import javax.swing.JPanel;
 
 import SaveAndLoad.SaveAndLoadController;
 import dialogue.DialogueController;
+import encounterLayer.EncounterController;
 import mapRenderer.MapController;
 import menuRenderer.MenuController;
+import menuRenderer.MenuView;
 
 
 
@@ -28,7 +30,7 @@ public class MainController extends KeyAdapter
 	private GameController gameControl;
 	private HashMap<Integer, String> keyMap;
 	private MenuController menuControl;
-	//private EncounterController encounterControl;
+	private EncounterController encounterControl;
 	private SaveAndLoadController saveLoadControl;
 	private Dimension screenSize;
 	private int screenWidth; //future versions might allow for changes based on the resolution
@@ -46,7 +48,7 @@ public class MainController extends KeyAdapter
 		mapControl = new MapController(screenWidth, screenHeight);
 		gameControl = new GameController(screenWidth, screenHeight);
 		menuControl = new MenuController(screenWidth, screenHeight);
-		//encounterControl = new EncounterController(screenResolutionWidth, screenResolutionWidth);
+		encounterControl = new EncounterController(screenWidth, screenHeight);
 		saveLoadControl = new SaveAndLoadController();
 		mainWindow.setContentPane(mapControl.getView());
 		//mainWindow.setContentPane(encounterControl.getView());
@@ -75,7 +77,7 @@ public class MainController extends KeyAdapter
 	{
 		switch(command)
 		{
-			case "Esc":  changeGlassPane(menuControl.getView()); break;
+			case "Esc":  showMainMenuView(menuControl.getView()); break;
 			case "Save": saveLoadControl.save(gameControl.packageForSave()); break;
 			case "Load": gameControl.restoreFromLoad(saveLoadControl.load());
 						 mapControl.restoreFromLoad(gameControl.getPlayerArea(), 
@@ -86,6 +88,7 @@ public class MainController extends KeyAdapter
 			case "CheckDialogue": 		DialogueController test = new DialogueController(50,50);
 									    test.getView().pack();
 									    test.getView().setVisible(true); break;
+			case "CheckEncounter":		changeContentPane(encounterControl.getView());
 								  
 			default: playerMovement(); break;
 		}
@@ -140,14 +143,12 @@ public class MainController extends KeyAdapter
 		//between the map-view and the encounter-view
 		mainWindow.setContentPane(changeTo); 
 	}
-	
-	private void changeGlassPane(JPanel changeTo)
+	private void showMainMenuView(MenuView menuView)
 	{
-		//This method is a stub, made to illustrate how 
-		//easily we want to be able to change
-		//between the character-view and the menu-view (needed?)
-		mainWindow.setGlassPane(changeTo); 
+		menuView.setVisible(true);
+
 	}
+	
 	
 	private void populateKeyMap()
 	{

@@ -1,5 +1,7 @@
 package gameLayer;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 
 
@@ -11,9 +13,11 @@ public class PlayerModel implements Serializable
 	 *  including future level/stats/gear/inventory-data
 	 */
 	private String name;
-	private int maxHealth;
+	private int baseHealth;
 	private int currentHealth;
 	private Inventory backpack;
+	private Inventory equipped;
+	private HashMap<String, Integer> stats;
 	private int roomX;
 	private int roomY;
 	private int cellX;
@@ -23,9 +27,15 @@ public class PlayerModel implements Serializable
 	public PlayerModel()
 	{
 		name = "test";
-		maxHealth = 50;
-		currentHealth = 30;
-		backpack = new Inventory(50, 50);
+		baseHealth = 50;
+		currentHealth = 50;
+		backpack = new Inventory("backpack");
+		equipped = new Inventory("equipped");
+		stats = new HashMap<>();
+		stats.put("maxhealth", baseHealth);
+		stats.put("damage", 0);
+		stats.put("armor", 0);
+		
 		roomX = 0;
 		roomY = 0;
 		cellX = 1;
@@ -70,10 +80,9 @@ public class PlayerModel implements Serializable
 	}
 	public void checkInventory()
 	{
-		for(Item x : backpack.checkContents())
-		{
-			System.out.println(x.getName());
-		}
+		LinkedList<Item> inBackpack = backpack.checkContents();
+		for(Item item : inBackpack)
+			System.out.println(item.getName());
 		//return backpack.checkContents();
 	}
 	public void addItem(Item item)
@@ -83,8 +92,8 @@ public class PlayerModel implements Serializable
 	public void healPlayer(int heal) //heals cannot go above maxHealth
 	{
 		currentHealth += heal;
-		if(currentHealth >= maxHealth)
-			currentHealth = maxHealth;
+		if(currentHealth >= stats.get("maxhealth"));
+			currentHealth = stats.get("maxhealth");
 	}
 	public boolean damagePlayer(int damage) //returns true on death
 	{
@@ -139,6 +148,37 @@ public class PlayerModel implements Serializable
 		{
 			case "heal": healPlayer(item.getEffectValue()); break;
 		}
+	}
+	
+	public void equipItem(String itemName)
+	{
+		ItemEquipment item = (ItemEquipment)backpack.get(itemName); // pick the to-be equipped item from the bag
+		Item lastEquipped = (ItemEquipment)equipped.getEquipped(item.getSlot()); //pick the old item from the slot
+		equipped.put(item); //put in the new item in equipped
+
+		if(lastEquipped != null) //if there was anything in the slot before...
+			backpack.put(lastEquipped); //we put it back in the backpack
+		calculateEquipmentBonus();
+	}
+	
+	private void calculateEquipmentBonus()
+	{
+		LinkedList<ItemEquipment> equipment = equipped.checkContents();
+		int health = baseHealth;
+		int damage = 0;
+		int armor = 0;
+		for(ItemEquipment item : equipment)
+		{
+			switch(item.getEffect())
+			{
+				case "bonushealth": health += item.getEffectValue(); break;
+				case "bonusdamage": damage += item.getEffectValue(); break;
+				case "bonusarmor": armor += item.getEffectValue(); break;
+			}
+		}
+		stats.put("maxhealth", health);
+		stats.put("damage", damage);
+		stats.put("armor", armor);
 	}
 	
 

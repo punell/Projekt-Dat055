@@ -1,19 +1,19 @@
 package menuRenderer;
-import java.io.IOException;
 
 
 public class MenuController
 {
-	private MenuRenderModel menuModel; 
-	private MenuRenderView menuView; 
-	public MenuController(int screenResolutionWidth,int screenResolutionHeight)
+	private MenuModel menuModel; 
+	private MenuView menuView; 
+	public MenuController(int screenWidth,int screenHeight)
 	{
-		menuModel = new MenuRenderModel();
-		menuView = new MenuRenderView(menuModel, screenResolutionWidth, screenResolutionHeight);
+		menuModel = new MenuModel();
+		menuView = new MenuView(menuModel, screenWidth, screenHeight);
 	}
 	
-	public MenuRenderView getView()
+	public MenuView getView()
 	{
+		menuView.pack();
 		return menuView;
 	}
 }

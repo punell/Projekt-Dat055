@@ -89,7 +89,7 @@ public class CharacterView extends JPanel
 		}
 	}
 	
-	public void updateCharacterViewModels(CharacterModel cM, PlayerModel pM)
+	public void updateCharacterViewModels(CharacterModel cM, PlayerModel pM) //used for loading SaveGame
 	{
 		charModel = cM;
 		playerModel = pM;
