@@ -23,6 +23,7 @@ public class ItemConsumable extends Item implements Serializable
 			unlockValue = null;
 			effectValue = Integer.parseInt(properties[2]);
 		}
+		setActionCommand("Use");
 	}
 	
 	public String getEffect()

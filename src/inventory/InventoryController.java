@@ -1,20 +1,22 @@
 package inventory;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import gameLayer.Item;
 import gameLayer.ItemEquipment;
+import gameLayer.PlayerModel;
 
-public class InventoryController 
+public class InventoryController implements Serializable
 {
 	private InventoryModel invModel;
 	private InventoryView invView;
 	private String inventoryType;
-	public InventoryController(String inventoryType)
+	public InventoryController(PlayerModel pM)
 	{
 		this.inventoryType = inventoryType;
-		invModel = new InventoryModel(inventoryType);
-		invView = new InventoryView(invModel, inventoryType);
+		invModel = new InventoryModel();
+		invView = new InventoryView(invModel, pM);
 	}
 	
 	public void show()
@@ -39,8 +41,12 @@ public class InventoryController
 		return invModel.getEquipped(slot);
 	}
 
-	public LinkedList<ItemEquipment> checkContents() 
+	public LinkedList<ItemEquipment> checkEquipment() 
 	{
-		return invModel.checkContents();
+		return invModel.checkEquipment();
+	}
+	public LinkedList<Item> checkBackpack()
+	{
+		return invModel.checkBackpack();
 	}
 }

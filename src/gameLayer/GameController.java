@@ -75,11 +75,7 @@ public class GameController
 		if(item != null)
 		{
 			playerModel.addItem(item);
-			if(item instanceof ItemEquipment)
-			{
-				playerModel.equipItem(item.getName());
-				
-			}
+			
 		}
 		charView.updatePlayerPosition();
 	}

@@ -17,8 +17,7 @@ public class PlayerModel implements Serializable
 	private String name;
 	private int baseHealth;
 	private int currentHealth;
-	private InventoryController backpack;
-	private InventoryController equipped;
+	private InventoryController inventory;
 	private HashMap<String, Integer> stats;
 	private int roomX;
 	private int roomY;
@@ -30,13 +29,13 @@ public class PlayerModel implements Serializable
 	{
 		name = "test";
 		baseHealth = 50;
-		currentHealth = 50;
-		backpack = new InventoryController("backpack");
-		equipped = new InventoryController("equipped");
+		currentHealth = 30;
+		
 		stats = new HashMap<>();
 		stats.put("maxhealth", baseHealth);
 		stats.put("damage", 0);
 		stats.put("armor", 0);
+		inventory = new InventoryController(this);
 		
 		roomX = 0;
 		roomY = 0;
@@ -71,6 +70,10 @@ public class PlayerModel implements Serializable
 	{
 		currentArea = area;
 	}
+	public int getStats(String key)
+	{		
+		return stats.get(key);
+	}
 	
 	public int getHealth()
 	{
@@ -78,20 +81,20 @@ public class PlayerModel implements Serializable
 	}
 	public Item getItem(String itemName)
 	{
-		return backpack.get(itemName);
+		return inventory.get(itemName);
 	}
 	public void checkInventory()
 	{
-		/*LinkedList<Item> inBackpack = backpack.checkContents();
+		/*LinkedList<Item> inBackpack = inventory.checkContents();
 		for(Item item : inBackpack)
 			System.out.println(item.getName());
-		//return backpack.checkContents();*/
-		backpack.show();
-		equipped.show();
+		//return inventory.checkContents();*/
+		inventory.show();
+		calculateEquipmentBonus();
 	}
 	public void addItem(Item item)
 	{
-		backpack.put(item);
+		inventory.put(item);
 	}
 	public void healPlayer(int heal) //heals cannot go above maxHealth
 	{
@@ -147,27 +150,16 @@ public class PlayerModel implements Serializable
 	}
 	public void useItem(String itemName) 
 	{
-		ItemConsumable item = (ItemConsumable)backpack.get(itemName); //holding in hand...
+		ItemConsumable item = (ItemConsumable)inventory.get(itemName); //holding in hand...
 		switch(item.getEffect())
 		{
 			case "heal": healPlayer(item.getEffectValue()); break;
 		}
 	}
 	
-	public void equipItem(String itemName)
+	public void calculateEquipmentBonus()
 	{
-		ItemEquipment item = (ItemEquipment)backpack.get(itemName); // pick the to-be equipped item from the bag
-		Item lastEquipped = (ItemEquipment)equipped.getEquipped(item.getSlot()); //pick the old item from the slot
-		equipped.put(item); //put in the new item in equipped
-
-		if(lastEquipped != null) //if there was anything in the slot before...
-			backpack.put(lastEquipped); //we put it back in the backpack
-		calculateEquipmentBonus();
-	}
-	
-	private void calculateEquipmentBonus()
-	{
-		LinkedList<ItemEquipment> equipment = equipped.checkContents();
+		LinkedList<ItemEquipment> equipment = inventory.checkEquipment();
 		int health = baseHealth;
 		int damage = 0;
 		int armor = 0;

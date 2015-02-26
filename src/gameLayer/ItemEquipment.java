@@ -15,6 +15,7 @@ public class ItemEquipment extends Item implements Serializable
 		slot = properties[1];
 		effect = properties[2];
 		effectValue = Integer.parseInt(properties[3]);
+		setActionCommand("ToggleEquip");
 		
 	}
 	
@@ -32,5 +33,7 @@ public class ItemEquipment extends Item implements Serializable
 	{
 		return effectValue;
 	}
+	
+	
 
 }

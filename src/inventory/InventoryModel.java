@@ -11,21 +11,36 @@ public class InventoryModel implements Serializable
 {
 	private LinkedList<Item> itemList;
 	private LinkedList<ItemEquipment> equippedList;
-	private String inventoryType;
-	public InventoryModel(String inventoryType)
+	public InventoryModel()
 	{
 		itemList = new LinkedList<>();
 		equippedList = new LinkedList<>();
-		this.inventoryType = inventoryType;
 	}
 	
 	public void put(Item item)
 	{
-		if(inventoryType.equals("backpack"))
-			itemList.add(item);
-		else if(inventoryType.equals("equipped") && item instanceof ItemEquipment)
-			equippedList.add((ItemEquipment) item);
+		itemList.add(item);
 			
+	}
+	
+	public void toggleEquip(Item item)
+	{
+		if(equippedList.contains(item))
+		{
+			int index = equippedList.indexOf(item);
+			itemList.add(equippedList.remove(index));
+		}
+		else
+		{
+			int index = itemList.indexOf(item);
+			ItemEquipment itemCasted = (ItemEquipment)item;
+			String slot = itemCasted.getSlot();
+			if((itemCasted = getEquipped(slot)) != null)
+				itemList.add(itemCasted);
+			
+			equippedList.add((ItemEquipment)itemList.remove(index));
+		}
+		
 	}
 	public Item get(String name)
 	{
@@ -35,23 +50,23 @@ public class InventoryModel implements Serializable
 			Item element = (Item)it.next();
 			if(name.equals(element.getName()))
 			{
-				it.remove();
+				it.remove(); 
 				return element;
 			}
 		}
 		return null;
 	}
-	public LinkedList checkContents()
+	public LinkedList<Item> checkBackpack()
 	{
-		if(inventoryType.equals("backpack"))
-			return itemList;
-		else if(inventoryType.equals("equipped"))
-			return equippedList;
-		else
-			return null;
+		return itemList;
 	}
 	
-	public Item getEquipped(String slot)
+	public LinkedList<ItemEquipment> checkEquipment()
+	{
+		return equippedList;
+	}
+	
+	public ItemEquipment getEquipped(String slot)
 	{
 		Iterator<ItemEquipment> it = equippedList.iterator();
 		while(it.hasNext())
