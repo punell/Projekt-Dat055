@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
-import SaveAndLoad.SaveAndLoadController;
+import saveAndLoad.SaveAndLoadController;
 import dialogue.DialogueController;
 import encounterLayer.EncounterController;
 import mapRenderer.MapController;
@@ -88,7 +88,7 @@ public class MainController extends KeyAdapter
 			case "CheckDialogue": 		DialogueController test = new DialogueController(50,50);
 									    test.getView().pack();
 									    test.getView().setVisible(true); break;
-			case "CheckEncounter":		changeContentPane(encounterControl.getView());
+			case "CheckEncounter":		changeContentPane(encounterControl.getView()); break;
 								  
 			default: playerMovement(); break;
 		}

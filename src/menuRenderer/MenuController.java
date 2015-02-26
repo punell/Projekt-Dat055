@@ -16,4 +16,5 @@ public class MenuController
 		menuView.pack();
 		return menuView;
 	}
+	
 }

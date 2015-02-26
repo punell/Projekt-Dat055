@@ -1,15 +1,18 @@
-package gameLayer;
+package inventory;
+import gameLayer.Item;
+import gameLayer.ItemEquipment;
+
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 
-public class Inventory implements Serializable
+public class InventoryModel implements Serializable
 {
 	private LinkedList<Item> itemList;
 	private LinkedList<ItemEquipment> equippedList;
 	private String inventoryType;
-	public Inventory(String inventoryType)
+	public InventoryModel(String inventoryType)
 	{
 		itemList = new LinkedList<>();
 		equippedList = new LinkedList<>();

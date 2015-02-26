@@ -1,4 +1,4 @@
-package SaveAndLoad;
+package saveAndLoad;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

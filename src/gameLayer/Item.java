@@ -6,26 +6,21 @@ import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 
-public abstract class Item implements Serializable
+public abstract class Item extends JLabel implements Serializable
 {
 	private String name;
 	private Image itemImage;
 	private ImageIcon itemIcon;
 	public Item(String name, Image itemImage)
 	{
+		super();
 		this.name = name;
-		/*try
-		{
-			itemImage = ImageIO.read(new File("textures/"+filename));
-		}
-		catch(IOException e)
-		{
-			System.out.println(e.getLocalizedMessage());
-		}*/
 		
 		itemIcon = new ImageIcon(itemImage);
+		setIcon(itemIcon);
 	}
 	
 	public String getName()

@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 public class MenuView extends JFrame
 {
-	/** MenuRenderView displays the menu 
+	/** MenuView displays the menu 
 	 * 
 	 **/
 	

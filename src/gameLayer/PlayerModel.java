@@ -1,4 +1,6 @@
 package gameLayer;
+import inventory.InventoryController;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -15,8 +17,8 @@ public class PlayerModel implements Serializable
 	private String name;
 	private int baseHealth;
 	private int currentHealth;
-	private Inventory backpack;
-	private Inventory equipped;
+	private InventoryController backpack;
+	private InventoryController equipped;
 	private HashMap<String, Integer> stats;
 	private int roomX;
 	private int roomY;
@@ -29,8 +31,8 @@ public class PlayerModel implements Serializable
 		name = "test";
 		baseHealth = 50;
 		currentHealth = 50;
-		backpack = new Inventory("backpack");
-		equipped = new Inventory("equipped");
+		backpack = new InventoryController("backpack");
+		equipped = new InventoryController("equipped");
 		stats = new HashMap<>();
 		stats.put("maxhealth", baseHealth);
 		stats.put("damage", 0);
@@ -40,7 +42,7 @@ public class PlayerModel implements Serializable
 		roomY = 0;
 		cellX = 1;
 		cellY = 1;
-		currentArea = "overworld"; //not entirely sure what this was supposed to be for... I'll leave it here just in case
+		currentArea = "overworld"; 
 	}
 	public int[] getPlayerCoords(char flag)
 	{
@@ -80,10 +82,12 @@ public class PlayerModel implements Serializable
 	}
 	public void checkInventory()
 	{
-		LinkedList<Item> inBackpack = backpack.checkContents();
+		/*LinkedList<Item> inBackpack = backpack.checkContents();
 		for(Item item : inBackpack)
 			System.out.println(item.getName());
-		//return backpack.checkContents();
+		//return backpack.checkContents();*/
+		backpack.show();
+		equipped.show();
 	}
 	public void addItem(Item item)
 	{
