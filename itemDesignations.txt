@@ -4,13 +4,16 @@
 # potion will give 10 health, and 20 mana
 # also works for equipment, and with negative values 
 # (poison?, axe with high damage but negative armor-effect?)
+#
+# OBS OBS OBS! Capital letters on most things (not image)
+#
 # Consumables: (name, effect, value, image) 
 #
-Health Potion, heal, 20, healthpot.png
+Health Potion, Heal, 20, healthpot.png
 #
 # Equipment: (name, type/slot, effect, value, image)
 #
-Short Sword, mainhand, bonusdamage, 10, shortsword.png
-Bastard Sword, mainhand:offhand, bonusdamage, 20, bastardsword.png
-Scalemail, chest, bonusarmor, 10, scalemail.png
-Buckler, offhand, bonusarmor, 5, bucklershield.png
+Short Sword, Mainhand, Damage, 10, shortsword.png
+Bastard Sword, Mainhand:Offhand, Damage, 20, bastardsword.png
+Scalemail, Chest, Armor, 10, scalemail.png
+Buckler, Offhand, Armor, 5, bucklershield.png

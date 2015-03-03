@@ -158,7 +158,7 @@ public class PlayerModel implements Serializable
 		{
 			switch(item.getEffect()[i])
 			{
-				case "heal": healPlayer(item.getEffectValue()[i]); break;
+				case "Heal": healPlayer(item.getEffectValue()[i]); break;
 			}
 		}
 	}
@@ -175,9 +175,9 @@ public class PlayerModel implements Serializable
 			{
 				switch(item.getEffect()[i])
 				{
-					case "bonushealth": health += item.getEffectValue()[i]; break;
-					case "bonusdamage": damage += item.getEffectValue()[i]; break;
-					case "bonusarmor": armor += item.getEffectValue()[i]; break;
+					case "Health": health += item.getEffectValue()[i]; break;
+					case "Damage": damage += item.getEffectValue()[i]; break;
+					case "Armor": armor += item.getEffectValue()[i]; break;
 				}
 			}
 		}

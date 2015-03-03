@@ -71,7 +71,6 @@ public class InventoryModel implements Serializable
 	
 	public ItemEquipment getEquipped(String slot)
 	{
-		System.out.println(slot);
 		Iterator<ItemEquipment> it = equippedList.iterator();
 		while(it.hasNext())
 		{
