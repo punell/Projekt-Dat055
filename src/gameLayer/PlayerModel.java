@@ -32,7 +32,7 @@ public class PlayerModel implements Serializable
 	{
 		name = "test";
 		baseHealth = 50;
-		currentHealth = 30;
+		currentHealth = 50;
 		
 		stats = new HashMap<>();
 		stats.put("maxhealth", baseHealth);

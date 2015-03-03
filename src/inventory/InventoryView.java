@@ -136,6 +136,7 @@ public class InventoryView extends JFrame implements ActionListener, KeyListener
 			itemName = buttonPressed.getItem().getName();
 			player.useItem(itemName);
 		}
+		player.calculateEquipmentBonus();
 		updateInventoryView();
 	}
 

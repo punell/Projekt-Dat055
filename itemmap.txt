@@ -8,3 +8,4 @@
 2:6, 0:0, overworld, Short Sword
 1:16, 0:1, overworld, Bastard Sword
 18:13, 0:0, overworld, Scalemail
+29:15, 0:1, overworld, Buckler

@@ -68,8 +68,6 @@ public class CharacterView extends JPanel
 	
 	public void updateCellGrid()
 	{
-		//Item now extends JLabel. This method still works, but could
-		//be much smarter by replacing the cells with the items
 		int cellX, cellY;
 		// First delete items from old list
 		for(CellProperties cell : cellGridItems)

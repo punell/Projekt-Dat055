@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 public class ItemEquipment extends Item implements Serializable
 {
-	private String slot;
+	private String slot[];
 	private String effect;
 	private int effectValue;
 	private String actionCommand;
@@ -13,14 +13,14 @@ public class ItemEquipment extends Item implements Serializable
 	public ItemEquipment(String[] properties, Image itemImage) 
 	{
 		super(properties[0], itemImage, "ToggleEquip");
-		slot = properties[1];
+		slot = properties[1].split(":");
 		effect = properties[2];
 		effectValue = Integer.parseInt(properties[3]);
 		//actionCommand = "ToggleEquip";
 		
 	}
 	
-	public String getSlot()
+	public String[] getSlot()
 	{
 		return slot;
 	}

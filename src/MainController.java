@@ -132,6 +132,7 @@ public class MainController extends KeyAdapter
 			}
 			
 			mapControl.updateMapRenderView(gameControl.getPlayerCoords('r'));
+			gameControl.updateCellGrid();
 		}
 	}
 	

@@ -34,9 +34,12 @@ public class InventoryModel implements Serializable
 		{
 			int index = itemList.indexOf(item);
 			ItemEquipment itemCasted = (ItemEquipment)item;
-			String slot = itemCasted.getSlot();
-			if((itemCasted = getEquipped(slot)) != null)
-				itemList.add(itemCasted);
+			String slot[] = itemCasted.getSlot();
+			for(int i=0; i<slot.length;i++)
+			{
+				if((itemCasted = getEquipped(slot[i])) != null)
+					itemList.add(itemCasted);
+			}
 			
 			equippedList.add((ItemEquipment)itemList.remove(index));
 		}
@@ -68,14 +71,18 @@ public class InventoryModel implements Serializable
 	
 	public ItemEquipment getEquipped(String slot)
 	{
+		System.out.println(slot);
 		Iterator<ItemEquipment> it = equippedList.iterator();
 		while(it.hasNext())
 		{
 			ItemEquipment element = (ItemEquipment)it.next();
-			if(slot.equals(element.getSlot()))
+			for(int i=0;i<element.getSlot().length;i++)
 			{
-				it.remove();
-				return element;
+				if(slot.equals(element.getSlot()[i]))
+				{
+					it.remove();
+					return element;
+				}
 			}
 		}
 		return null;
