@@ -102,7 +102,7 @@ public class PlayerModel implements Serializable
 	public void healPlayer(int heal) //heals cannot go above maxHealth
 	{
 		currentHealth += heal;
-		if(currentHealth >= stats.get("maxhealth"));
+		if(currentHealth >= stats.get("maxhealth"))
 			currentHealth = stats.get("maxhealth");
 	}
 	public boolean damagePlayer(int damage) //returns true on death
@@ -154,9 +154,12 @@ public class PlayerModel implements Serializable
 	public void useItem(String itemName) 
 	{
 		ItemConsumable item = (ItemConsumable)inventory.get(itemName); //holding in hand...
-		switch(item.getEffect())
+		for(int i=0;i<item.getEffect().length;i++)
 		{
-			case "heal": healPlayer(item.getEffectValue()); break;
+			switch(item.getEffect()[i])
+			{
+				case "heal": healPlayer(item.getEffectValue()[i]); break;
+			}
 		}
 	}
 	
@@ -168,11 +171,14 @@ public class PlayerModel implements Serializable
 		int armor = 0;
 		for(ItemEquipment item : equipment)
 		{
-			switch(item.getEffect())
+			for(int i=0;i<item.getEffect().length;i++)
 			{
-				case "bonushealth": health += item.getEffectValue(); break;
-				case "bonusdamage": damage += item.getEffectValue(); break;
-				case "bonusarmor": armor += item.getEffectValue(); break;
+				switch(item.getEffect()[i])
+				{
+					case "bonushealth": health += item.getEffectValue()[i]; break;
+					case "bonusdamage": damage += item.getEffectValue()[i]; break;
+					case "bonusarmor": armor += item.getEffectValue()[i]; break;
+				}
 			}
 		}
 		stats.put("maxhealth", health);

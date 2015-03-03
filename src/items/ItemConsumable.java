@@ -5,39 +5,31 @@ import java.io.Serializable;
 
 public class ItemConsumable extends Item implements Serializable
 {
-	private String effect;
-	private int effectValue;
-	private String unlockValue;
+	private String[] effect;
+	private int[] effectValue;
 	private String actionCommand;
 	
 	public ItemConsumable(String[] properties, Image itemImage)
 	{
 		super(properties[0], itemImage, "Use");
-		effect = properties[1];
-		if(effect.equals("unlock"))
+		effect = properties[1].split(":");
+		String[] values = properties[2].split(":");
+		effectValue = new int[values.length];
+		for(int i=0;i<values.length;i++)
 		{
-			unlockValue = properties[2];
-			effectValue = 0;
+			effectValue[i] = Integer.parseInt(values[i]);
 		}
-		else
-		{
-			unlockValue = null;
-			effectValue = Integer.parseInt(properties[2]);
-		}
+		
 		//actionCommand = "Use";
 	}
 	
-	public String getEffect()
+	public String[] getEffect()
 	{
 		return effect;
 	}
 	
-	public String getUnlockValue()
-	{
-		return unlockValue;
-	}
 	
-	public int getEffectValue()
+	public int[] getEffectValue()
 	{
 		return effectValue;
 	}

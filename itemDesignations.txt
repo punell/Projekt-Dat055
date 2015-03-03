@@ -1,9 +1,12 @@
 # ItemDesignations
-# create items in here
-# Consumables: (name, effect, value, image)
+# create items in here, use : for multiple values in same field
+# example: Cool Potion, heal:mana, 10:20, coolpot.png
+# potion will give 10 health, and 20 mana
+# also works for equipment, and with negative values 
+# (poison?, axe with high damage but negative armor-effect?)
+# Consumables: (name, effect, value, image) 
 #
 Health Potion, heal, 20, healthpot.png
-Small Key, unlock, smallDoor, smallkey.png
 #
 # Equipment: (name, type/slot, effect, value, image)
 #
