@@ -17,7 +17,8 @@ public class EncounterView extends JPanel
 	private ImageIcon playerIcon;
 	private Image monsterImage;
 	private ImageIcon monsterIcon;
-	
+	private int sRW;
+	private int sRH;
 	
 	
 	public EncounterView(EncounterModel eM, int screenResolutionWidth, int screenResolutionHeight) throws IOException
@@ -40,25 +41,19 @@ public class EncounterView extends JPanel
 		JLabel playerLabel = new JLabel(playerIcon);
 		add(playerLabel);
 		
-		//ex: monsterImage = loadMonsterImage();
-		monsterImage = ImageIO.read(new File("monster.png"));
+		
+		monsterImage = encounterModel.loadMonsterImage();
 		monsterImage = monsterImage.getScaledInstance(screenResolutionWidth/3, screenResolutionHeight/3, Image.SCALE_DEFAULT);
 		monsterIcon = new ImageIcon(monsterImage); 
 		JLabel monsterLabel = new JLabel(monsterIcon);
 		add(monsterLabel);
+		
+		sRW = screenResolutionWidth;
+		sRH = screenResolutionHeight;
 			
 	}
 	
-	public Image loadPlayerImage(){
-		
-		return encounterModel.getPlayerImage();
-		
-	}
-	public Image loadMonsterImage(){
-		
-		return encounterModel.getMonsterImage();	
-		
-	}
+
 	public Image loadBackground(){
 		
 		try {
@@ -71,7 +66,8 @@ public class EncounterView extends JPanel
 	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(background, 0, 0, this);
+		g.drawImage(background, 0, 0, sRW, sRH, null);
 	}
 		
 }
+

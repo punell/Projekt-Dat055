@@ -9,10 +9,14 @@ public class EncounterController
 	private EncounterModel encounterModel;
 	private EncounterView encounterView;
 	
+	
+	
 	public EncounterController(int screenResolutionWidth, int screenResolutionHeight) throws IOException
 	{
-		encounterModel = new EncounterModel();
+		encounterModel = new EncounterModel(1);		//Monster level-intput (dracula = 99)
 		encounterView = new EncounterView(encounterModel, screenResolutionWidth, screenResolutionHeight);
+		
+		
 	}
 	
 	
