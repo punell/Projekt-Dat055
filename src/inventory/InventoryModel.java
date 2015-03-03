@@ -1,6 +1,6 @@
 package inventory;
-import gameLayer.Item;
-import gameLayer.ItemEquipment;
+import items.Item;
+import items.ItemEquipment;
 
 import java.io.Serializable;
 import java.util.Iterator;

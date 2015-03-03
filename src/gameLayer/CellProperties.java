@@ -1,4 +1,6 @@
 package gameLayer;
+import items.Item;
+
 import java.io.Serializable;
 
 

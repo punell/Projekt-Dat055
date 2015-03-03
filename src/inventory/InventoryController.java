@@ -1,10 +1,11 @@
 package inventory;
 
+import items.Item;
+import items.ItemEquipment;
+
 import java.io.Serializable;
 import java.util.LinkedList;
 
-import gameLayer.Item;
-import gameLayer.ItemEquipment;
 import gameLayer.PlayerModel;
 
 public class InventoryController implements Serializable

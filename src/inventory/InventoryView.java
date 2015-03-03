@@ -1,8 +1,9 @@
 package inventory;
 
-import gameLayer.Item;
-import gameLayer.ItemEquipment;
 import gameLayer.PlayerModel;
+import items.Item;
+import items.ItemButton;
+import items.ItemEquipment;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -74,57 +75,66 @@ public class InventoryView extends JFrame implements ActionListener, KeyListener
 		add(equippedPanel);
 		add(statsPanel);
 		
+		populatePanels();
+		
 		
 	}
 
 	public void updateInventoryView() 
 	{
-		/* This can be maybe be made simpler by having Item NOT be a button
-		 * but instead create buttons for all the Items, and then set their
-		 * icons as the Items icon... 
+		/* This could be made nicer by inventing the ItemPanel which is a
+		 * JPanel designed for ItemButton-handling. Then the for-loops
+		 * could probably be removed, or at least reduced to 2 instead of 4.
 		 */
 		healthLabel.setText("Health: "+player.getHealth()+"/"+player.getStats("maxhealth"));
 		damageLabel.setText("Damage: "+player.getStats("damage"));
 		armorLabel.setText("Armor: "+player.getStats("armor"));
-		for(Item item : backpackContents)
+		ItemButton pushButton = null;
+		Item item = null;
+		int backpackSize = invModel.checkBackpack().size();
+		for(int i=0;i<backpackSize;i++)
 		{
-			backpackPanel.remove(item);
-			item.removeAllActionListeners();
+			item = invModel.checkBackpack().get(i);
+			pushButton = (ItemButton) backpackPanel.getComponent(i);
+			pushButton.setItem(item);
 		}
-		for(Item item : equippedContents)
+		for(int i=backpackSize;i<25-backpackSize;i++)
 		{
-			equippedPanel.remove(item);
-			item.removeAllActionListeners();
+			pushButton = (ItemButton) backpackPanel.getComponent(i);
+			pushButton.clear();
 		}
 		
-		backpackContents = invModel.checkBackpack();
-		for(Item item : backpackContents)
+		int equippedSize = invModel.checkEquipment().size();
+		for(int i=0;i<equippedSize;i++)
 		{
-			backpackPanel.add(item);
-			item.addActionListener(this);
+			item = invModel.checkEquipment().get(i);
+			pushButton = (ItemButton) equippedPanel.getComponent(i);
+			pushButton.setItem(item);
 		}
-		equippedContents = invModel.checkEquipment();
-		for(ItemEquipment item : equippedContents)
+		for(int i=equippedSize;i<25-equippedSize;i++)
 		{
-			equippedPanel.add(item);
-			item.addActionListener(this);
+			pushButton = (ItemButton) equippedPanel.getComponent(i);
+			pushButton.clear();
 		}
+		
 		repaint();
 	}
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		
+		ItemButton buttonPressed = null;
+		String itemName = null;
 		if(e.getActionCommand().equals("ToggleEquip"))
 		{
-			Item clicked = (Item)e.getSource();
-			invModel.toggleEquip(clicked);
-			player.calculateEquipmentBonus();
+			buttonPressed = (ItemButton)e.getSource();
+			invModel.toggleEquip(buttonPressed.getItem());
 		}
+		
 		else if(e.getActionCommand().equals("Use"))
 		{
-			Item clicked = (Item)e.getSource();
-			player.useItem(clicked.getName());
+			buttonPressed = (ItemButton)e.getSource();
+			itemName = buttonPressed.getItem().getName();
+			player.useItem(itemName);
 		}
 		updateInventoryView();
 	}
@@ -144,6 +154,24 @@ public class InventoryView extends JFrame implements ActionListener, KeyListener
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {}
+	
+	private void populatePanels()
+	{
+		ItemButton pushButton = null;
+		for(int i=0;i<25;i++)
+		{
+			pushButton = new ItemButton();
+			pushButton.addActionListener(this);
+			backpackPanel.add(pushButton);
+		}
+		
+		for(int i=0;i<25;i++)
+		{
+			pushButton = new ItemButton();
+			pushButton.addActionListener(this);
+			equippedPanel.add(pushButton);
+		}
+	}
 	
 
 }

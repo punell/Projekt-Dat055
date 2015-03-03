@@ -1,5 +1,6 @@
 package gameLayer;
 
+import items.Item;
 import saveAndLoad.SaveGame;
 
 

@@ -1,4 +1,6 @@
 package gameLayer;
+import items.Item;
+
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.BufferedReader;

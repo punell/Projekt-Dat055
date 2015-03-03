@@ -1,4 +1,8 @@
 package gameLayer;
+import items.Item;
+import items.ItemConsumable;
+import items.ItemEquipment;
+
 import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;

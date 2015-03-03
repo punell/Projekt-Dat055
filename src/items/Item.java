@@ -1,4 +1,4 @@
-package gameLayer;
+package items;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -12,22 +12,18 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 
-public abstract class Item extends JButton implements Serializable
+public abstract class Item implements Serializable
 {
 	private String name;
 	private Image itemImage;
 	private ImageIcon itemIcon;
-	public Item(String name, Image itemImage)
+	private String actionCommand;
+	public Item(String name, Image itemImage, String actionCommand)
 	{
-		super();
 		this.name = name;
-		
 		itemIcon = new ImageIcon(itemImage);
-		setIcon(itemIcon);
-		setOpaque(false);
-		setContentAreaFilled(false);
-		setBorder(BorderFactory.createEmptyBorder());
-		setFocusable(false);
+		this.actionCommand = actionCommand;
+		
 	}
 	
 	public String getName()
@@ -38,11 +34,10 @@ public abstract class Item extends JButton implements Serializable
 	{
 		return itemIcon;
 	}
-	public void removeAllActionListeners()
+	
+	public String getActionCommand()
 	{
-		for(ActionListener al : this.getActionListeners())
-		{
-			removeActionListener(al);
-		}
+		return actionCommand;
 	}
+	
 }

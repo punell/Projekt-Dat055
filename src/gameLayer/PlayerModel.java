@@ -1,5 +1,8 @@
 package gameLayer;
 import inventory.InventoryController;
+import items.Item;
+import items.ItemConsumable;
+import items.ItemEquipment;
 
 import java.io.Serializable;
 import java.util.HashMap;

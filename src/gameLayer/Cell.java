@@ -1,4 +1,6 @@
 package gameLayer;
+import items.Item;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 

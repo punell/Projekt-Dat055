@@ -1,4 +1,4 @@
-package gameLayer;
+package items;
 import java.awt.Image;
 import java.io.Serializable;
 
@@ -8,14 +8,15 @@ public class ItemEquipment extends Item implements Serializable
 	private String slot;
 	private String effect;
 	private int effectValue;
+	private String actionCommand;
 	
 	public ItemEquipment(String[] properties, Image itemImage) 
 	{
-		super(properties[0], itemImage);
+		super(properties[0], itemImage, "ToggleEquip");
 		slot = properties[1];
 		effect = properties[2];
 		effectValue = Integer.parseInt(properties[3]);
-		setActionCommand("ToggleEquip");
+		//actionCommand = "ToggleEquip";
 		
 	}
 	
@@ -33,6 +34,11 @@ public class ItemEquipment extends Item implements Serializable
 	{
 		return effectValue;
 	}
+	
+	/*public String getActionCommand()
+	{
+		return actionCommand;
+	}*/
 	
 	
 
