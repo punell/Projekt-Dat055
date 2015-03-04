@@ -85,9 +85,7 @@ public class MainController extends KeyAdapter
 						 
 			case "CheckInventory": 		gameControl.checkInventory(); break;
 			case "DrinkHealthPotion": 	gameControl.playerUseItem("Health Potion"); break;
-			case "CheckDialogue": 		DialogueController test = new DialogueController(50,50);
-									    test.getView().pack();
-									    test.getView().setVisible(true); break;
+			case "CheckDialogue": 		DialogueController test = new DialogueController(50,50);break;
 			case "CheckEncounter":		changeContentPane(encounterControl.getView()); break;
 								  
 			default: playerMovement(); break;
