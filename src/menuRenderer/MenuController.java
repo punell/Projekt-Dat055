@@ -5,16 +5,16 @@ public class MenuController
 {
 	private MenuModel menuModel; 
 	private MenuView menuView; 
-	public MenuController(int screenWidth,int screenHeight)
+	public MenuController(int screenWidth, int screenHeight)
 	{
 		menuModel = new MenuModel();
 		menuView = new MenuView(menuModel, screenWidth, screenHeight);
 	}
 	
-	public MenuView getView()
+	public void show()
 	{
-		menuView.pack();
-		return menuView;
+		menuView.setMainMenu();
+		menuView.setVisible(true);
 	}
 	
 }

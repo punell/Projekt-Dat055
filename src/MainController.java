@@ -78,7 +78,7 @@ public class MainController extends KeyAdapter
 	{
 		switch(command)
 		{
-			case "Esc":  showMainMenuView(menuControl.getView()); break;
+			case "Esc":  menuControl.show(); break;
 			case "Save": saveLoadControl.save(gameControl.packageForSave()); break;
 			case "Load": gameControl.restoreFromLoad(saveLoadControl.load());
 						 mapControl.restoreFromLoad(gameControl.getPlayerArea(), 
@@ -115,11 +115,11 @@ public class MainController extends KeyAdapter
 		if(chance == 1)
 		{
 			changeContentPane(encounterControl.getView());
-			encounterControl.setPlayerStats(
+			/*encounterControl.setPlayerStats(
 					gameControl.getHealth(), //int
 					gameControl.getPlayerStats(), //hashmap
 					gameControl.getBackpack()); //linkedlist
-			encounterControl.setMonsterLevel();
+			encounterControl.setMonsterLevel();*/
 		}
 	}
 	
