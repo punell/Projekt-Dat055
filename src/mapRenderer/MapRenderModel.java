@@ -139,5 +139,9 @@ public class MapRenderModel
 	{
 		return terrainGrid[cellX][cellY].linksTo();
 	}
+	public int encounterChance(int cellX, int cellY)
+	{
+		return terrainGrid[cellX][cellY].encounterChance();
+	}
 
 }

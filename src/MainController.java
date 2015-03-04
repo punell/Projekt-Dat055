@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Random;
 
 import javax.swing.JPanel;
 
@@ -106,6 +107,19 @@ public class MainController extends KeyAdapter
 			oldRoomCoords = gameControl.getPlayerCoords('r');	
 			gameControl.moveRevert();
 			playerMovementLogic(oldRoomCoords);
+		}
+		int[] playerLocation = gameControl.getPlayerCoords('c');
+		int encounterChance = mapControl.encounterChance(playerLocation);
+		Random encounter = new Random(encounterChance);
+		int chance = encounter.nextInt();
+		if(chance == 1)
+		{
+			changeContentPane(encounterControl.getView());
+			encounterControl.setPlayerStats(
+					gameControl.getHealth(), //int
+					gameControl.getPlayerStats(), //hashmap
+					gameControl.getBackpack()); //linkedlist
+			encounterControl.setMonsterLevel();
 		}
 	}
 	
