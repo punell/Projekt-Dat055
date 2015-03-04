@@ -86,6 +86,14 @@ public class PlayerModel implements Serializable
 	{
 		return inventory.get(itemName);
 	}
+	public HashMap<String, Integer> getPlayerStats()
+	{
+		return stats;
+	}
+	public LinkedList<Item> getBackpack()
+	{
+		return inventory.checkBackpack();
+	}
 	public void checkInventory()
 	{
 		/*LinkedList<Item> inBackpack = inventory.checkContents();

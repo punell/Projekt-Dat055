@@ -1,5 +1,8 @@
 package gameLayer;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+
 import items.Item;
 import saveAndLoad.SaveGame;
 
@@ -60,7 +63,14 @@ public class GameController
 	{
 		playerModel.useItem(itemName);
 	}
-	
+	public HashMap<String, Integer> getPlayerStats()
+	{
+		return playerModel.getPlayerStats();
+	}
+	public LinkedList<Item> getBackpack()
+	{
+		return playerModel.getBackpack();
+	}
 	public void move(String direction) 
 	{
 		//this can easily be moved into PlayerModel if ever necessary (might be if we want to move monsters as well)

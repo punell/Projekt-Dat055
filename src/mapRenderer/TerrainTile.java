@@ -32,4 +32,8 @@ public class TerrainTile extends JLabel
 	{
 		return linksTo;
 	}
+	public int encounterChance()
+	{
+		return riskOfEncounter;
+	}
 }

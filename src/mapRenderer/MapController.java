@@ -44,6 +44,11 @@ public class MapController
 		return mapModel.isWalkable(playerCoords[0], playerCoords[1]);
 	}
 	
+	public int encounterChance(int[] playerCoords)
+	{
+		return mapModel.encounterChance(playerCoords[0], playerCoords[1]);
+	}
+	
 	public void restoreFromLoad(String area, int[] coords)
 	{
 		setCurrentArea(area);
