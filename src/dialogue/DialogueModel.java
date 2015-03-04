@@ -1,16 +1,49 @@
 package dialogue;
-import java.util.ArrayList;
-import javax.swing.JLabel;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
 
 
 public class DialogueModel
 {
-	private ArrayList<JLabel> labelList;
+	private HashMap<String,String> map;
 	
-	
-	public ArrayList getFrame()
+	public DialogueModel()
 	{
-		return labelList;
+		map = new HashMap<>();
+	} 
+	
+	private void readDialogue()
+	{
+		
+		try
+		{
+			
+			BufferedReader reader = new BufferedReader(new FileReader("dialogue.txt"));
+			String line = reader.readLine();
+			String hashKey;
+			String hashValue;
+			
+			while(line != null)
+			{
+				hashKey = line;
+				line = reader.readLine();
+				hashValue = line;
+				map.put(hashKey, hashValue);
+				line = reader.readLine();
+			}
+			reader.close();
+		}
+		
+		catch(IOException e)
+		{}
+	}
+	
+	public HashMap<String, String> getMap()
+	{
+		return map;
 	}
 	
 }

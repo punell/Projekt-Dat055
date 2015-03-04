@@ -9,9 +9,4 @@ public class DialogueController
 		dialogueModel = new DialogueModel();
 		dialogueView = new DialogueView(dialogueModel, screenResolutionWidth, screenResolutionHeight);
 	}
-	
-	public DialogueView getView()
-	{
-		return dialogueView;
-	}
 }

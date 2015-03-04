@@ -1,9 +1,10 @@
 package dialogue;
-import java.awt.GridLayout;
-import java.util.ArrayList;
+import java.awt.BorderLayout;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 
 public class DialogueView extends JFrame
@@ -11,26 +12,28 @@ public class DialogueView extends JFrame
 	/** 
 	 *  Displays dialogue windows
 	 **/
-	private ArrayList<JLabel> labelList;
 	private DialogueModel dialogueModel; 
+	private JTextArea textArea;
 	
 	public DialogueView(DialogueModel dM, int screenResolutionWidth, int screenResolutionHeight)
 	{
 		super();
 		dialogueModel = dM;
-		setSize(screenResolutionWidth/2, screenResolutionHeight/2);
-		setLayout(new GridLayout());	
-		setVisible(true);
+		setBounds(screenResolutionWidth/4, screenResolutionHeight/4, screenResolutionWidth/2, screenResolutionHeight/2);
+		setLayout(new BorderLayout());	
+		add(textArea);
 		pack();
-		labelList = dialogueModel.getFrame(); 
-		addFrame();
+		setVisible(true);
+		
 	}
 	
-	private void addFrame()
+	public void Text(String key)
 	{
-		for(JLabel x: labelList)
-		{
-			add(x);
-		}
+		HashMap<String, String> map = dialogueModel.getMap(); 
+		textArea = new JTextArea(15, 30);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		textArea.setEditable(false);
+		textArea.setLineWrap(true);
+		textArea.append(map.get(key));
 	}
 }
