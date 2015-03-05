@@ -33,8 +33,10 @@ public class MenuView extends JFrame implements ActionListener, KeyListener
 	private GameController gameControl;
 	private SaveAndLoadController saveLoadControl;
 	private MapController mapControl;
+	private String currentCard;
 	
-	public MenuView(MapController mC, SaveAndLoadController sALC, GameController gC, MenuModel mM, int screenWidth, int screenHeight)
+	public MenuView(MapController mC, SaveAndLoadController sALC, 
+					GameController gC, MenuModel mM, int screenWidth, int screenHeight)
 	{
 		super();
 		menuModel = mM;
@@ -48,6 +50,7 @@ public class MenuView extends JFrame implements ActionListener, KeyListener
 		setBounds(screenWidth/4, screenHeight/4, screenWidth/2, screenHeight/2);
 		cl = new CardLayout();
 		setLayout(cl);
+		currentCard = "main";
 		
 		add(menuModel.getMainMenu(), "main");
 		add(menuModel.getLoadMenu(), "load");
@@ -55,15 +58,16 @@ public class MenuView extends JFrame implements ActionListener, KeyListener
 		
 		
 		setAL();
-		setMainMenu();
+		setMenu("main");
 		
 		
 		
 	}
 	
-	public void setMainMenu()
+	public void setMenu(String card)
 	{
-		cl.show(getContentPane(), "main");
+		cl.show(getContentPane(), card);
+		currentCard = card;
 	}
 	
 	
@@ -95,7 +99,6 @@ public class MenuView extends JFrame implements ActionListener, KeyListener
 					JTextField textField = (JTextField)comp;
 					textField.addKeyListener(this);
 				}
-				
 			}
 		}
 	}
@@ -106,13 +109,11 @@ public class MenuView extends JFrame implements ActionListener, KeyListener
 		switch(e.getActionCommand())
 		{
 			case "newgame": 	System.out.println("walla"); break;
-			case "loadgame": 	populateLoadList("load"); 
-								cl.show(getContentPane(), "load"); break;
+			case "loadgame": 	populateLoadList("load"); setMenu("load"); break;
 			case "loadsel":		loadGame(); break;
-			case "savegame": 	populateLoadList("save");
-								cl.show(getContentPane(), "save"); break;
+			case "savegame": 	populateLoadList("save"); setMenu("save"); break;
 			case "savesel":		saveGame(); break;
-			case "back": 		cl.show(getContentPane(), "main"); break;
+			case "back": 		setMenu("main"); break;
 			case "exitgame":	System.exit(0);
 		}
 		
@@ -128,14 +129,16 @@ public class MenuView extends JFrame implements ActionListener, KeyListener
 		File folder = new File("save");
 		File[] saveGames = folder.listFiles();
 		
-		
-		for(int i=0;i<saveGames.length;i++)
+		if(saveGames != null)
 		{
-			if(display.equals("load"))
-				menuModel.getLoadListModel().addElement(saveGames[i].getName());
-			else if(display.equals("save"))
-				menuModel.getSaveListModel().addElement(saveGames[i].getName());
-			
+			for(int i=0;i<saveGames.length;i++)
+			{
+				if(display.equals("load"))
+					menuModel.getLoadListModel().addElement(saveGames[i].getName());
+				else if(display.equals("save"))
+					menuModel.getSaveListModel().addElement(saveGames[i].getName());
+				
+			}
 		}
 		
 	}
@@ -153,8 +156,7 @@ public class MenuView extends JFrame implements ActionListener, KeyListener
 		menuModel.getSaveField().requestFocusInWindow();
 		String savefile = menuModel.getSaveField().getText();
 		saveLoadControl.save(gameControl.packageForSave(), savefile);
-		//menuModel.getSaveListModel().addElement(savefile+".sav");
-		setVisible(false);
+		menuModel.getSaveListModel().addElement(savefile+".sav");
 	}
 
 	@Override
@@ -162,7 +164,12 @@ public class MenuView extends JFrame implements ActionListener, KeyListener
 	{
 		if(e.getKeyCode() == 27) // "esc"
 		{
-			setVisible(false);
+			if(currentCard.equals("main"))
+				setVisible(false);
+			else if(currentCard.equals("load"))
+				setMenu("main");
+			else if(currentCard.equals("save"))
+				setMenu("main");
 		}
 	}
 

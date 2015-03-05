@@ -43,9 +43,8 @@ public class MenuModel
 	private JTextField saveGameField;
 	
 	
-	public MenuModel(GameController gC)
+	public MenuModel()
 	{
-		gameControl = gC;
 		//MAIN MENU
 		mainMenuPanel = new JPanel();
 		mainMenuPanel.setLayout(new GridLayout(4,1));
