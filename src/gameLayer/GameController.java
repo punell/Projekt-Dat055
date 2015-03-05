@@ -3,6 +3,7 @@ package gameLayer;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import dialogue.DialogueController;
 import items.Item;
 import saveAndLoad.SaveGame;
 
@@ -13,10 +14,14 @@ public class GameController
 	private CharacterModel charModel;
 	private PlayerModel playerModel;
 	private CharacterView charView;
+	private int screenWidth;
+	private int screenHeight;
 	//private char lastMove;
 	private String lastMove;
 	public GameController(int screenWidth, int screenHeight)
 	{
+		this.screenWidth = screenWidth;
+		this.screenHeight = screenHeight;
 		charModel = new CharacterModel(screenWidth, screenHeight);
 		playerModel = new PlayerModel();
 		charView = new CharacterView(charModel, playerModel, screenWidth, screenHeight);
@@ -81,14 +86,21 @@ public class GameController
 			case "Down": playerModel.moveSouth(); lastMove = "Up"; break;
 			case "Left": playerModel.moveWest(); lastMove = "Right"; break;
 		}
-		
-		Item item = charView.getCellContents(getPlayerCoords('c'));
-		if(item != null)
+		Item item = charView.checkCellContents(getPlayerCoords('c'));
+		if(item != null && item.getName().contains("Sign"))
 		{
-			playerModel.addItem(item);
-			
+			DialogueController dC = new DialogueController(screenWidth, screenHeight);
 		}
-		charView.updatePlayerPosition();
+		else
+		{
+			item = charView.getCellContents(getPlayerCoords('c'));
+			if(item != null)
+			{
+				playerModel.addItem(item);
+				
+			}
+			charView.updatePlayerPosition();
+		}
 	}
 	
 	public void updateCellGrid()

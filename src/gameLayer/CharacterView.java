@@ -66,6 +66,13 @@ public class CharacterView extends JPanel
 		return cellGrid[cellX][cellY].pickUpContents();
 	}
 	
+	public Item checkCellContents(int[] cellCoords)
+	{
+		int cellX = cellCoords[0];
+		int cellY = cellCoords[1];
+		return cellGrid[cellX][cellY].checkContents();
+	}
+	
 	public void updateCellGrid()
 	{
 		int cellX, cellY;

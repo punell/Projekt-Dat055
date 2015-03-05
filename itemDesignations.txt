@@ -17,3 +17,7 @@ Short Sword, Mainhand, Damage, 10, shortsword.png
 Bastard Sword, Mainhand:Offhand, Damage, 20, bastardsword.png
 Scalemail, Chest, Armor, 10, scalemail.png
 Buckler, Offhand, Armor, 5, bucklershield.png
+#
+# Signs
+#
+Sign1, Offhand, Armor, 5, sign.png
