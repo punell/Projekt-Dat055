@@ -1,62 +1,116 @@
 package menuRenderer;
 
+import gameLayer.GameController;
+
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.io.File;
 
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 
 
 public class MenuModel
 {
-
+	private GameController gameControl;
+	
+	private JPanel mainMenuPanel;
 	private JButton newGameButton;
 	private JButton saveGameButton;
 	private JButton loadGameButton;
 	private JButton exitGameButton;
 	
-	private JButton saveBackButton;
-	private JButton loadBackButton;
-	
-	private JPanel mainMenuPanel;
 	private JPanel loadGamePanel;
-	private JPanel saveGamePanel;
+	private JPanel loadButtonsPanel;
+	private JButton loadBackButton;
+	private JButton loadButton;
+	private JList loadGameList;
+	private DefaultListModel loadListModel;
 	
-	public MenuModel()
+	private JPanel saveGamePanel;
+	private JPanel saveButtonsPanel;
+	private JButton saveBackButton;
+	private JButton saveButton;
+	private JList saveGameList;
+	private DefaultListModel saveListModel;
+	private JTextField saveGameField;
+	
+	
+	public MenuModel(GameController gC)
 	{
+		gameControl = gC;
+		//MAIN MENU
 		mainMenuPanel = new JPanel();
-		loadGamePanel = new JPanel();
-		saveGamePanel = new JPanel();
 		mainMenuPanel.setLayout(new GridLayout(4,1));
-		loadGamePanel.setLayout(new GridLayout(5,4));
-		saveGamePanel.setLayout(new GridLayout(2,1));
-		
 		newGameButton = new JButton("New Game");
 		saveGameButton = new JButton("Save");
 		loadGameButton = new JButton("Load");
 		exitGameButton = new JButton("Exit");
-		
-		saveBackButton = new JButton("Back");
-		loadBackButton = new JButton("Back");
 		
 		newGameButton.setActionCommand("newgame");
 		saveGameButton.setActionCommand("savegame");
 		loadGameButton.setActionCommand("loadgame");
 		exitGameButton.setActionCommand("exitgame");
 		
-		saveBackButton.setActionCommand("back");
-		loadBackButton.setActionCommand("back");
-		
 		mainMenuPanel.add(newGameButton);
 		mainMenuPanel.add(saveGameButton);
 		mainMenuPanel.add(loadGameButton);
 		mainMenuPanel.add(exitGameButton);
 		
-		saveGamePanel.add(saveBackButton);
-		loadGamePanel.add(loadBackButton);
+		//LOAD MENU
+		loadGamePanel = new JPanel(new BorderLayout());	
+		loadButtonsPanel = new JPanel(new GridLayout(1,2));
+		loadBackButton = new JButton("Back");
+		loadButton = new JButton("Load");
+		loadListModel = new DefaultListModel();
+		loadGameList = new JList(loadListModel);
+		
+		
+		loadGameList.setFocusable(false);
+		
+		loadBackButton.setActionCommand("back");
+		loadButton.setActionCommand("loadsel");
+		
+		loadButtonsPanel.add(loadBackButton);
+		loadButtonsPanel.add(loadButton);
+		loadGamePanel.add(loadGameList, BorderLayout.CENTER);
+		loadGamePanel.add(loadButtonsPanel, BorderLayout.SOUTH);
+		
+		//SAVE MENU
+		saveGamePanel = new JPanel(new BorderLayout());
+		saveButtonsPanel = new JPanel(new GridLayout(1,2));
+		saveBackButton = new JButton("Back");
+		saveButton = new JButton("Save");
+		saveListModel = new DefaultListModel();
+		saveGameList = new JList(saveListModel);
+		saveGameField = new JTextField();
+		
+		saveGameList.setFocusable(false);
+		saveGameField.setEditable(true);
+		
+		saveBackButton.setActionCommand("back");
+		saveButton.setActionCommand("savesel");
+		
+		
+		saveButtonsPanel.add(saveBackButton);
+		saveButtonsPanel.add(saveButton);
+		saveGamePanel.add(saveGameField, BorderLayout.NORTH);
+		saveGamePanel.add(saveGameList, BorderLayout.CENTER);
+		saveGamePanel.add(saveButtonsPanel, BorderLayout.SOUTH);
+		
+		
 		
 		
 	}
+	
+	
 	
 	public JPanel getMainMenu()
 	{
@@ -71,6 +125,28 @@ public class MenuModel
 	public JPanel getLoadMenu()
 	{
 		return loadGamePanel;
+	}
+	
+	public DefaultListModel getLoadListModel()
+	{
+		return loadListModel;
+	}
+	public JList getLoadList()
+	{
+		return loadGameList;
+	}
+	
+	public DefaultListModel getSaveListModel()
+	{
+		return saveListModel;
+	}
+	public JList getSaveList()
+	{
+		return saveGameList;
+	}
+	public JTextField getSaveField()
+	{
+		return saveGameField;
 	}
 	
 	public JPanel[] getMenus()

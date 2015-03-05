@@ -48,9 +48,9 @@ public class MainController extends KeyAdapter
 		mainWindow = new MainView(title, screenWidth, screenHeight);
 		mapControl = new MapController(screenWidth, screenHeight);
 		gameControl = new GameController(screenWidth, screenHeight);
-		menuControl = new MenuController(screenWidth, screenHeight);
-		encounterControl = new EncounterController(screenWidth, screenHeight);
 		saveLoadControl = new SaveAndLoadController();
+		menuControl = new MenuController(mapControl, saveLoadControl, gameControl, screenWidth, screenHeight);
+		encounterControl = new EncounterController(screenWidth, screenHeight);
 		mainWindow.setContentPane(mapControl.getView());
 		//mainWindow.setContentPane(encounterControl.getView());
 		mainWindow.setGlassPane(gameControl.getView());

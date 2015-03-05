@@ -19,7 +19,23 @@ public class SaveAndLoadController
 	{
 		try
 		{
-			ObjectOutputStream saveStream = new ObjectOutputStream(new FileOutputStream("savefile.sav"));
+			ObjectOutputStream saveStream = new ObjectOutputStream(new FileOutputStream("save/quicksave.sav"));
+			saveStream.writeObject(packageForSave);
+			saveStream.close();
+			System.out.println("Saving Game...");
+			return true;
+		}
+		catch(IOException e)
+		{
+			return false;
+		}
+	}
+	
+	public boolean save(SaveGame packageForSave, String filename)
+	{
+		try
+		{
+			ObjectOutputStream saveStream = new ObjectOutputStream(new FileOutputStream("save/"+filename+".sav"));
 			saveStream.writeObject(packageForSave);
 			saveStream.close();
 			System.out.println("Saving Game...");
@@ -35,7 +51,29 @@ public class SaveAndLoadController
 	{
 		try
 		{
-			ObjectInputStream loadStream = new ObjectInputStream(new FileInputStream("savefile.sav"));
+			ObjectInputStream loadStream = new ObjectInputStream(new FileInputStream("save/quicksave.sav"));
+			fromLoad = (SaveGame)loadStream.readObject();
+			loadStream.close();
+			System.out.println("Loading Game...");
+			return fromLoad;
+		}
+		catch(IOException e)
+		{
+			System.out.println(e.getLocalizedMessage());
+		}
+		catch(ClassNotFoundException e)
+		{
+			System.out.println(e.getLocalizedMessage());
+		}
+		return null;
+		
+	}
+	
+	public SaveGame load(String savename)
+	{
+		try
+		{
+			ObjectInputStream loadStream = new ObjectInputStream(new FileInputStream("save/"+savename));
 			fromLoad = (SaveGame)loadStream.readObject();
 			loadStream.close();
 			System.out.println("Loading Game...");
