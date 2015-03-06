@@ -26,4 +26,9 @@ public class MenuController
 		return menuView;
 	}
 	
+	public void setFirstGame()
+	{
+		menuView.setFirstGame();
+	}
+	
 }

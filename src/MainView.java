@@ -17,8 +17,8 @@ public class MainView extends JFrame
 	{
 		super(title);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		//setSize(screenResolutionWidth, screenResolutionHeight); //Does this or the one below work best?
-		setState(Frame.NORMAL); //Maximizes the frame
+		setSize(screenResolutionWidth, screenResolutionHeight); //Does this or the one below work best?
+		//setState(Frame.NORMAL); //Maximizes the frame
 		setLayout(new BorderLayout());		
 	}
 	

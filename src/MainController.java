@@ -46,27 +46,17 @@ public class MainController implements KeyListener, Observer
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		screenWidth = (int)screenSize.getWidth();
 		screenHeight = (int)screenSize.getHeight();
-		//Jockes superspecial-solution, VERY temporary
+		//Jockes superspecial-solution for crazy screen-res-reporting
 		if(screenWidth==3968) screenWidth=2048;
 		
 		mainWindow = new MainView(title, screenWidth, screenHeight);
-		mapControl = new MapController(screenWidth, screenHeight);
-		gameControl = new GameController(screenWidth, screenHeight);
-		saveLoadControl = new SaveAndLoadController();
 		menuControl = new MenuController(screenWidth, screenHeight);
 		menuControl.getView().addObserver(this);
-		encounterControl = new EncounterController(screenWidth, screenHeight);
-		mainWindow.setContentPane(mapControl.getView());
-		//mainWindow.setContentPane(encounterControl.getView());
-		mainWindow.setGlassPane(gameControl.getView());
-		mainWindow.getGlassPane().setVisible(true);
 		mainWindow.addKeyListener(this);
 		keyMap = new HashMap<Integer, String>();
 		populateKeyMap();
-		
-
-		
-		
+		menuControl.setFirstGame();
+		menuControl.show();
 		
 	}
 		
@@ -195,10 +185,6 @@ public class MainController implements KeyListener, Observer
 		}
 	}
 	
-	private void pack()
-	{
-		mainWindow.pack();
-	}
 	private void setVisible(boolean isVisible)
 	{
 		mainWindow.setVisible(isVisible);
@@ -206,7 +192,6 @@ public class MainController implements KeyListener, Observer
 	public static void main(String[] args) throws IOException 
 	{
 		MainController app = new MainController("spelet v0.40 (Inventory and items!)");
-		app.pack();
 		app.setVisible(true);
 	}
 
@@ -234,6 +219,20 @@ public class MainController implements KeyListener, Observer
 				commandArgs = args[1];
 				checkInput();
 				
+			}
+			else if(argument instanceof String)
+			{
+				String arg = (String)argument;
+				if(arg.equals("New Game"))
+				{
+					mapControl = new MapController(screenWidth, screenHeight);
+					gameControl = new GameController(screenWidth, screenHeight);
+					saveLoadControl = new SaveAndLoadController();
+					mainWindow.setContentPane(mapControl.getView());
+					mainWindow.setGlassPane(gameControl.getView());
+					mainWindow.getGlassPane().setVisible(true);
+					mainWindow.revalidate();
+				}
 			}
 		}
 		

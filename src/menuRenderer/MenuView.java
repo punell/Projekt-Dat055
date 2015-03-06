@@ -32,6 +32,7 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 	private MenuModel menuModel;
 	private CardLayout cl;
 	private String currentCard;
+	private boolean firstGame;
 	
 	public MenuView(MenuModel mM, int screenWidth, int screenHeight)
 	{
@@ -50,6 +51,8 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 		menuFrame.add(menuModel.getMainMenu(), "main");
 		menuFrame.add(menuModel.getLoadMenu(), "load");
 		menuFrame.add(menuModel.getSaveMenu(), "save");
+		menuFrame.add(menuModel.getNewGameMenu(), "newgame");
+		
 		
 		
 		setAL();
@@ -57,6 +60,11 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 		
 		
 		
+	}
+	
+	public void setFirstGame()
+	{
+		firstGame = true;
 	}
 	
 	public void setMenu(String card)
@@ -108,7 +116,10 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 	{
 		switch(e.getActionCommand())
 		{
-			case "newgame": 	setChanged(); notifyObservers(); break;
+			case "newgame": 	if(firstGame == false) setMenu("newgame");
+								else newGame(); break;
+			case "newyes":		newGame(); break;
+			case "newno":		setMenu("main"); break;
 			case "loadgame": 	populateLoadList("load"); setMenu("load"); break;
 			case "loadsel":		loadGame(); break;
 			case "savegame": 	populateLoadList("save"); setMenu("save"); break;
@@ -143,15 +154,21 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 		
 	}
 	
+	private void newGame()
+	{
+		firstGame = false;
+		setChanged(); 
+		notifyObservers("New Game");
+		menuFrame.setVisible(false);
+		menuModel.enableSaveButton();
+	}
+	
 	private void loadGame()
 	{
 		String savefile = (String)menuModel.getLoadList().getSelectedValue();
 		String[] commands = {"Load", savefile};
 		setChanged();
 		notifyObservers(commands);
-		/*String savefile = (String)menuModel.getLoadList().getSelectedValue();
-		gameControl.restoreFromLoad(saveLoadControl.load(savefile));
-		mapControl.restoreFromLoad(gameControl.getPlayerArea(), gameControl.getPlayerCoords('r'));*/
 		menuFrame.setVisible(false);
 	}
 	
@@ -160,7 +177,6 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 		menuModel.getSaveField().requestFocusInWindow();
 		String savefile = menuModel.getSaveField().getText();
 		
-		//saveLoadControl.save(gameControl.packageForSave(), savefile);
 		String[] commands = {"Save", savefile};
 		setChanged();
 		notifyObservers(commands);
@@ -172,7 +188,7 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 	{
 		if(e.getKeyCode() == 27) // "esc"
 		{
-			if(currentCard.equals("main"))
+			if(currentCard.equals("main") && firstGame == false)
 				setVisible(false);
 			else if(currentCard.equals("load"))
 				setMenu("main");

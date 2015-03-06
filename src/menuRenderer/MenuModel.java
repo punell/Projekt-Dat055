@@ -11,6 +11,7 @@ import java.io.File;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -26,6 +27,12 @@ public class MenuModel
 	private JButton saveGameButton;
 	private JButton loadGameButton;
 	private JButton exitGameButton;
+	
+	private JPanel newGamePanel;
+	private JPanel newButtonsPanel;
+	private JLabel newGameLabel;
+	private JButton newYesButton;
+	private JButton newNoButton;
 	
 	private JPanel loadGamePanel;
 	private JPanel loadButtonsPanel;
@@ -57,11 +64,30 @@ public class MenuModel
 		saveGameButton.setActionCommand("savegame");
 		loadGameButton.setActionCommand("loadgame");
 		exitGameButton.setActionCommand("exitgame");
+		saveGameButton.setEnabled(false);
 		
 		mainMenuPanel.add(newGameButton);
 		mainMenuPanel.add(saveGameButton);
 		mainMenuPanel.add(loadGameButton);
 		mainMenuPanel.add(exitGameButton);
+		
+		//NEW GAME MENU
+		newGamePanel = new JPanel(new BorderLayout());
+		newButtonsPanel = new JPanel(new GridLayout(1,2));
+		newGameLabel = new JLabel("Are you sure you want to start a new game?"
+								+ "All your unsaved progress will be lost!");
+		newYesButton = new JButton("Yes");
+		newNoButton = new JButton("No");
+		
+		newGameLabel.setFocusable(false);
+		
+		newYesButton.setActionCommand("newyes");
+		newNoButton.setActionCommand("newno");
+		
+		newButtonsPanel.add(newNoButton);
+		newButtonsPanel.add(newYesButton);
+		newGamePanel.add(newGameLabel, BorderLayout.CENTER);
+		newGamePanel.add(newButtonsPanel, BorderLayout.SOUTH);
 		
 		//LOAD MENU
 		loadGamePanel = new JPanel(new BorderLayout());	
@@ -116,6 +142,11 @@ public class MenuModel
 		return mainMenuPanel;
 	}
 	
+	public JPanel getNewGameMenu()
+	{
+		return newGamePanel;
+	}
+	
 	public JPanel getSaveMenu()
 	{
 		return saveGamePanel;
@@ -150,8 +181,13 @@ public class MenuModel
 	
 	public JPanel[] getMenus()
 	{
-		JPanel[] temp = {mainMenuPanel, saveGamePanel, loadGamePanel};
+		JPanel[] temp = {mainMenuPanel, newGamePanel, saveGamePanel, loadGamePanel};
 		return temp;
+	}
+	
+	public void enableSaveButton()
+	{
+		saveGameButton.setEnabled(true);
 	}
 	
 	
