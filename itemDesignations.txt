@@ -16,7 +16,7 @@ Big Health Potion, Heal, 40, ------
 #
 Short Sword, Mainhand, Damage, 10, shortsword.png
 Bastard Sword, Mainhand, Damage, 20, bastardsword.png
-Two Handed Axe, Mainhand:Offhand, Damage, 40, ------
+Two Handed Axe, Mainhand:Offhand, Damage, 40, twohandedaxe.png
 Scalemail, Chest, Armor, 10, scalemail.png
 Buckler, Offhand, Armor, 5, bucklershield.png
 Helmet, Head, Armor, 5, -------
