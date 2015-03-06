@@ -10,13 +10,18 @@
 # Consumables: (name, effect, value, image) 
 #
 Health Potion, Heal, 20, healthpot.png
+Big Health Potion, Heal, 40, ------
 #
 # Equipment: (name, type/slot, effect, value, image)
 #
 Short Sword, Mainhand, Damage, 10, shortsword.png
-Bastard Sword, Mainhand:Offhand, Damage, 20, bastardsword.png
+Bastard Sword, Mainhand, Damage, 20, bastardsword.png
+Two Handed Axe, Mainhand:Offhand, Damage, 40, ------
 Scalemail, Chest, Armor, 10, scalemail.png
 Buckler, Offhand, Armor, 5, bucklershield.png
+Helmet, Head, Armor, 5, -------
+Greaves, Legs, Armor, 7, ------
+Boots, Feet, Armor, 3, -----
 #
 # Signs
 #

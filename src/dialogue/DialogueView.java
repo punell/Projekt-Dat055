@@ -44,6 +44,7 @@ public class DialogueView extends JFrame implements KeyListener
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		textArea.setEditable(false);
 		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
 		textArea.setFocusable(false);
 		textArea.setFont(new Font("Verdana", 1, 20));
 		add(textArea); 
