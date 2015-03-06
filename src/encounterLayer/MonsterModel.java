@@ -19,11 +19,12 @@ public class MonsterModel
 	private String name;
 	private String level;
 	private Image monsterImage;
+	private boolean monsterDead;
 	
-	
-	public MonsterModel(int monsternr)
+	public MonsterModel(int monsterLevel)
 	{
-		number = monsternr; 
+		number = monsterLevel; 
+		monsterDead = false;
 		if(number == 99){ 	//DARCULA
 			health = 50;
 			damage = 50;
@@ -60,12 +61,21 @@ public class MonsterModel
 		return level;
 	}
 	
-	public Image loadMonsterImage() throws IOException				//Sätt in så att olika bilder kan laddas beroende av "number"
+	public Image loadMonsterImage() 				//if monsternumber == 99 -> Dracula-image
 	{
-		monsterImage = ImageIO.read(new File("monster.png"));
+		try {
+			monsterImage = ImageIO.read(new File("monster.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return monsterImage;
-		
+	}
+	
+	public boolean monsterDead()
+	{
+		return monsterDead;
 	}
 	
 	
