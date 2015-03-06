@@ -2,10 +2,11 @@ package encounterLayer;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Observable;
 
 
 
-public class EncounterController 
+public class EncounterController extends Observable
 {
 
 	private EncounterModel encounterModel;
@@ -19,7 +20,33 @@ public class EncounterController
 		encounterView = new EncounterView(encounterModel, screenResolutionWidth, screenResolutionHeight);
 			
 	}
-	
+	public void input(String input)
+	{
+		switch(input)
+		{
+			case "attack":  encounterModel.playerAttack(); break;
+
+			case "block":	encounterModel.playerBlock(); break;
+			
+			case "run": break;
+							
+		}
+		if(encounterModel.monsterDead())
+		{
+			setChanged();
+			notifyObservers(encounterModel.getPlayerHP()); 	//monster dead 
+		} 
+		encounterModel.monsterAttack();
+		
+		if(encounterModel.playerDead())
+		{
+			setChanged();
+			notifyObservers(encounterModel.getPlayerHP()); //player dead
+		} 
+		
+		
+		
+	}
 	
 	public EncounterView getView()
 	{

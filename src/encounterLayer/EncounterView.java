@@ -45,7 +45,7 @@ public class EncounterView extends JPanel
 	
 	public void setConOp()
 	{
-		JLabel commandLabel = new JLabel("<html><font color='red'>Press A to ATTACK<br>Press B to BLOCK</font></html>", SwingConstants.CENTER);		//Fyll i tangent-alternativen för encounter
+		JLabel commandLabel = new JLabel("<html><font color='red'>Press A to ATTACK<br>Press B to BLOCK<br>Press R to RUN</font></html>", SwingConstants.CENTER);		//Fyll i tangent-alternativen för encounter
 		commandLabel.setFont(new Font("Verdana",1,20));
 		add(commandLabel); 
 	}

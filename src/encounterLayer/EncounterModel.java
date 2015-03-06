@@ -24,7 +24,7 @@ public class EncounterModel
 	}
 	
 	
-	public void attack()
+	public void playerAttack()
 	{
 		int x = monsterStats.get("armor") - playerStats.get("damage");
 		if(x<=0)
@@ -58,7 +58,7 @@ public class EncounterModel
 		else{playerStats.put("armor", x);}	
 	}
 	
-	public void block()
+	public void playerBlock()
 	{
 		int x = playerStats.get("armor")+baseArmor;
 		playerStats.put("armor", x);
@@ -107,5 +107,9 @@ public class EncounterModel
 	public boolean playerDead()
 	{
 		return playerDead;
+	}
+	public int getPlayerHP()
+	{
+		return playerHealth;
 	}
 }
