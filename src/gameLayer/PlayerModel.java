@@ -58,6 +58,14 @@ public class PlayerModel implements Serializable
 			int[] coords = {cellX, cellY};
 			return coords;
 		}
+		else if(flag == 't')
+		{
+			System.out.println(cellX+":"+cellY);
+			System.out.println(roomX+":"+roomY);
+			System.out.println(currentArea);
+			return null;
+			
+		}
 		else
 		{
 			int[] coords = {cellX, cellY, roomX, roomY};

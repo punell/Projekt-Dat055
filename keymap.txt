@@ -13,3 +13,4 @@ CheckEncounter= 69
 attack= 65
 block= 66
 run= 82
+CheckCoords= 67

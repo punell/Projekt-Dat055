@@ -96,6 +96,8 @@ public class MainController implements KeyListener, Observer
 													gameControl.getBackpack()); //linkedlist
 											encounterControl.setView();
 											changeContentPane(encounterControl.getView()); break;
+										
+				case "CheckCoords":	gameControl.getPlayerCoords('t'); break;
 									  
 				default: playerMovement(); break;
 			}
