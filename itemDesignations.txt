@@ -21,3 +21,5 @@ Buckler, Offhand, Armor, 5, bucklershield.png
 # Signs
 #
 Sign1, Offhand, Armor, 5, sign.png
+Sign2, Offhand, Armor, 5, sign.png
+Sign3, Offhand, Armor, 5, sign.png 

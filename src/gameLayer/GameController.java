@@ -90,6 +90,8 @@ public class GameController
 		if(item != null && item.getName().contains("Sign"))
 		{
 			DialogueController dC = new DialogueController(screenWidth, screenHeight);
+			dC.show(item.getName());
+			moveRevert();
 		}
 		else
 		{
@@ -97,7 +99,6 @@ public class GameController
 			if(item != null)
 			{
 				playerModel.addItem(item);
-				
 			}
 			charView.updatePlayerPosition();
 		}

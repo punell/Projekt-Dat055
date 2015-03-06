@@ -13,6 +13,7 @@ public class DialogueModel
 	public DialogueModel()
 	{
 		map = new HashMap<>();
+		readDialogue();
 	} 
 	
 	private void readDialogue()
