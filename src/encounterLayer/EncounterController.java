@@ -22,6 +22,7 @@ public class EncounterController extends Observable
 	}
 	public void input(String input)
 	{
+		
 		switch(input)
 		{
 			case "attack":  encounterModel.playerAttack(); break;
@@ -31,6 +32,7 @@ public class EncounterController extends Observable
 			case "run": break;
 							
 		}
+		System.out.println(encounterModel.getPlayerHP());
 		if(encounterModel.monsterDead())
 		{
 			setChanged();
@@ -39,10 +41,13 @@ public class EncounterController extends Observable
 		encounterModel.monsterAttack();
 		
 		if(encounterModel.playerDead())
-		{
+		{				
+			
+
 			setChanged();
 			notifyObservers(encounterModel.getPlayerHP()); //player dead
 		} 
+		setView();
 		
 		
 		

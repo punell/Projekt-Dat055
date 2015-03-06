@@ -94,6 +94,10 @@ public class PlayerModel implements Serializable
 	{
 		return inventory.checkBackpack();
 	}
+	public void setPlayerHealth(int health)
+	{
+		currentHealth = health;
+	}
 	public void checkInventory()
 	{
 		/*LinkedList<Item> inBackpack = inventory.checkContents();

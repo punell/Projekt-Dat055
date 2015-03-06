@@ -41,7 +41,7 @@ public class MainController implements KeyListener, Observer
 	private int screenHeight;
 	private String command;
 	private String commandArgs;
-	private JPanel encounterGlass;
+	
 	private MainController(String title) throws IOException
 	{
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -58,8 +58,6 @@ public class MainController implements KeyListener, Observer
 		populateKeyMap();
 		menuControl.setFirstGame();
 		menuControl.show();
-		encounterGlass = new JPanel();
-		encounterGlass.setOpaque(false);
 		
 	}
 		
@@ -74,33 +72,41 @@ public class MainController implements KeyListener, Observer
 	
 	private void checkInput()
 	{
-		switch(command)
+		if(mainWindow.getContentPane().equals(mapControl.getView()))
 		{
-			case "Esc":  menuControl.show(); break;
-			case "Save": if(commandArgs == null) saveLoadControl.save(gameControl.packageForSave());
-						 else saveLoadControl.save(gameControl.packageForSave(), commandArgs); break;
-							
-			case "Load": if(commandArgs == null) gameControl.restoreFromLoad(saveLoadControl.load());
-						 else gameControl.restoreFromLoad(saveLoadControl.load(commandArgs));
-						 mapControl.restoreFromLoad(gameControl.getPlayerArea(), 
-						 gameControl.getPlayerCoords('r')); break;
-						 
-			case "CheckInventory": 		gameControl.checkInventory(); break;
-			case "DrinkHealthPotion": 	gameControl.playerUseItem("Health Potion"); break;
-			case "CheckDialogue": 		DialogueController test = new DialogueController(50,50);break;
-			case "CheckEncounter":		mainWindow.setGlassPane(encounterGlass);
-										encounterControl.setMonsterLevel(99); 
-										encounterControl.setPlayerStats(
-												gameControl.getHealth(), //int
-												gameControl.getPlayerStats(), //hashmap
-												gameControl.getBackpack()); //linkedlist
-										encounterControl.setView();
-										changeContentPane(encounterControl.getView()); break;
-								  
-			default: playerMovement(); break;
+			switch(command)
+			{
+				case "Esc":  menuControl.show(); break;
+				case "Save": if(commandArgs == null) saveLoadControl.save(gameControl.packageForSave());
+							 else saveLoadControl.save(gameControl.packageForSave(), commandArgs); break;
+								
+				case "Load": if(commandArgs == null) gameControl.restoreFromLoad(saveLoadControl.load());
+							 else gameControl.restoreFromLoad(saveLoadControl.load(commandArgs));
+							 mapControl.restoreFromLoad(gameControl.getPlayerArea(), 
+							 gameControl.getPlayerCoords('r')); break;
+							 
+				case "CheckInventory": 		gameControl.checkInventory(); break;
+				case "DrinkHealthPotion": 	gameControl.playerUseItem("Health Potion"); break;
+				case "CheckDialogue": 		DialogueController test = new DialogueController(50,50);break;
+				case "CheckEncounter":		mainWindow.getGlassPane().setVisible(false);
+											encounterControl.setMonsterLevel(1); 
+											encounterControl.setPlayerStats(
+													gameControl.getHealth(), //int
+													gameControl.getPlayerStats(), //hashmap
+													gameControl.getBackpack()); //linkedlist
+											encounterControl.setView();
+											changeContentPane(encounterControl.getView()); break;
+									  
+				default: playerMovement(); break;
+			}
+			commandArgs = null;
 		}
-		commandArgs = null;
+		else if(mainWindow.getContentPane().equals(encounterControl.getView()))
+		{
+			encounterControl.input(command);
+		}
 	}
+	
 	
 	private void playerMovement()
 	{
@@ -218,9 +224,9 @@ public class MainController implements KeyListener, Observer
 	}
 
 	@Override
-	public void update(Observable thing, Object argument) 
+	public void update(Observable fromClass, Object argument) 
 	{
-		if(thing instanceof MenuView)
+		if(fromClass instanceof MenuView)
 		{
 			if(argument instanceof String[])
 			{
@@ -239,8 +245,39 @@ public class MainController implements KeyListener, Observer
 					gameControl = new GameController(screenWidth, screenHeight);
 					saveLoadControl = new SaveAndLoadController();
 					encounterControl = new EncounterController(screenWidth, screenHeight);
+					encounterControl.addObserver(this);
 					mainWindow.setContentPane(mapControl.getView());
 					mainWindow.setGlassPane(gameControl.getView());
+					mainWindow.getGlassPane().setVisible(true);
+					mainWindow.revalidate();
+				}
+			}
+		}
+		else if(fromClass instanceof EncounterController)
+		{
+			if(argument instanceof Integer)
+			{			
+
+				int playerHealth = (Integer)argument;
+				if(playerHealth <= 0)
+				{
+					
+					DialogueController dC = new DialogueController(screenWidth, screenHeight);
+					dC.show("You Died!");
+					try
+					{
+						Thread.sleep(5000);
+					}
+					catch(Exception e)
+					{}
+					menuControl.setFirstGame();
+					menuControl.show();
+				}
+				else
+				{
+					gameControl.setPlayerHealth(playerHealth);
+					mainWindow.setGlassPane(gameControl.getView());
+					mainWindow.setContentPane(mapControl.getView());
 					mainWindow.getGlassPane().setVisible(true);
 					mainWindow.revalidate();
 				}

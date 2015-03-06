@@ -76,6 +76,10 @@ public class GameController
 	{
 		return playerModel.getBackpack();
 	}
+	public void setPlayerHealth(int health)
+	{
+		playerModel.setPlayerHealth(health);
+	}
 	public void move(String direction) 
 	{
 		//this can easily be moved into PlayerModel if ever necessary (might be if we want to move monsters as well)

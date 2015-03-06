@@ -10,3 +10,6 @@ DrinkHealthPotion= 72
 CheckInventory= 73
 EndDialogue= 32
 CheckEncounter= 69
+attack= 65
+block= 66
+run= 82

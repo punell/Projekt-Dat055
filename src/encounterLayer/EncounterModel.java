@@ -39,6 +39,7 @@ public class EncounterModel
 			else{monsterStats.put("health", y);}
 		}
 		else{monsterStats.put("armor", x);}	
+		
 	}
 	
 	public void monsterAttack()
@@ -47,13 +48,14 @@ public class EncounterModel
 		if(x<=0)
 		{
 			playerStats.put("armor", 0);
-			int y = playerHealth + x;
+			playerHealth += x;
 			
-			if(y<=0)
+			
+			if(playerHealth<=0)
 			{
 				playerDead = true; //Player dead
 			}
-			else{playerStats.put("health", y);}
+			//else{playerStats.put("health", y);}
 		}
 		else{playerStats.put("armor", x);}	
 	}
