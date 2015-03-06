@@ -9,16 +9,21 @@ public class MenuController
 {
 	private MenuModel menuModel; 
 	private MenuView menuView; 
-	public MenuController(MapController mC, SaveAndLoadController sALC, GameController gC, int screenWidth, int screenHeight)
+	public MenuController(int screenWidth, int screenHeight)
 	{
 		menuModel = new MenuModel();
-		menuView = new MenuView(mC, sALC, gC, menuModel, screenWidth, screenHeight);
+		menuView = new MenuView(menuModel, screenWidth, screenHeight);
 	}
 	
 	public void show()
 	{
 		menuView.setMenu("main");
 		menuView.setVisible(true);
+	}
+	
+	public MenuView getView()
+	{
+		return menuView;
 	}
 	
 }

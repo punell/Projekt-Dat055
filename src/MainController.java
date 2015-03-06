@@ -6,11 +6,14 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
 import javax.swing.JPanel;
@@ -24,7 +27,7 @@ import menuRenderer.MenuView;
 
 
 
-public class MainController extends KeyAdapter
+public class MainController implements KeyListener, Observer
 {
 	private MainView mainWindow;
 	private MapController mapControl;
@@ -37,6 +40,7 @@ public class MainController extends KeyAdapter
 	private int screenWidth; //future versions might allow for changes based on the resolution
 	private int screenHeight;
 	private String command;
+	private String commandArgs;
 	private MainController(String title) throws IOException
 	{
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -49,7 +53,8 @@ public class MainController extends KeyAdapter
 		mapControl = new MapController(screenWidth, screenHeight);
 		gameControl = new GameController(screenWidth, screenHeight);
 		saveLoadControl = new SaveAndLoadController();
-		menuControl = new MenuController(mapControl, saveLoadControl, gameControl, screenWidth, screenHeight);
+		menuControl = new MenuController(screenWidth, screenHeight);
+		menuControl.getView().addObserver(this);
 		encounterControl = new EncounterController(screenWidth, screenHeight);
 		mainWindow.setContentPane(mapControl.getView());
 		//mainWindow.setContentPane(encounterControl.getView());
@@ -79,8 +84,11 @@ public class MainController extends KeyAdapter
 		switch(command)
 		{
 			case "Esc":  menuControl.show(); break;
-			case "Save": saveLoadControl.save(gameControl.packageForSave()); break;
-			case "Load": gameControl.restoreFromLoad(saveLoadControl.load());
+			case "Save": if(commandArgs == null) saveLoadControl.save(gameControl.packageForSave());
+						 else saveLoadControl.save(gameControl.packageForSave(), commandArgs); break;
+							
+			case "Load": if(commandArgs == null) gameControl.restoreFromLoad(saveLoadControl.load());
+						 else gameControl.restoreFromLoad(saveLoadControl.load(commandArgs));
 						 mapControl.restoreFromLoad(gameControl.getPlayerArea(), 
 						 gameControl.getPlayerCoords('r')); break;
 						 
@@ -91,7 +99,7 @@ public class MainController extends KeyAdapter
 								  
 			default: playerMovement(); break;
 		}
-		
+		commandArgs = null;
 	}
 	
 	private void playerMovement()
@@ -156,12 +164,6 @@ public class MainController extends KeyAdapter
 		//between the map-view and the encounter-view
 		mainWindow.setContentPane(changeTo); 
 	}
-	private void showMainMenuView(MenuView menuView)
-	{
-		menuView.setVisible(true);
-
-	}
-	
 	
 	private void populateKeyMap()
 	{
@@ -206,5 +208,35 @@ public class MainController extends KeyAdapter
 		MainController app = new MainController("spelet v0.40 (Inventory and items!)");
 		app.pack();
 		app.setVisible(true);
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(Observable thing, Object argument) 
+	{
+		if(thing instanceof MenuView)
+		{
+			if(argument instanceof String[])
+			{
+				String[] args = (String[])argument;
+				command = args[0];
+				commandArgs = args[1];
+				checkInput();
+				
+			}
+		}
+		
+		
 	}
 }

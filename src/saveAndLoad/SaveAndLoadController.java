@@ -33,8 +33,9 @@ public class SaveAndLoadController
 	
 	public boolean save(SaveGame packageForSave, String filename)
 	{
+		
 		try
-		{
+		{	
 			ObjectOutputStream saveStream = new ObjectOutputStream(new FileOutputStream("save/"+filename+".sav"));
 			saveStream.writeObject(packageForSave);
 			saveStream.close();
@@ -45,6 +46,7 @@ public class SaveAndLoadController
 		{
 			return false;
 		}
+	
 	}
 	
 	public SaveGame load()

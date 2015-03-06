@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.util.Observable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -21,40 +22,34 @@ import javax.swing.ListModel;
 import mapRenderer.MapController;
 import saveAndLoad.SaveAndLoadController;
 
-public class MenuView extends JFrame implements ActionListener, KeyListener
+public class MenuView extends Observable implements ActionListener, KeyListener
 {
 	/** MenuView displays the menu 
 	 * 
 	 **/
 	
+	private JFrame menuFrame;
 	private MenuModel menuModel;
-	private JPanel superPanel;
 	private CardLayout cl;
-	private GameController gameControl;
-	private SaveAndLoadController saveLoadControl;
-	private MapController mapControl;
 	private String currentCard;
 	
-	public MenuView(MapController mC, SaveAndLoadController sALC, 
-					GameController gC, MenuModel mM, int screenWidth, int screenHeight)
+	public MenuView(MenuModel mM, int screenWidth, int screenHeight)
 	{
 		super();
 		menuModel = mM;
-		gameControl = gC;
-		saveLoadControl = sALC;
-		mapControl = mC;
 		
-		setUndecorated(true);
-		addKeyListener(this);
-		setAlwaysOnTop(true);
-		setBounds(screenWidth/4, screenHeight/4, screenWidth/2, screenHeight/2);
+		menuFrame = new JFrame();
+		menuFrame.setUndecorated(true);
+		menuFrame.addKeyListener(this);
+		menuFrame.setAlwaysOnTop(true);
+		menuFrame.setBounds(screenWidth/4, screenHeight/4, screenWidth/2, screenHeight/2);
 		cl = new CardLayout();
-		setLayout(cl);
+		menuFrame.setLayout(cl);
 		currentCard = "main";
 		
-		add(menuModel.getMainMenu(), "main");
-		add(menuModel.getLoadMenu(), "load");
-		add(menuModel.getSaveMenu(), "save");
+		menuFrame.add(menuModel.getMainMenu(), "main");
+		menuFrame.add(menuModel.getLoadMenu(), "load");
+		menuFrame.add(menuModel.getSaveMenu(), "save");
 		
 		
 		setAL();
@@ -66,8 +61,13 @@ public class MenuView extends JFrame implements ActionListener, KeyListener
 	
 	public void setMenu(String card)
 	{
-		cl.show(getContentPane(), card);
+		cl.show(menuFrame.getContentPane(), card);
 		currentCard = card;
+	}
+	
+	public void setVisible(boolean isVisible)
+	{
+		menuFrame.setVisible(isVisible);
 	}
 	
 	
@@ -108,7 +108,7 @@ public class MenuView extends JFrame implements ActionListener, KeyListener
 	{
 		switch(e.getActionCommand())
 		{
-			case "newgame": 	System.out.println("walla"); break;
+			case "newgame": 	setChanged(); notifyObservers(); break;
 			case "loadgame": 	populateLoadList("load"); setMenu("load"); break;
 			case "loadsel":		loadGame(); break;
 			case "savegame": 	populateLoadList("save"); setMenu("save"); break;
@@ -146,16 +146,24 @@ public class MenuView extends JFrame implements ActionListener, KeyListener
 	private void loadGame()
 	{
 		String savefile = (String)menuModel.getLoadList().getSelectedValue();
+		String[] commands = {"Load", savefile};
+		setChanged();
+		notifyObservers(commands);
+		/*String savefile = (String)menuModel.getLoadList().getSelectedValue();
 		gameControl.restoreFromLoad(saveLoadControl.load(savefile));
-		mapControl.restoreFromLoad(gameControl.getPlayerArea(), gameControl.getPlayerCoords('r'));
-		setVisible(false);
+		mapControl.restoreFromLoad(gameControl.getPlayerArea(), gameControl.getPlayerCoords('r'));*/
+		menuFrame.setVisible(false);
 	}
 	
 	private void saveGame()
 	{
 		menuModel.getSaveField().requestFocusInWindow();
 		String savefile = menuModel.getSaveField().getText();
-		saveLoadControl.save(gameControl.packageForSave(), savefile);
+		
+		//saveLoadControl.save(gameControl.packageForSave(), savefile);
+		String[] commands = {"Save", savefile};
+		setChanged();
+		notifyObservers(commands);
 		menuModel.getSaveListModel().addElement(savefile+".sav");
 	}
 
@@ -172,6 +180,8 @@ public class MenuView extends JFrame implements ActionListener, KeyListener
 				setMenu("main");
 		}
 	}
+	
+	
 
 
 	@Override
