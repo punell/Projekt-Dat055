@@ -5,4 +5,14 @@ This is the land of Transylvania, you have returned home after several years of 
 Sign3
 Controls: Move: Directonial buttons  Inventory: I  Menu: Esc  Close this window: Space
 Sign4
-Beware: Risk of decapitation! The castle ahead is Bran Castle, the home of Dracula. 
+The castle ahead is Bran Castle, the home of Dracula. The clouds ahead are dark, bats swarm above the castle, you can hear the laughter of the vampires from inside. You shouldn't enter until you're prepared to meet him, this will be the thoughest fight of your life! 
+Sign5
+This town is abandoned, the people of Transylvania has either fled the lands, locked themselves in their houses or been turned into half-breed. 
+Sign6
+This was your old house, once a place of music and people, now a shadow of its past, broken and quiet. The only thing that is left is your mothers wooden cross
+Sign7
+The old man of the woods used to live here, there's a rumor about a sword so powerful that even the eldest in the order couldn't wield it. It's said that it's hidden in the woods on the other side of these mountains. 
+Sign8
+This is the old mansion where the order of knights used to have their meeting at the table. Nothing is left, only a broken down old house, looted years ago. There's a silver ring lying in there, probably a knights old ring, it contains strange powers within.
+Sign9
+A abandoned town, an eerie silence hangs over this place, you should move on! 

@@ -3,13 +3,30 @@
 # in this form: (where area is overworld or underground (or other not yet implemented areas))
 # cellX:cellY, roomX:roomY, area, itemName, filename (must be png)
 #
-10:1, 0:0, overworld, Health Potion
-11:16, 0:0, overworld, Health Potion
+10:1, 0:0, overworld, Small Health Potion
+11:16, 0:0, overworld, Small Health Potion
+29:12, 0:3, underground, Small Health Potion
+8:4, 1:3, overworld, Small Health Potion
+30:10, 0:1, overworld, Small Health Potion
+27:12, 1:1, overworld, Small Health Potion
+5:6, 2:2, overworld, Small Health Potion
+10:3, 2:0, underground, Small Health Potion
+4:6, 1:1, overworld, Big Health Potion
+29:13, 2:2, overworld, Big Health Potion
+13:13, 2:3, overworld, Big Health Potion
+13:11, 0:3, overworld, Big Health Potion
 2:6, 0:0, overworld, Short Sword
 1:16, 0:1, overworld, Bastard Sword
 18:13, 0:0, overworld, Scalemail
 29:15, 0:1, overworld, Buckler
-4:4, 0:0, overworld, Two Handed Axe
+17:3, 1:2, overworld, Two Handed Axe
+10:12, 2:3, overworld, The Orders Silver Longsword
+13:2, 0:2, underground, Helmet
+13:10, 1:2, overworld, Mothers Wooden Cross
+4:12, 2:1, overworld, Boots
+8:1, 1:1, overworld, Greaves
+24:3, 2:0, overworld, The Order Silver Ring
+28:4, 1:0, underground, Gloves
 #
 # Signs
 #
@@ -17,3 +34,8 @@
 3:3, 0:0, overworld, Sign2
 1:3, 0:0, overworld, Sign3
 18:12, 1:0, overworld, Sign4
+25:14, 0:2, overworld, Sign5
+10:10, 1:2, overworld, Sign6
+11:4, 1:3, overworld, Sign7
+27:3, 2:0, overworld, Sign8
+14:3, 0:0, overworld, Sign9
