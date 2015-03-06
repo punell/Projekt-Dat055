@@ -3,7 +3,7 @@ Welcome to     ”Half-Blood”     a JRPG game made by Joakim Schmidt, Robin Pu
 Sign2
 This is the land of Transylvania, you have returned home after several years of solitude and training in the mountains to the far east. The land has changed, there’s something foul in the air, the vampires has returned. Centuries ago the they were driven out of Transylvania by the Knights of the Square Table, an ancient order of Transylvanian knights who swore to defend the lands against all forms of half-breed. But as the years passed, and half-breeds were nowhere to be seen, the order of these gallant knights withdrew from Transylvania. The stories of these brave knights and the half-breed incursion became nothing more than a myth. You are one of the last knights of the square table, and your missions is to drive the half-breed out of Transylvania once and for all, to do this you must face Dracula. Dracula is the incarnation of evil, he wishes more than anything to end the reign of men, you have to stop him. Raise your sword and sally forth, your destiny awaits, knight! 
 Sign3
-Controls: Move: Directonial buttons  Inventory: I  Menu: Esc  Close this window: Space
+Controls: Move: Directonial buttons  Inventory: I  Menu: Esc  Close this window: Space Tip: Don't forget to equip your items! 
 Sign4
 The castle ahead is Bran Castle, the home of Dracula. The clouds ahead are dark, bats swarm above the castle, you can hear the laughter of the vampires from inside. You shouldn't enter until you're prepared to meet him, this will be the thoughest fight of your life! 
 Sign5
