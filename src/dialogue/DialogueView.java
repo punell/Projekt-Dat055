@@ -46,7 +46,7 @@ public class DialogueView extends JFrame implements KeyListener
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		textArea.setFocusable(false);
-		textArea.setFont(new Font("Verdana", 1, 20));
+		textArea.setFont(new Font("Verdana", 1, 17));
 		add(textArea); 
 	}
 	
