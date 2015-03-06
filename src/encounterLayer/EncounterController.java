@@ -12,7 +12,7 @@ public class EncounterController
 	private EncounterView encounterView;
 	
 
-	public EncounterController(int screenResolutionWidth, int screenResolutionHeight) throws IOException
+	public EncounterController(int screenResolutionWidth, int screenResolutionHeight)
 	{
 
 		encounterModel = new EncounterModel();		

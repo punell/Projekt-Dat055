@@ -34,7 +34,7 @@ public class EncounterModel
 			
 			if(y<=0)
 			{
-				//Monster dead
+				monsterModel.setMonsterDead(true); //Monster dead
 			}
 			else{monsterStats.put("health", y);}
 		}
@@ -97,5 +97,15 @@ public class EncounterModel
 	public Image loadMonsterImage()
 	{
 		return monsterModel.loadMonsterImage();
+	}
+	
+	public boolean monsterDead()
+	{
+		return monsterModel.monsterDead();
+	}
+	
+	public boolean playerDead()
+	{
+		return playerDead;
 	}
 }

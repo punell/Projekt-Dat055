@@ -25,7 +25,7 @@ public class EncounterView extends JPanel
 	private int sRH;
 	
 	
-	public EncounterView(EncounterModel eM, int screenResolutionWidth, int screenResolutionHeight) throws IOException
+	public EncounterView(EncounterModel eM, int screenResolutionWidth, int screenResolutionHeight) 
 	{
 		super();
 		encounterModel = eM;

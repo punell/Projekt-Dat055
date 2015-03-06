@@ -41,6 +41,7 @@ public class MainController implements KeyListener, Observer
 	private int screenHeight;
 	private String command;
 	private String commandArgs;
+	private JPanel encounterGlass;
 	private MainController(String title) throws IOException
 	{
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -57,6 +58,8 @@ public class MainController implements KeyListener, Observer
 		populateKeyMap();
 		menuControl.setFirstGame();
 		menuControl.show();
+		encounterGlass = new JPanel();
+		encounterGlass.setOpaque(false);
 		
 	}
 		
@@ -85,7 +88,14 @@ public class MainController implements KeyListener, Observer
 			case "CheckInventory": 		gameControl.checkInventory(); break;
 			case "DrinkHealthPotion": 	gameControl.playerUseItem("Health Potion"); break;
 			case "CheckDialogue": 		DialogueController test = new DialogueController(50,50);break;
-			case "CheckEncounter":		changeContentPane(encounterControl.getView()); break;
+			case "CheckEncounter":		mainWindow.setGlassPane(encounterGlass);
+										encounterControl.setMonsterLevel(99); 
+										encounterControl.setPlayerStats(
+												gameControl.getHealth(), //int
+												gameControl.getPlayerStats(), //hashmap
+												gameControl.getBackpack()); //linkedlist
+										encounterControl.setView();
+										changeContentPane(encounterControl.getView()); break;
 								  
 			default: playerMovement(); break;
 		}
@@ -228,6 +238,7 @@ public class MainController implements KeyListener, Observer
 					mapControl = new MapController(screenWidth, screenHeight);
 					gameControl = new GameController(screenWidth, screenHeight);
 					saveLoadControl = new SaveAndLoadController();
+					encounterControl = new EncounterController(screenWidth, screenHeight);
 					mainWindow.setContentPane(mapControl.getView());
 					mainWindow.setGlassPane(gameControl.getView());
 					mainWindow.getGlassPane().setVisible(true);

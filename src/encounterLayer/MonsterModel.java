@@ -77,6 +77,9 @@ public class MonsterModel
 	{
 		return monsterDead;
 	}
-	
+	public void setMonsterDead(boolean x)
+	{
+		monsterDead = x;
+	}
 	
 }	
