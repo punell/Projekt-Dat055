@@ -17,15 +17,15 @@ Big Health Potion, Heal, 50, healthpot.png
 Short Sword, Mainhand, Damage, 10, shortsword.png
 Bastard Sword, Mainhand, Damage, 20, bastardsword.png
 Two Handed Axe, Mainhand:Offhand, Damage, 40, twohandedaxe.png
-#The Orders Silver Longsword, Mainhand:Offhand, Damage, 60, ------
+The Orders Silver Longsword, Mainhand:Offhand, Damage, 60, silversword.png
 Scalemail, Chest, Armor, 10, scalemail.png
 Buckler, Offhand, Armor, 5, bucklershield.png
-#Helmet, Head, Armor, 5, -------
-#Greaves, Legs, Armor, 7, ------
-#Boots, Feet, Armor, 3, -----
-#Gloves, Hands, Armor, 3, ------
-#Mothers Wooden Cross, Neck, Health:Armor, 30:7, -----
-#The Order Silver Ring, Finger, Health:Damage, 30:10, -------
+Helmet, Head, Armor, 5, helm.png
+Greaves, Legs, Armor, 7, greaves.png
+Boots, Feet, Armor, 3, boots.png
+Gloves, Hands, Armor, 3, gloves.png
+Mothers Wooden Cross, Neck, Health:Armor, 30:7, woodencross.png
+The Order Silver Ring, Finger, Health:Damage, 30:10, orderring.png
 #
 # Signs
 #
