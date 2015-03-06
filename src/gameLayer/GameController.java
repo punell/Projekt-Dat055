@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 import dialogue.DialogueController;
 import items.Item;
+import items.ItemUnpickable;
 import saveAndLoad.SaveGame;
 
 
@@ -91,7 +92,7 @@ public class GameController
 			case "Left": playerModel.moveWest(); lastMove = "Right"; break;
 		}
 		Item item = charView.checkCellContents(getPlayerCoords('c'));
-		if(item != null && item.getName().contains("Sign"))
+		if(item instanceof ItemUnpickable)
 		{
 			DialogueController dC = new DialogueController(screenWidth, screenHeight);
 			dC.show(item.getName());

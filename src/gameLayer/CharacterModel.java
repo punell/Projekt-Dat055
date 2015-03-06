@@ -2,6 +2,7 @@ package gameLayer;
 import items.Item;
 import items.ItemConsumable;
 import items.ItemEquipment;
+import items.ItemUnpickable;
 
 import java.awt.Image;
 import java.io.BufferedReader;
@@ -21,6 +22,7 @@ public class CharacterModel implements Serializable
 {
 	private HashMap<String, String[]> itemConsumableSet;
 	private HashMap<String, String[]> itemEquipmentSet;
+	private HashMap<String, String[]> itemUnpickableSet;
 	private LinkedList<CellProperties> cellGridItems;
 	private int screenWidth;
 	private int screenHeight;
@@ -31,6 +33,7 @@ public class CharacterModel implements Serializable
 		this.screenHeight = screenHeight;
 		itemConsumableSet = new HashMap<>();
 		itemEquipmentSet = new HashMap<>();
+		itemUnpickableSet = new HashMap<>();
 		populateItemSet();
 		cellGridItems = new LinkedList<>();
 		readMapItems();
@@ -79,6 +82,8 @@ public class CharacterModel implements Serializable
 				{
 					if(line.contains("Equipment"))
 						currentHashMap = itemEquipmentSet;
+					if(line.contains("Signs"))
+						currentHashMap = itemUnpickableSet;
 					line = reader.readLine();
 				}
 				keyIndex = line.indexOf(',');
@@ -101,28 +106,62 @@ public class CharacterModel implements Serializable
 			BufferedReader reader = new BufferedReader(new FileReader("itemmap.txt"));
 			String line = reader.readLine();
 			String[] splittedLine;
+			Image itemImage=null;
+			Image smallPotionImage = ImageIO.read(new File("textures/smallhealthpot.png"));
+			smallPotionImage = smallPotionImage.getScaledInstance(screenWidth/32,
+										screenHeight/18, Image.SCALE_DEFAULT);
+			
+			Image bigPotionImage = ImageIO.read(new File("textures/healthpot.png"));
+			bigPotionImage = bigPotionImage.getScaledInstance(screenWidth/32,
+										screenHeight/18, Image.SCALE_DEFAULT);
+			
+			Image signImage = ImageIO.read(new File("textures/sign.png"));
+			signImage = signImage.getScaledInstance(screenWidth/32,
+					screenHeight/18, Image.SCALE_DEFAULT);
+			
 			while(line != null)
 			{
+				
 				while(line.charAt(0) == '#')
 					line = reader.readLine();
 				splittedLine = line.split(", |:"); //split on "comma space" OR "colon"
 				Item item;
-				Image itemImage;
+				
 				String itemName = splittedLine[5];
 				if(itemConsumableSet.containsKey(itemName))
 				{
-					String filename = itemConsumableSet.get(itemName)[3];
-					itemImage = ImageIO.read(new File("textures/"+filename));
-					itemImage = itemImage.getScaledInstance(screenWidth/32, screenHeight/18, Image.SCALE_DEFAULT);
-					item = new ItemConsumable(itemConsumableSet.get(itemName), itemImage);
+					if(itemName.equals("Big Health Potion"))
+					{
+						item = new ItemConsumable(itemConsumableSet.get(itemName), bigPotionImage);
+					}
+					else if(itemName.equals("Small Health Potion"))
+					{
+						item = new ItemConsumable(itemConsumableSet.get(itemName), smallPotionImage);
+					}
+						
+					else
+					{
+						String filename = itemConsumableSet.get(itemName)[3];
+						itemImage = ImageIO.read(new File("textures/"+filename));
+						itemImage = itemImage.getScaledInstance(screenWidth/32, screenHeight/18, Image.SCALE_DEFAULT);
+						item = new ItemConsumable(itemConsumableSet.get(itemName), itemImage);
+					}
 				}
 				
-				else //(itemEquipmentSet.containsKey(splittedLine[5])) everything that isn't consumable is EQ...
+				else if(itemEquipmentSet.containsKey(itemName)) // everything that isn't consumable is EQ...
 				{
+					
 					String filename = itemEquipmentSet.get(itemName)[4];
 					itemImage = ImageIO.read(new File("textures/"+filename));
 					itemImage = itemImage.getScaledInstance(screenWidth/32, screenHeight/18, Image.SCALE_DEFAULT);
 					item = new ItemEquipment(itemEquipmentSet.get(itemName), itemImage);
+				}
+				
+				else //(itemUnpickableSet.containsKey(itemName))
+				{
+					
+					
+					item = new ItemUnpickable(itemUnpickableSet.get(itemName), signImage);
 				}
 				
 				cellGridItems.add(new CellProperties(splittedLine, item));
@@ -133,6 +172,7 @@ public class CharacterModel implements Serializable
 		} 
 		catch (IOException e) 
 		{
+			System.out.println(e);
 			System.out.println(e.getLocalizedMessage());
 		}
 	}

@@ -30,7 +30,7 @@ public class PlayerModel implements Serializable
 	
 	public PlayerModel()
 	{
-		name = "test";
+		name = "Blade";
 		baseHealth = 50;
 		currentHealth = 50;
 		
@@ -108,10 +108,6 @@ public class PlayerModel implements Serializable
 	}
 	public void checkInventory()
 	{
-		/*LinkedList<Item> inBackpack = inventory.checkContents();
-		for(Item item : inBackpack)
-			System.out.println(item.getName());
-		//return inventory.checkContents();*/
 		inventory.show();
 		calculateEquipmentBonus();
 	}
