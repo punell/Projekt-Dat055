@@ -1,7 +1,6 @@
 package encounterLayer;
 
 import java.awt.Image;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -50,7 +49,6 @@ public class EncounterModel
 			playerStats.put("armor", 0);
 			playerHealth += x;
 			
-			
 			if(playerHealth<=0)
 			{
 				playerDead = true; //Player dead
@@ -83,7 +81,7 @@ public class EncounterModel
 
 	public String playerString()
 	{
-		return "Health: "+playerHealth+" Armor: "+playerStats.get("armor");
+		return "Health: "+playerHealth+" Armor: "+playerStats.get("armor")+" Damage: "+playerStats.get("damage");
 	}
 	
 	public String monsterStringStats()
@@ -113,5 +111,10 @@ public class EncounterModel
 	public int getPlayerHP()
 	{
 		return playerHealth;
+	}
+	
+	public int getScale()
+	{
+		return monsterModel.getScale();
 	}
 }

@@ -1,5 +1,4 @@
 package encounterLayer;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Observable;
@@ -22,35 +21,47 @@ public class EncounterController extends Observable
 	}
 	public void input(String input)
 	{
-		
+		boolean validAction = false;
+		boolean run = false;
 		switch(input)
 		{
-			case "attack":  encounterModel.playerAttack(); break;
+			case "attack":  encounterModel.playerAttack(); 
+							validAction = true;
+							break;
 
-			case "block":	encounterModel.playerBlock(); break;
+			case "block":	encounterModel.playerBlock(); 
+							validAction = true;
+							break;
 			
-			case "run": break;
+			case "run": 	run = true;
+							validAction = true;
+							break;
 							
 		}
-		System.out.println(encounterModel.getPlayerHP());
+		
 		if(encounterModel.monsterDead())
 		{
 			setChanged();
 			notifyObservers(encounterModel.getPlayerHP()); 	//monster dead 
+			validAction = false;
 		} 
-		encounterModel.monsterAttack();
+		if(validAction == true)
+		{	
+			encounterModel.monsterAttack();
+		}
 		
 		if(encounterModel.playerDead())
-		{				
-			
-
-			setChanged();
-			notifyObservers(encounterModel.getPlayerHP()); //player dead
-		} 
+			{				
+				setChanged();
+				notifyObservers(encounterModel.getPlayerHP()); //player dead
+			} 
+		if(run == true)
+		{
+		setChanged();
+		notifyObservers(encounterModel.getPlayerHP());
+		}
+		
 		setView();
-		
-		
-		
 	}
 	
 	public EncounterView getView()
@@ -76,4 +87,6 @@ public class EncounterController extends Observable
 		encounterView.setPlayerImage();
 		encounterView.setMonsterImage();
 	}
+	
+
 }

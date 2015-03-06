@@ -8,7 +8,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -23,7 +22,7 @@ public class EncounterView extends JPanel
 	private ImageIcon monsterIcon;
 	private int sRW;
 	private int sRH;
-	
+	private int scale;
 	
 	public EncounterView(EncounterModel eM, int screenResolutionWidth, int screenResolutionHeight) 
 	{
@@ -75,7 +74,8 @@ public class EncounterView extends JPanel
 	public void setMonsterImage()
 	{
 		monsterImage = encounterModel.loadMonsterImage();
-		monsterImage = monsterImage.getScaledInstance(sRW/3, sRH/3, Image.SCALE_DEFAULT);
+		scale = encounterModel.getScale();
+		monsterImage = monsterImage.getScaledInstance(sRW/scale, sRH/scale, Image.SCALE_DEFAULT);
 		monsterIcon = new ImageIcon(monsterImage); 
 		JLabel monsterLabel = new JLabel(monsterIcon);
 		add(monsterLabel);
