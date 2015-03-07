@@ -37,6 +37,9 @@ public class EncounterView extends JPanel
 	}
 	
 	
+	/**
+	 * 
+	 */
 	public void clear()
 	{
 		removeAll();

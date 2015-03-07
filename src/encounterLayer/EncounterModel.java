@@ -11,7 +11,6 @@ public class EncounterModel
 	private HashMap<String, Integer> monsterStats;
 	private MonsterModel monsterModel;
 	private int playerHealth;
-	private LinkedList backPack;
 	private int baseArmor;
 	private int monsterLevel;
 	private boolean playerDead;
@@ -64,11 +63,11 @@ public class EncounterModel
 		playerStats.put("armor", x);
 	}
 	
-	public void setPlayerStats(int health, HashMap<String, Integer> stats, LinkedList bp)
+	
+	public void setPlayerStats(int h, HashMap<String, Integer> s, LinkedList bp)
 	{
-		playerHealth = health;
-		playerStats = stats;
-		backPack = bp;
+		playerHealth = h;
+		playerStats = s;
 		baseArmor = playerStats.get("armor");
 	}
 	

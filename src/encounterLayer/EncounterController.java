@@ -68,9 +68,9 @@ public class EncounterController extends Observable
 		return encounterView;
 	}
 	
-	public void setPlayerStats(int health, HashMap<String, Integer> stats, LinkedList bp)
+	public void setPlayerStats(int h, HashMap<String, Integer> s, LinkedList bp)
 	{
-		encounterModel.setPlayerStats(health, stats, bp);
+		encounterModel.setPlayerStats(h, s, bp);
 	}
 	
 	public void setMonsterLevel(int level) //Monster level-intput (dracula = 99)
