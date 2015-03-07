@@ -1,3 +1,4 @@
+package main;
 import gameLayer.CharacterModel;
 import gameLayer.GameController;
 import gameLayer.PlayerModel;
