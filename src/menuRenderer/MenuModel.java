@@ -19,9 +19,7 @@ import javax.swing.SpringLayout;
 
 
 public class MenuModel
-{
-	private GameController gameControl;
-	
+{	
 	private JPanel mainMenuPanel;
 	private JButton newGameButton;
 	private JButton saveGameButton;
