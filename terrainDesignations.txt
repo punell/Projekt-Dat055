@@ -24,3 +24,5 @@ R= true, false, road.jpg, null, 0, Road
 9= false, false, house9.jpg, null, 0, HousePart
 S= false, false, stone.jpg, null, 0, CaveWall
 D= true, false, dirt.jpg, null, 10, Dirt
+X= true, true, house4x.jpg, underground, 0, HouseEntrance
+Y= true, true, house5x.jpg, underground, 0, HouseEntrance

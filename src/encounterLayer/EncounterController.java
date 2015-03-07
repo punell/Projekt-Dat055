@@ -36,7 +36,6 @@ public class EncounterController extends Observable
 			case "run": 	run = true;
 							validAction = true;
 							break;
-							
 		}
 		
 		if(encounterModel.monsterDead())
@@ -57,8 +56,8 @@ public class EncounterController extends Observable
 			} 
 		if(run == true)
 		{
-		setChanged();
-		notifyObservers(encounterModel.getPlayerHP());
+			setChanged();
+			notifyObservers(encounterModel.getPlayerHP());
 		}
 		
 		setView();

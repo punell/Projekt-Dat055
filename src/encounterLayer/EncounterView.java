@@ -96,4 +96,3 @@ public class EncounterView extends JPanel
 		g.drawImage(background, 0, 0, sRW, sRH, null);
 	}
 }
-
