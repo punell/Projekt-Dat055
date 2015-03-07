@@ -262,8 +262,8 @@ public class MainController implements KeyListener, Observer
 					
 					
 					dialogueControl.show("You Died!");
-					try
-					{
+					try //this causes the message to not be displayed, because
+					{   //it goes to sleep before displaying it. Solution?
 						Thread.sleep(5000);
 					}
 					catch(Exception e)
