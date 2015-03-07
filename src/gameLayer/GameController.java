@@ -17,8 +17,9 @@ public class GameController
 	private CharacterView charView;
 	private int screenWidth;
 	private int screenHeight;
-	//private char lastMove;
 	private String lastMove;
+	private DialogueController dialogueControl;
+	
 	public GameController(int screenWidth, int screenHeight)
 	{
 		this.screenWidth = screenWidth;
@@ -26,6 +27,8 @@ public class GameController
 		charModel = new CharacterModel(screenWidth, screenHeight);
 		playerModel = new PlayerModel();
 		charView = new CharacterView(charModel, playerModel, screenWidth, screenHeight);
+		dialogueControl = new DialogueController(screenWidth, screenHeight);
+		
 	}
 	
 	public CharacterView getView() //MainView uses this
@@ -94,8 +97,8 @@ public class GameController
 		Item item = charView.checkCellContents(getPlayerCoords('c'));
 		if(item instanceof ItemUnpickable)
 		{
-			DialogueController dC = new DialogueController(screenWidth, screenHeight);
-			dC.show(item.getName());
+			
+			dialogueControl.show(item.getName());
 			moveRevert();
 		}
 		else

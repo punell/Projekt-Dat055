@@ -37,18 +37,19 @@ public class MainController implements KeyListener, Observer
 	private EncounterController encounterControl;
 	private SaveAndLoadController saveLoadControl;
 	private Dimension screenSize;
-	private int screenWidth; //future versions might allow for changes based on the resolution
+	private int screenWidth;
 	private int screenHeight;
 	private String command;
 	private String commandArgs;
 	private Random encounterRandomizer;
+	private DialogueController dialogueControl;
 	
 	private MainController(String title) throws IOException
 	{
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		screenWidth = (int)screenSize.getWidth();
 		screenHeight = (int)screenSize.getHeight();
-		//Jockes superspecial-solution for crazy screen-res-reporting
+		//Jockes superspecial-solution for crazy screen-res-reporting by window manager
 		if(screenWidth==3968) screenWidth=2048;
 		
 		mainWindow = new MainView(title, screenWidth, screenHeight);
@@ -56,6 +57,7 @@ public class MainController implements KeyListener, Observer
 		menuControl.getView().addObserver(this);
 		mainWindow.addKeyListener(this);
 		keyMap = new HashMap<Integer, String>();
+		dialogueControl = new DialogueController(screenWidth, screenHeight);
 		encounterRandomizer = new Random();
 		populateKeyMap();
 		menuControl.setFirstGame();
@@ -137,7 +139,7 @@ public class MainController implements KeyListener, Observer
 				gameControl.getPlayerStats(), //hashmap
 				gameControl.getBackpack()); //linkedlist
 		encounterControl.setView();
-		changeContentPane(encounterControl.getView());
+		mainWindow.setContentPane(encounterControl.getView());
 	}
 	
 	private void playerMovementLogic(int[] oldRoomCoords)
@@ -165,15 +167,6 @@ public class MainController implements KeyListener, Observer
 			mapControl.updateMapRenderView(gameControl.getPlayerCoords('r'));
 			gameControl.updateCellGrid();
 		}
-	}
-	
-	
-	private void changeContentPane(JPanel changeTo)
-	{
-		//This method is a stub, made to illustrate how 
-		//easily we want to be able to change
-		//between the map-view and the encounter-view
-		mainWindow.setContentPane(changeTo); 
 	}
 	
 	private void populateKeyMap()
@@ -212,7 +205,7 @@ public class MainController implements KeyListener, Observer
 	}
 	public static void main(String[] args) throws IOException 
 	{
-		MainController app = new MainController("spelet v0.40 (Inventory and items!)");
+		MainController app = new MainController("spelet v0.90 (Encounters and Dialogues!)");
 		app.setVisible(true);
 	}
 
@@ -267,8 +260,8 @@ public class MainController implements KeyListener, Observer
 				if(playerHealth <= 0)
 				{
 					
-					DialogueController dC = new DialogueController(screenWidth, screenHeight);
-					dC.show("You Died!");
+					
+					dialogueControl.show("You Died!");
 					try
 					{
 						Thread.sleep(5000);
