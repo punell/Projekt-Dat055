@@ -4,7 +4,7 @@
 # OBS, all spaces matter VERY much, don't forget them
 # and there can be NO empty lines, and no comments after the list (don't know why yet, is a bug, will be fixed)
 #
-G= true, false, grass.jpg, null, 0, Grass
+G= true, false, grass.jpg, null, 20, Grass
 M= false, false, mountain.jpg, null, 0, Mountain
 W= false, false, water.jpg, null, 0, Water
 V= false, false, void.jpg, null, 0, Void
@@ -23,4 +23,4 @@ R= true, false, road.jpg, null, 0, Road
 8= false, false, house8.jpg, null, 0, HousePart
 9= false, false, house9.jpg, null, 0, HousePart
 S= false, false, stone.jpg, null, 0, CaveWall
-D= true, false, dirt.jpg, null, 0, Dirt
+D= true, false, dirt.jpg, null, 10, Dirt

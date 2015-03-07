@@ -41,6 +41,7 @@ public class MainController implements KeyListener, Observer
 	private int screenHeight;
 	private String command;
 	private String commandArgs;
+	private Random encounterRandomizer;
 	
 	private MainController(String title) throws IOException
 	{
@@ -55,6 +56,7 @@ public class MainController implements KeyListener, Observer
 		menuControl.getView().addObserver(this);
 		mainWindow.addKeyListener(this);
 		keyMap = new HashMap<Integer, String>();
+		encounterRandomizer = new Random();
 		populateKeyMap();
 		menuControl.setFirstGame();
 		menuControl.show();
@@ -88,16 +90,8 @@ public class MainController implements KeyListener, Observer
 				case "CheckInventory": 		gameControl.checkInventory(); break;
 				case "DrinkHealthPotion": 	gameControl.playerUseItem("Health Potion"); break;
 				case "CheckDialogue": 		DialogueController test = new DialogueController(50,50);break;
-				case "CheckEncounter":		mainWindow.getGlassPane().setVisible(false);
-											encounterControl.setMonsterLevel(1); 
-											encounterControl.setPlayerStats(
-													gameControl.getHealth(), //int
-													gameControl.getPlayerStats(), //hashmap
-													gameControl.getBackpack()); //linkedlist
-											encounterControl.setView();
-											changeContentPane(encounterControl.getView()); break;
-										
-				case "CheckCoords":	gameControl.getPlayerCoords('t'); break;
+				
+				case "CheckCoords":	gameControl.getPlayerCoords('t'); break; //only for testing purposes
 									  
 				default: playerMovement(); break;
 			}
@@ -124,17 +118,26 @@ public class MainController implements KeyListener, Observer
 		}
 		int[] playerLocation = gameControl.getPlayerCoords('c');
 		int encounterChance = mapControl.encounterChance(playerLocation);
-		Random encounter = new Random(encounterChance);
-		int chance = encounter.nextInt();
-		if(chance == 1)
+		if(encounterChance != 0)
 		{
-			changeContentPane(encounterControl.getView());
-			/*encounterControl.setPlayerStats(
-					gameControl.getHealth(), //int
-					gameControl.getPlayerStats(), //hashmap
-					gameControl.getBackpack()); //linkedlist
-			encounterControl.setMonsterLevel();*/
+			int chance = encounterRandomizer.nextInt(encounterChance);
+			if(chance == 0)
+			{
+				startEncounter();
+			}
 		}
+	}
+	
+	private void startEncounter()
+	{
+		mainWindow.getGlassPane().setVisible(false);
+		encounterControl.setMonsterLevel(1); 
+		encounterControl.setPlayerStats(
+				gameControl.getHealth(), //int
+				gameControl.getPlayerStats(), //hashmap
+				gameControl.getBackpack()); //linkedlist
+		encounterControl.setView();
+		changeContentPane(encounterControl.getView());
 	}
 	
 	private void playerMovementLogic(int[] oldRoomCoords)
