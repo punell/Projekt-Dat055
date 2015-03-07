@@ -15,7 +15,6 @@ import javax.swing.JLabel;
 public abstract class Item implements Serializable
 {
 	private String name;
-	private Image itemImage;
 	private ImageIcon itemIcon;
 	private String actionCommand;
 	public Item(String name, Image itemImage, String actionCommand)

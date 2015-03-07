@@ -8,7 +8,6 @@ public class ItemEquipment extends Item implements Serializable
 	private String[] slot;
 	private String[] effect;
 	private int[] effectValue;
-	private String actionCommand;
 	
 	public ItemEquipment(String[] properties, Image itemImage) 
 	{
@@ -38,11 +37,6 @@ public class ItemEquipment extends Item implements Serializable
 	{
 		return effectValue;
 	}
-	
-	/*public String getActionCommand()
-	{
-		return actionCommand;
-	}*/
 	
 	
 

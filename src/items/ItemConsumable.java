@@ -7,7 +7,6 @@ public class ItemConsumable extends Item implements Serializable
 {
 	private String[] effect;
 	private int[] effectValue;
-	private String actionCommand;
 	
 	public ItemConsumable(String[] properties, Image itemImage)
 	{
@@ -20,7 +19,6 @@ public class ItemConsumable extends Item implements Serializable
 			effectValue[i] = Integer.parseInt(values[i]);
 		}
 		
-		//actionCommand = "Use";
 	}
 	
 	public String[] getEffect()
@@ -33,10 +31,5 @@ public class ItemConsumable extends Item implements Serializable
 	{
 		return effectValue;
 	}
-	
-	/*public String getActionCommand()
-	{
-		return actionCommand;
-	}*/
 
 }
