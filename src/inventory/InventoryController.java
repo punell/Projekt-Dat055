@@ -12,10 +12,8 @@ public class InventoryController implements Serializable
 {
 	private InventoryModel invModel;
 	private InventoryView invView;
-	private String inventoryType;
 	public InventoryController(PlayerModel pM)
 	{
-		this.inventoryType = inventoryType;
 		invModel = new InventoryModel();
 		invView = new InventoryView(invModel, pM);
 	}
@@ -23,7 +21,6 @@ public class InventoryController implements Serializable
 	public void show()
 	{
 		invView.updateInventoryView();
-		//invView.pack();
 		invView.setVisible(true);
 	}
 	
