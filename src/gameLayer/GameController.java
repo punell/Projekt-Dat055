@@ -84,6 +84,10 @@ public class GameController
 	{
 		playerModel.setPlayerHealth(health);
 	}
+	public void calculateEquipmentBonus()
+	{
+		playerModel.calculateEquipmentBonus();
+	}
 	public void move(String direction) 
 	{
 		//this can easily be moved into PlayerModel if ever necessary (might be if we want to move monsters as well)

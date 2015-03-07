@@ -274,6 +274,7 @@ public class MainController implements KeyListener, Observer
 				else
 				{
 					gameControl.setPlayerHealth(playerHealth);
+					gameControl.calculateEquipmentBonus();
 					mainWindow.setGlassPane(gameControl.getView());
 					mainWindow.setContentPane(mapControl.getView());
 					mainWindow.getGlassPane().setVisible(true);
