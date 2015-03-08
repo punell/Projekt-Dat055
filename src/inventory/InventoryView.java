@@ -26,9 +26,6 @@ import javax.swing.JPanel;
 public class InventoryView extends JFrame implements ActionListener, KeyListener
 {
 	private InventoryModel invModel;
-	private LinkedList<Item> backpackContents;
-	private LinkedList<ItemEquipment> equippedContents;
-	//private Image panelBackground;
 	private JPanel backpackPanel;
 	private JPanel equippedPanel;
 	private JPanel statsPanel;
@@ -41,19 +38,10 @@ public class InventoryView extends JFrame implements ActionListener, KeyListener
 		super();
 		addKeyListener(this);
 		invModel = iM;
-		backpackContents = new LinkedList<>();
-		equippedContents = new LinkedList<>();
 		
 		setBounds(300,300,500,500);
 		setLayout(new GridLayout(2,2,5,0));
 		player = pM;
-		// Might want a background?
-		/*try {
-			panelBackground = ImageIO.read(new File("textures/inventorybackground.jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 		
 		setUndecorated(true);
 		backpackPanel = new JPanel();
