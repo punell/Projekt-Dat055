@@ -22,7 +22,7 @@ public class DialogueModel
 		try
 		{
 			
-			BufferedReader reader = new BufferedReader(new FileReader("dialogue.txt"));
+			BufferedReader reader = new BufferedReader(new FileReader("text-resources/dialogue.txt"));
 			String line = reader.readLine();
 			String hashKey;
 			String hashValue;

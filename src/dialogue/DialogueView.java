@@ -21,10 +21,8 @@ public class DialogueView extends JFrame implements KeyListener
 	/** 
 	 *  Displays dialogue windows
 	 **/
-	private DialogueController dialogueControl;
 	private DialogueModel dialogueModel; 
 	private JTextArea textArea;
-	private Image background;
 	private int sRW;
 	private int sRH;
 	

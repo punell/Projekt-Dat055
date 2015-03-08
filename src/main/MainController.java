@@ -174,7 +174,7 @@ public class MainController implements KeyListener, Observer
 	{
 		try 
 		{
-			BufferedReader keys = new BufferedReader(new FileReader("keymap.txt"));
+			BufferedReader keys = new BufferedReader(new FileReader("text-resources/keymap.txt"));
 			String line = keys.readLine();
 			int index;
 			String value;

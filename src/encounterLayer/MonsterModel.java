@@ -97,8 +97,8 @@ public class MonsterModel
 	{
 		switch(number)
 		{
-			case 99: monsterFile = "dracula.png"; scale = 2; break; // Scale sets the right scaling to each image.
-			default: monsterFile = "monster.png"; scale = 3; break;
+			case 99: monsterFile = "textures/dracula.png"; scale = 2; break; // Scale sets the right scaling to each image.
+			default: monsterFile = "textures/monster.png"; scale = 3; break;
 		}
 		try {
 			monsterImage = ImageIO.read(new File(monsterFile));

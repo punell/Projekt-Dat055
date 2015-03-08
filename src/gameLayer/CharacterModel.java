@@ -69,7 +69,7 @@ public class CharacterModel implements Serializable
 		{
 			
 			HashMap<String, String[]> currentHashMap = itemConsumableSet;
-			BufferedReader reader = new BufferedReader(new FileReader("itemDesignations.txt"));
+			BufferedReader reader = new BufferedReader(new FileReader("text-resources/itemDesignations.txt"));
 			String line = reader.readLine();
 			String hashKey;
 			int keyIndex;
@@ -103,7 +103,7 @@ public class CharacterModel implements Serializable
 	{
 		try 
 		{
-			BufferedReader reader = new BufferedReader(new FileReader("itemmap.txt"));
+			BufferedReader reader = new BufferedReader(new FileReader("text-resources/itemmap.txt"));
 			String line = reader.readLine();
 			String[] splittedLine;
 			Image itemImage=null;
