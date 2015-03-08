@@ -19,14 +19,10 @@ public class MonsterModel
 {
 	private HashMap<String, Integer> stats;
 	private int number;
-	private int health;
-	private int damage;
-	private int armor;
 	private String name;
 	private String level;
 	private Image monsterImage;
 	private boolean monsterDead;
-	private String monsterFile;
 	private int scale;
 	
 	/**
@@ -35,6 +31,10 @@ public class MonsterModel
 	 */
 	public MonsterModel(int monsterLevel)
 	{
+		int health;
+		int damage;
+		int armor;
+		
 		number = monsterLevel; 
 		monsterDead = false;
 		if(number == 99){ 	//DARCULA
@@ -95,6 +95,7 @@ public class MonsterModel
 	 */
 	public Image loadMonsterImage()
 	{
+		String monsterFile;
 		switch(number)
 		{
 			case 99: monsterFile = "resource/textures/dracula.png"; scale = 2; break; // Scale sets the right scaling to each image.
