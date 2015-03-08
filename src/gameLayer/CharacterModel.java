@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -69,7 +71,9 @@ public class CharacterModel implements Serializable
 		{
 			
 			HashMap<String, String[]> currentHashMap = itemConsumableSet;
-			BufferedReader reader = new BufferedReader(new FileReader("text-resources/itemDesignations.txt"));
+			InputStream filepath = getClass().getClassLoader().getResourceAsStream("resource/textfiles/itemDesignations.txt");
+			InputStreamReader streamReader = new InputStreamReader(filepath);
+			BufferedReader reader = new BufferedReader(streamReader);
 			String line = reader.readLine();
 			String hashKey;
 			int keyIndex;
@@ -103,19 +107,21 @@ public class CharacterModel implements Serializable
 	{
 		try 
 		{
-			BufferedReader reader = new BufferedReader(new FileReader("text-resources/itemmap.txt"));
+			InputStream filepath = getClass().getClassLoader().getResourceAsStream("resource/textfiles/itemmap.txt");
+			InputStreamReader streamReader = new InputStreamReader(filepath);
+			BufferedReader reader = new BufferedReader(streamReader);
 			String line = reader.readLine();
 			String[] splittedLine;
 			Image itemImage=null;
-			Image smallPotionImage = ImageIO.read(new File("textures/smallhealthpot.png"));
+			Image smallPotionImage = ImageIO.read(getClass().getClassLoader().getResource("resource/textures/smallhealthpot.png"));
 			smallPotionImage = smallPotionImage.getScaledInstance(screenWidth/32,
 										screenHeight/18, Image.SCALE_DEFAULT);
 			
-			Image bigPotionImage = ImageIO.read(new File("textures/healthpot.png"));
+			Image bigPotionImage = ImageIO.read(getClass().getClassLoader().getResource("resource/textures/healthpot.png"));
 			bigPotionImage = bigPotionImage.getScaledInstance(screenWidth/32,
 										screenHeight/18, Image.SCALE_DEFAULT);
 			
-			Image signImage = ImageIO.read(new File("textures/sign.png"));
+			Image signImage = ImageIO.read(getClass().getClassLoader().getResource("resource/textures/sign.png"));
 			signImage = signImage.getScaledInstance(screenWidth/32,
 					screenHeight/18, Image.SCALE_DEFAULT);
 			
@@ -142,7 +148,7 @@ public class CharacterModel implements Serializable
 					else
 					{
 						String filename = itemConsumableSet.get(itemName)[3];
-						itemImage = ImageIO.read(new File("textures/"+filename));
+						itemImage = ImageIO.read(getClass().getClassLoader().getResource("resource/textures/"+filename));
 						itemImage = itemImage.getScaledInstance(screenWidth/32, screenHeight/18, Image.SCALE_DEFAULT);
 						item = new ItemConsumable(itemConsumableSet.get(itemName), itemImage);
 					}
@@ -152,7 +158,7 @@ public class CharacterModel implements Serializable
 				{
 					
 					String filename = itemEquipmentSet.get(itemName)[4];
-					itemImage = ImageIO.read(new File("textures/"+filename));
+					itemImage = ImageIO.read(getClass().getClassLoader().getResource("resource/textures/"+filename));
 					itemImage = itemImage.getScaledInstance(screenWidth/32, screenHeight/18, Image.SCALE_DEFAULT);
 					item = new ItemEquipment(itemEquipmentSet.get(itemName), itemImage);
 				}

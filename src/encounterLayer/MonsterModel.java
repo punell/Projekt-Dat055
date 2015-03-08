@@ -97,11 +97,11 @@ public class MonsterModel
 	{
 		switch(number)
 		{
-			case 99: monsterFile = "textures/dracula.png"; scale = 2; break; // Scale sets the right scaling to each image.
-			default: monsterFile = "textures/monster.png"; scale = 3; break;
+			case 99: monsterFile = "resource/textures/dracula.png"; scale = 2; break; // Scale sets the right scaling to each image.
+			default: monsterFile = "resource/textures/monster.png"; scale = 3; break;
 		}
 		try {
-			monsterImage = ImageIO.read(new File(monsterFile));
+			monsterImage = ImageIO.read(getClass().getClassLoader().getResource(monsterFile));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

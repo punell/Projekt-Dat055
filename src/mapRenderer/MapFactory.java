@@ -2,6 +2,8 @@ package mapRenderer;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 
 public class MapFactory 
@@ -19,7 +21,9 @@ public class MapFactory
 		char[][] worldMap = new char[rowsAndColumns[1]][rowsAndColumns[0]]; 
 		try
 		{
-			reader = new BufferedReader(new FileReader(mapName));
+			InputStream filepath = getClass().getClassLoader().getResourceAsStream(mapName);
+			InputStreamReader streamReader = new InputStreamReader(filepath);
+			reader = new BufferedReader(streamReader);
 			String line = reader.readLine();
 			int r=0;
 			while(line != null)
@@ -53,7 +57,9 @@ public class MapFactory
 	    int[] rowsAndColumns = new int[2];
 	    try
 	    {
-	    	reader = new BufferedReader(new FileReader(filename));
+	    	InputStream filepath = getClass().getClassLoader().getResourceAsStream(filename);
+			InputStreamReader streamReader = new InputStreamReader(filepath);
+			reader = new BufferedReader(streamReader);
 	    	String line = reader.readLine();
 	    	
 	    	while(line != null)

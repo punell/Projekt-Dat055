@@ -8,9 +8,15 @@ import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Observable;
@@ -44,6 +50,7 @@ public class MainController implements KeyListener, Observer
 	private String commandArgs;
 	private Random encounterRandomizer;
 	private DialogueController dialogueControl;
+	private String currentContentPane;
 	
 	private MainController(String title) throws IOException
 	{
@@ -55,6 +62,7 @@ public class MainController implements KeyListener, Observer
 		
 		mainWindow = new MainView(title, screenWidth, screenHeight);
 		menuControl = new MenuController(screenWidth, screenHeight);
+		currentContentPane = null;
 		menuControl.getView().addObserver(this);
 		mainWindow.addKeyListener(this);
 		keyMap = new HashMap<Integer, String>();
@@ -77,7 +85,8 @@ public class MainController implements KeyListener, Observer
 	
 	private void checkInput()
 	{
-		if(mainWindow.getContentPane().equals(mapControl.getView()))
+		//if(mainWindow.getContentPane() == null || mainWindow.getContentPane().equals(mapControl.getView()))
+		if(currentContentPane == null || currentContentPane.equals("mapControl"))
 		{
 			switch(command)
 			{
@@ -92,15 +101,13 @@ public class MainController implements KeyListener, Observer
 							 
 				case "CheckInventory": 		gameControl.checkInventory(); break;
 				case "DrinkHealthPotion": 	gameControl.playerUseItem("Health Potion"); break;
-				case "CheckDialogue": 		DialogueController test = new DialogueController(50,50);break;
-				
-				case "CheckCoords":	gameControl.getPlayerCoords('t'); break; //only for testing purposes
 									  
 				default: playerMovement(); break;
 			}
 			commandArgs = null;
 		}
-		else if(mainWindow.getContentPane().equals(encounterControl.getView()))
+		//else if(mainWindow.getContentPane().equals(encounterControl.getView()))
+		else if(currentContentPane.equals("encounterControl"))
 		{
 			encounterControl.input(command);
 		}
@@ -133,6 +140,7 @@ public class MainController implements KeyListener, Observer
 	
 	private void startEncounter()
 	{
+		currentContentPane = "encounterControl";
 		mainWindow.getGlassPane().setVisible(false);
 		encounterControl.setMonsterLevel(1); 
 		encounterControl.setPlayerStats(
@@ -174,7 +182,9 @@ public class MainController implements KeyListener, Observer
 	{
 		try 
 		{
-			BufferedReader keys = new BufferedReader(new FileReader("text-resources/keymap.txt"));
+			InputStream filepath = getClass().getClassLoader().getResourceAsStream("resource/textfiles/keymap.txt");
+			InputStreamReader reader = new InputStreamReader(filepath);
+			BufferedReader keys = new BufferedReader(reader);
 			String line = keys.readLine();
 			int index;
 			String value;
@@ -232,6 +242,19 @@ public class MainController implements KeyListener, Observer
 				String[] args = (String[])argument;
 				command = args[0];
 				commandArgs = args[1];
+				if(menuControl.firstGame())
+				{
+					mapControl = new MapController(screenWidth, screenHeight);
+					gameControl = new GameController(screenWidth, screenHeight);
+					saveLoadControl = new SaveAndLoadController();
+					encounterControl = new EncounterController(screenWidth, screenHeight);
+					encounterControl.addObserver(this);
+					currentContentPane = "mapControl";
+					mainWindow.setContentPane(mapControl.getView());
+					mainWindow.setGlassPane(gameControl.getView());
+					mainWindow.getGlassPane().setVisible(true);
+					mainWindow.revalidate();
+				}
 				checkInput();
 				
 			}
@@ -245,6 +268,7 @@ public class MainController implements KeyListener, Observer
 					saveLoadControl = new SaveAndLoadController();
 					encounterControl = new EncounterController(screenWidth, screenHeight);
 					encounterControl.addObserver(this);
+					currentContentPane = "mapControl";
 					mainWindow.setContentPane(mapControl.getView());
 					mainWindow.setGlassPane(gameControl.getView());
 					mainWindow.getGlassPane().setVisible(true);
@@ -279,6 +303,7 @@ public class MainController implements KeyListener, Observer
 					mainWindow.setGlassPane(gameControl.getView());
 					mainWindow.setContentPane(mapControl.getView());
 					mainWindow.getGlassPane().setVisible(true);
+					currentContentPane = "mapControl";
 					mainWindow.revalidate();
 				}
 			}

@@ -66,6 +66,10 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 	{
 		firstGame = true;
 	}
+	public boolean firstGame()
+	{
+		return firstGame;
+	}
 	
 	public void setMenu(String card)
 	{

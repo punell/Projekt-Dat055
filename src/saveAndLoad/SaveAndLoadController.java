@@ -3,15 +3,21 @@ package saveAndLoad;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 public class SaveAndLoadController 
 {
 	private SaveGame fromLoad;
+	private String savePath;
 	public SaveAndLoadController()
 	{
+		Path currentRelativePath = Paths.get("");
+		savePath = currentRelativePath.toAbsolutePath().toString() + "/save/";
 		
 	}
 	
@@ -19,7 +25,7 @@ public class SaveAndLoadController
 	{
 		try
 		{
-			ObjectOutputStream saveStream = new ObjectOutputStream(new FileOutputStream("save/quicksave.sav"));
+			ObjectOutputStream saveStream = new ObjectOutputStream(new FileOutputStream(savePath+"quicksave.sav"));
 			saveStream.writeObject(packageForSave);
 			saveStream.close();
 			System.out.println("Saving Game...");
@@ -36,7 +42,7 @@ public class SaveAndLoadController
 		
 		try
 		{	
-			ObjectOutputStream saveStream = new ObjectOutputStream(new FileOutputStream("save/"+filename+".sav"));
+			ObjectOutputStream saveStream = new ObjectOutputStream(new FileOutputStream(savePath+filename+".sav"));
 			saveStream.writeObject(packageForSave);
 			saveStream.close();
 			System.out.println("Saving Game...");
@@ -52,8 +58,8 @@ public class SaveAndLoadController
 	public SaveGame load()
 	{
 		try
-		{
-			ObjectInputStream loadStream = new ObjectInputStream(new FileInputStream("save/quicksave.sav"));
+		{	
+			ObjectInputStream loadStream = new ObjectInputStream(new FileInputStream(savePath+"quicksave.sav"));
 			fromLoad = (SaveGame)loadStream.readObject();
 			loadStream.close();
 			System.out.println("Loading Game...");
@@ -75,7 +81,7 @@ public class SaveAndLoadController
 	{
 		try
 		{
-			ObjectInputStream loadStream = new ObjectInputStream(new FileInputStream("save/"+savename));
+			ObjectInputStream loadStream = new ObjectInputStream(new FileInputStream(savePath+savename));
 			fromLoad = (SaveGame)loadStream.readObject();
 			loadStream.close();
 			System.out.println("Loading Game...");

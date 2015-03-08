@@ -52,9 +52,9 @@ public class DialogueView extends JFrame implements KeyListener
 	{
 		HashMap<String, String> map = dialogueModel.getMap(); 
 		if(map.containsKey(key))
-			textArea.append(map.get(key));
+			textArea.setText(map.get(key));
 		else
-			textArea.append(key);
+			textArea.setText(key);
 	}
 	
 	@Override

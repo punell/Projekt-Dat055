@@ -63,7 +63,7 @@ public class EncounterView extends JPanel
 	public void setPlayerImage()
 	{
 		try {
-			playerImage = ImageIO.read(new File("textures/player.png"));
+			playerImage = ImageIO.read(getClass().getClassLoader().getResource("resource/textures/player.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,7 +87,7 @@ public class EncounterView extends JPanel
 	public Image loadBackground(){
 		
 		try {
-			background = ImageIO.read(new File("textures/eBG1.jpg"));
+			background = ImageIO.read(getClass().getClassLoader().getResource("resource/textures/eBG1.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

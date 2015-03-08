@@ -2,6 +2,8 @@ package mapRenderer;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 
 
@@ -33,9 +35,9 @@ public class MapRenderModel
 		terrainGrid = new TerrainTile[32][18];
 		mapFactory = new MapFactory();
 		//this char holds the entire overworldMap, so we only read this during the start of the game and never again
-		overworldMap = mapFactory.readMap("text-resources/overworldmap.csv");
+		overworldMap = mapFactory.readMap("resource/textfiles/overworldmap.csv");
 		//should work for other maps as well...
-		undergroundMap = mapFactory.readMap("text-resources/undergroundmap.csv");
+		undergroundMap = mapFactory.readMap("resource/textfiles/undergroundmap.csv");
 		terrainSet = new HashMap<Character, TerrainProperties>();
 		populateTerrainSet();
 		currentRoom = new int[2];
@@ -65,7 +67,9 @@ public class MapRenderModel
 		String subLine;
 		try
 		{
-			reader = new BufferedReader(new FileReader("text-resources/terrainDesignations.txt"));
+			InputStream filepath = getClass().getClassLoader().getResourceAsStream("resource/textfiles/terrainDesignations.txt");
+			InputStreamReader streamReader = new InputStreamReader(filepath);
+			reader = new BufferedReader(streamReader);
 			String line = reader.readLine();
 			while(line != null)
 			{

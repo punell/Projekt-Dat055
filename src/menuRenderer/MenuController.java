@@ -30,5 +30,9 @@ public class MenuController
 	{
 		menuView.setFirstGame();
 	}
+	public boolean firstGame()
+	{
+		return menuView.firstGame();
+	}
 	
 }

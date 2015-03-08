@@ -33,8 +33,8 @@ public class TerrainProperties
 		description = properties[5];
 		try
 		{
-			String filename = "textures/"+properties[2];
-			terrainImage = ImageIO.read(new File(filename));
+			String filename = "resource/textures/"+properties[2];
+			terrainImage = ImageIO.read(getClass().getClassLoader().getResource(filename));
 			terrainImage = terrainImage.getScaledInstance(screenWidth/32, screenHeight/18, Image.SCALE_DEFAULT);
 			terrainIcon = new ImageIcon(terrainImage);
 		}

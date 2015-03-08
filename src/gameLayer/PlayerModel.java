@@ -46,6 +46,7 @@ public class PlayerModel implements Serializable
 		cellY = 1;
 		currentArea = "overworld"; 
 	}
+	
 	public int[] getPlayerCoords(char flag)
 	{
 		if(flag == 'r')

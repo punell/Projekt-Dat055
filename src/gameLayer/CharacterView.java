@@ -110,7 +110,7 @@ public class CharacterView extends JPanel
 		int cellY = 0;
 		try
 		{
-			playerCharacterImage = ImageIO.read(new File("textures/playerCharacter.png"));
+			playerCharacterImage = ImageIO.read(getClass().getClassLoader().getResource("resource/textures/playerCharacter.png"));
 		}
 		catch(IOException e)
 		{
