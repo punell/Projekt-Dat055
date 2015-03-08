@@ -6,10 +6,14 @@ public class MapController
 {
 	private MapRenderModel mapModel;
 	private MapRenderView mapView;
+	private int screenWidth;
+	private int screenHeight;
 	public MapController(int screenResolutionWidth, int screenResolutionHeight)
 	{
-		mapModel = new MapRenderModel(screenResolutionWidth, screenResolutionHeight);
-		mapView = new MapRenderView(mapModel, screenResolutionWidth, screenResolutionHeight);
+		screenWidth = screenResolutionWidth;
+		screenHeight = screenResolutionHeight;
+		mapModel = new MapRenderModel(screenWidth, screenHeight);
+		mapView = new MapRenderView(mapModel, screenWidth, screenHeight);
 	}
 	
 	public MapRenderView getView() //MainView uses this

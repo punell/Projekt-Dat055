@@ -143,6 +143,7 @@ public class GameController
 	public void restoreFromLoad(SaveGame fromLoad) 
 	{
 		playerModel = fromLoad.getPlayer();
+		playerModel.restoreFromLoad();
 		charModel = fromLoad.getCharModel();
 		charView.updateCharacterViewModels(charModel, playerModel);
 		charView.updatePlayerPosition();

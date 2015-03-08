@@ -203,6 +203,11 @@ public class PlayerModel implements Serializable
 		stats.put("armor", armor);
 	}
 	
+	public void restoreFromLoad()
+	{
+		inventory.restoreFromLoad(this);
+	}
+	
 
 
 }

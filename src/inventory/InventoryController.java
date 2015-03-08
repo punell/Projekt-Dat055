@@ -47,4 +47,8 @@ public class InventoryController implements Serializable
 	{
 		return invModel.checkBackpack();
 	}
+	public void restoreFromLoad(PlayerModel pM)
+	{
+		invView = new InventoryView(invModel, pM);
+	}
 }
