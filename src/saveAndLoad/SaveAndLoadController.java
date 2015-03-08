@@ -1,5 +1,6 @@
 package saveAndLoad;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,6 +19,12 @@ public class SaveAndLoadController
 	{
 		Path currentRelativePath = Paths.get("");
 		savePath = currentRelativePath.toAbsolutePath().toString() + "/save/";
+		try
+		{
+			File folder = new File(savePath);
+			folder.mkdir();
+		}
+		catch(Exception e){}
 		
 	}
 	
