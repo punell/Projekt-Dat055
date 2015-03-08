@@ -27,7 +27,7 @@
 4:12, 2:1, overworld, Boots
 8:1, 1:1, overworld, Greaves
 24:3, 2:0, overworld, The Order Silver Ring
-28:4, 1:0, underground, Gloves
+10:8, 2:1, underground, Gloves
 #
 # Signs
 #
