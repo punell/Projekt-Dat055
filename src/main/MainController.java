@@ -34,6 +34,14 @@ import menuRenderer.MenuView;
 
 
 
+/** MainController manages most of the input from the keyboard. 
+ *  It creates most of the other Controllers and manages the communication
+ *  between them. 
+ * 
+ * @author Joakim Schmidt
+ * @version 2015-03-09
+ */
+
 public class MainController implements KeyListener, Observer
 {
 	private MainView mainWindow;
@@ -52,6 +60,11 @@ public class MainController implements KeyListener, Observer
 	private DialogueController dialogueControl;
 	private String currentContentPane;
 	
+	/** MainController constructor. Only creates what is necessary for basic
+	 * menu functionality.
+	 * @param Window-title
+	 * @throws IOException
+	 */
 	private MainController(String title) throws IOException
 	{
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -83,6 +96,10 @@ public class MainController implements KeyListener, Observer
 		}
 	}
 	
+	/** Causes events based on the input which can be from both the
+	 *  keyboard or the Observer
+	 *  
+	 */
 	private void checkInput()
 	{
 		//if(mainWindow.getContentPane() == null || mainWindow.getContentPane().equals(mapControl.getView()))
@@ -114,6 +131,10 @@ public class MainController implements KeyListener, Observer
 	}
 	
 	
+	/** Causes the manages communication between the player and the map
+	 *  to check for properties such as walkable (ie, can the player walk here?)
+	 *  
+	 */
 	private void playerMovement()
 	{
 		int[] oldRoomCoords = gameControl.getPlayerCoords('r');				
@@ -133,24 +154,35 @@ public class MainController implements KeyListener, Observer
 			int chance = encounterRandomizer.nextInt(encounterChance);
 			if(chance == 0)
 			{
-				startEncounter();
+				startEncounter(encounterChance);
 			}
 		}
 	}
 	
-	private void startEncounter()
+	/** Prepares the encounterLayer for an encounter, and then 
+	 * executes it.
+	 * @param chance of encounter at the players current location
+	 */
+	private void startEncounter(int chance)
 	{
 		currentContentPane = "encounterControl";
 		mainWindow.getGlassPane().setVisible(false);
-		encounterControl.setMonsterLevel(1); 
+		if(chance == 1)
+			encounterControl.setMonsterLevel(99);
+		else if(chance == 10)
+			encounterControl.setMonsterLevel(3); 
+		else
+			encounterControl.setMonsterLevel(1);
 		encounterControl.setPlayerStats(
 				gameControl.getHealth(), //int
-				gameControl.getPlayerStats(), //hashmap
-				gameControl.getBackpack()); //linkedlist
+				gameControl.getPlayerStats()); //hashmap
 		encounterControl.setView();
 		mainWindow.setContentPane(encounterControl.getView());
 	}
 	
+	/** Additional logic needed for moving the player to a valid location
+	 * @param coordinates for players last known "room"
+	 */
 	private void playerMovementLogic(int[] oldRoomCoords)
 	{
 		if(!Arrays.equals(oldRoomCoords, gameControl.getPlayerCoords('r')))
@@ -178,6 +210,8 @@ public class MainController implements KeyListener, Observer
 		}
 	}
 	
+	/** Reads the keymap.txt file and creates entries in the keyMap (Hashmap)
+	 */
 	private void populateKeyMap()
 	{
 		try 
@@ -210,10 +244,17 @@ public class MainController implements KeyListener, Observer
 		}
 	}
 	
+	/** Sets the MainView-object visible or invisible
+	 * @param isVisible (true or false)
+	 */
 	private void setVisible(boolean isVisible)
 	{
 		mainWindow.setVisible(isVisible);
 	}
+	/** Main-method, execution starts here
+	 * @param args
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException 
 	{
 		MainController app = new MainController("spelet v0.90 (Encounters and Dialogues!)");
@@ -221,17 +262,14 @@ public class MainController implements KeyListener, Observer
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyReleased(KeyEvent arg0) {}
 
 	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyTyped(KeyEvent arg0) {}
 
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	@Override
 	public void update(Observable fromClass, Object argument) 
 	{
@@ -284,15 +322,6 @@ public class MainController implements KeyListener, Observer
 				int playerHealth = (Integer)argument;
 				if(playerHealth <= 0)
 				{
-					
-					
-					dialogueControl.show("You Died!");
-					try //this causes the message to not be displayed, because
-					{   //it goes to sleep before displaying it. Solution?
-						Thread.sleep(5000);
-					}
-					catch(Exception e)
-					{}
 					menuControl.setFirstGame();
 					menuControl.show();
 				}

@@ -8,11 +8,16 @@ import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
+/** Main window of the game
+ * @author Joakim Schmidt
+ * @version 2015-03-09
+ */
 public class MainView extends JFrame
 {
 	/** MainView creates the JFrame everything hangs on and also
 	 *  displays the different view-objects in the JFrames different layers
 	 *  It also listens for input
+	 *  @param Window-title, screenSize X-axis, screenSize Y-axis
 	 */
 	public MainView(String title, int screenResolutionWidth, int screenResolutionHeight) throws IOException
 	{
