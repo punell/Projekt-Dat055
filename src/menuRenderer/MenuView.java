@@ -22,12 +22,15 @@ import javax.swing.ListModel;
 import mapRenderer.MapController;
 import saveAndLoad.SaveAndLoadController;
 
+/**
+ * Creates a JFrame for the menu and displays the menu. Uses a CardLayout to show the different menus in the same window.
+ * Reads the name of the different save-files in the folder "save"
+ * @author Robin Punell
+ * @version 2015-03-09
+ *
+ */
 public class MenuView extends Observable implements ActionListener, KeyListener
 {
-	/** MenuView displays the menu 
-	 * 
-	 **/
-	
 	private JFrame menuFrame;
 	private MenuModel menuModel;
 	private CardLayout cl;
@@ -53,23 +56,29 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 		menuFrame.add(menuModel.getSaveMenu(), "save");
 		menuFrame.add(menuModel.getNewGameMenu(), "newgame");
 		
-		
-		
 		setAL();
 		setMenu("main");
-		
-		
-		
 	}
 	
+	/**
+	 * Sets the firstGame-variable to true
+	 */
 	public void setFirstGame()
 	{
 		firstGame = true;
 	}
+	/**
+	 * @return The firstGame-variable
+	 */
 	public boolean firstGame()
 	{
 		return firstGame;
 	}
+	
+	/**
+	 * Sets the menu-panel to parameter
+	 * @param card Card name
+	 */
 	
 	public void setMenu(String card)
 	{
@@ -77,12 +86,18 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 		currentCard = card;
 	}
 	
+	/**
+	 * Sets the menu frame to parameter
+	 * @param isVisible 
+	 */
 	public void setVisible(boolean isVisible)
 	{
 		menuFrame.setVisible(isVisible);
 	}
 	
-	
+	/**
+	 * Creates action-listeners for all buttons and objects 
+	 */
 	private void setAL()
 	{
 		JPanel[] panelList = menuModel.getMenus();
@@ -115,6 +130,9 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
@@ -135,6 +153,10 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 		
 	} 
 	
+	/**
+	 * Fills the load list or the save list with all save-games
+	 * @param display	Type of list
+	 */
 	private void populateLoadList(String display)
 	{
 		if(display.equals("load"))
@@ -158,6 +180,9 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 		
 	}
 	
+	/**
+	 * Prepares for the new game, notifies the MainController.
+	 */
 	private void newGame()
 	{
 		firstGame = false;
@@ -167,6 +192,9 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 		menuModel.enableSaveButton();
 	}
 	
+	/**
+	 * Notifies the MainController to load the selected game.
+	 */
 	private void loadGame()
 	{
 		String savefile = (String)menuModel.getLoadList().getSelectedValue();
@@ -176,6 +204,9 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 		menuFrame.setVisible(false);
 	}
 	
+	/**
+	 * Notifies the MainController to save the game.
+	 */
 	private void saveGame()
 	{
 		menuModel.getSaveField().requestFocusInWindow();
@@ -187,6 +218,9 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 		menuModel.getSaveListModel().addElement(savefile+".sav");
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) 
 	{
@@ -201,9 +235,6 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 		}
 	}
 	
-	
-
-
 	@Override
 	public void keyReleased(KeyEvent e) {}
 
@@ -211,10 +242,4 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 	@Override
 	public void keyTyped(KeyEvent e) {}
 
-
-	
-	
-	
-	
-	
 }

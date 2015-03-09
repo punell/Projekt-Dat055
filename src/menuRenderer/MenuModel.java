@@ -18,6 +18,12 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 
+/**
+ * Creates all the buttons, panels and lists for the menu.
+ * @author Robin Punell
+ * @version 2015-03-09
+ *
+ */
 public class MenuModel
 {	
 	private JPanel mainMenuPanel;
@@ -48,6 +54,9 @@ public class MenuModel
 	private JTextField saveGameField;
 	
 	
+	/**
+	 * Constructor
+	 */
 	public MenuModel()
 	{
 		//MAIN MENU
@@ -127,62 +136,90 @@ public class MenuModel
 		saveGamePanel.add(saveGameField, BorderLayout.NORTH);
 		saveGamePanel.add(saveGameList, BorderLayout.CENTER);
 		saveGamePanel.add(saveButtonsPanel, BorderLayout.SOUTH);
-		
-		
-		
-		
+			
 	}
 	
-	
-	
+	/**
+	 * @return The main menu panel
+	 */
 	public JPanel getMainMenu()
 	{
 		return mainMenuPanel;
 	}
 	
+	/**
+	 * @return The new game panel
+	 */
 	public JPanel getNewGameMenu()
 	{
 		return newGamePanel;
 	}
 	
+	/**
+	 * @return The save game panel
+	 */
 	public JPanel getSaveMenu()
 	{
 		return saveGamePanel;
 	}
 	
+	/**
+	 * @return The load game panel
+	 */
 	public JPanel getLoadMenu()
 	{
 		return loadGamePanel;
 	}
 	
+	/**
+	 * @return The load list model
+	 */
 	public DefaultListModel getLoadListModel()
 	{
 		return loadListModel;
 	}
+	/**
+	 * @return The load game list
+	 */
 	public JList getLoadList()
 	{
 		return loadGameList;
 	}
 	
+	/**
+	 * @return The save list model
+	 */
 	public DefaultListModel getSaveListModel()
 	{
 		return saveListModel;
 	}
+	/**
+	 * @return The save game list
+	 */
 	public JList getSaveList()
 	{
 		return saveGameList;
 	}
+	/**
+	 * @return The save game field
+	 */
 	public JTextField getSaveField()
 	{
 		return saveGameField;
 	}
 	
+	/**
+	 * @return All the menus in a list
+	 */
 	public JPanel[] getMenus()
 	{
 		JPanel[] temp = {mainMenuPanel, newGamePanel, saveGamePanel, loadGamePanel};
 		return temp;
 	}
 	
+	/**
+	 * Turns on the save button
+	 */
 	public void enableSaveButton()
 	{
 		saveGameButton.setEnabled(true);
