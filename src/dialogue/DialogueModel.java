@@ -8,16 +8,26 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 
 
+/**
+ * @author
+ * 
+ */
 public class DialogueModel
 {
 	private HashMap<String,String> map;
 	
+	/**
+	 * The constructor creates a HashMap and calls for the readDialogue method
+	 */
 	public DialogueModel()
 	{
 		map = new HashMap<>();
 		readDialogue();
 	} 
 	
+	/**
+	 * Reads text from a text file and put it a HashMap with a unique key and value for each line. 
+	 */
 	private void readDialogue()
 	{
 		
@@ -45,6 +55,9 @@ public class DialogueModel
 		{}
 	}
 	
+	/**
+	 * @return Returns the HashMap
+	 */
 	public HashMap<String, String> getMap()
 	{
 		return map;
