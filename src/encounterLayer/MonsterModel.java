@@ -11,8 +11,8 @@ import javax.imageio.ImageIO;
 
 /**
  * This class creates a monster.
- * @author 
- *
+ * @author Robin Punell
+ * @version 2015-03-09
  */
 public class MonsterModel 
 {

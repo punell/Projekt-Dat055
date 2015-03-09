@@ -23,6 +23,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Holds the GUI for the inventory window. Handles mouse-clicks on the items to perform actions.
+ * @author Robin Punell
+ * @version 2015-03-09
+ */
 public class InventoryView extends JFrame implements ActionListener, KeyListener
 {
 	private InventoryModel invModel;
@@ -33,6 +38,13 @@ public class InventoryView extends JFrame implements ActionListener, KeyListener
 	private JLabel healthLabel;
 	private JLabel damageLabel;
 	private JLabel armorLabel;
+	
+	
+	/**
+	 * Constructor - Sets up the GUI for the inventory
+	 * @param iM InventoryModel
+	 * @param pM PlayerModel
+	 */
 	public InventoryView(InventoryModel iM, PlayerModel pM)
 	{
 		super();
@@ -63,11 +75,12 @@ public class InventoryView extends JFrame implements ActionListener, KeyListener
 		add(equippedPanel);
 		add(statsPanel);
 		
-		populatePanels();
-		
-		
+		populatePanels();	
 	}
 
+	/**
+	 * Updates and repaints the inventory view
+	 */
 	public void updateInventoryView() 
 	{
 		/* This could be made nicer by inventing the ItemPanel which is a
@@ -108,6 +121,9 @@ public class InventoryView extends JFrame implements ActionListener, KeyListener
 		repaint();
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e)
 	{
 		ItemButton buttonPressed = null;
@@ -128,6 +144,9 @@ public class InventoryView extends JFrame implements ActionListener, KeyListener
 		updateInventoryView();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) 
 	{
@@ -138,12 +157,21 @@ public class InventoryView extends JFrame implements ActionListener, KeyListener
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyReleased(KeyEvent arg0) {}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyTyped(KeyEvent arg0) {}
 	
+	/**
+	 * Fills the backpack-panel and equipped-panel with buttons
+	 */
 	private void populatePanels()
 	{
 		ItemButton pushButton = null;

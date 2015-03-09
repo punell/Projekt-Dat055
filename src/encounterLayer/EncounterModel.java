@@ -8,8 +8,8 @@ import java.util.LinkedList;
 
 /**
  * Holds the encounters different methods and functions. Holds the important player and monster-stats for the encounter.
- * @author 
- *
+ * @author Robin Punell
+ * @version 2015-03-09
  */
 public class EncounterModel 
 {

@@ -14,7 +14,8 @@ import javax.swing.SwingConstants;
 
 /**
  * Sets up the GUI for the encounter. Extends JPanel
- * @author 
+ * @author Robin Punell
+ * @version 2015-03-09
  *
  */
 public class EncounterView extends JPanel

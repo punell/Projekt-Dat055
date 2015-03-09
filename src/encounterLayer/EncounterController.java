@@ -7,7 +7,8 @@ import java.util.Observable;
 
 /**
  * Holds methods for input and output of the encounter. Creates encounterModel and encounterView. Extends Observable.
- * @author 
+ * @author Robin Punell
+ * @version 2015-03-09
  *
  */
 public class EncounterController extends Observable

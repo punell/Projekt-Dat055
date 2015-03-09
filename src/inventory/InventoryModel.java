@@ -7,6 +7,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 
+/**
+ * Holds all the picked-up items in two lists. Handles the transfer of items between the lists. 
+ * @author Robin Punell
+ * @version 2015-03-09
+ *
+ */
 public class InventoryModel implements Serializable
 {
 	private LinkedList<Item> itemList;
@@ -17,12 +23,20 @@ public class InventoryModel implements Serializable
 		equippedList = new LinkedList<>();
 	}
 	
+	/**
+	 * Adds an item to the inventory
+	 * @param item Item to be added
+	 */
 	public void put(Item item)
 	{
-		itemList.add(item);
-			
+		itemList.add(item);	
 	}
 	
+	/**
+	 * Transfer item from/to backpack to/from equipped. 
+	 * Takes into consideration if the item already is equipped and what kind of item it is.
+	 * @param item Item to transfer
+	 */
 	public void toggleEquip(Item item)
 	{
 		if(equippedList.contains(item))
@@ -45,6 +59,11 @@ public class InventoryModel implements Serializable
 		}
 		
 	}
+	/**
+	 * Get wanted item
+	 * @param itemName Name of the wanted item
+	 * @return Wanted item, null if empty
+	 */
 	public Item get(String name)
 	{
 		Iterator<Item> it = itemList.iterator();
@@ -59,16 +78,29 @@ public class InventoryModel implements Serializable
 		}
 		return null;
 	}
+	/**
+	 * Gets list of items in backpack
+	 * @return List of items
+	 */
 	public LinkedList<Item> checkBackpack()
 	{
 		return itemList;
 	}
 	
+	/**
+	 * Gets list of equipped items
+	 * @return List of equipped items
+	 */
 	public LinkedList<ItemEquipment> checkEquipment()
 	{
 		return equippedList;
 	}
 	
+	/**
+	 * Removes and returns an item in specified slot 
+	 * @param slot Specified slot
+	 * @return Item i specified slot, null if empty
+	 */
 	public ItemEquipment getEquipped(String slot)
 	{
 		Iterator<ItemEquipment> it = equippedList.iterator();
