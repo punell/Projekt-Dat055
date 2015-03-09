@@ -12,6 +12,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+/**
+ * Sets up the GUI for the encounter. Extends JPanel
+ * @author 
+ *
+ */
 public class EncounterView extends JPanel
 {
 	private EncounterModel encounterModel;
@@ -24,6 +29,12 @@ public class EncounterView extends JPanel
 	private int sRH;
 	private int scale;
 	
+	/**
+	 * Constructor - Creates the wanted JPanel layout for the encounter.
+	 * @param eM	EncounterModel
+	 * @param screenResolutionWidth	Screen resolution width
+	 * @param screenResolutionHeight Screen resolution height
+	 */
 	public EncounterView(EncounterModel eM, int screenResolutionWidth, int screenResolutionHeight) 
 	{
 		super();
@@ -38,7 +49,7 @@ public class EncounterView extends JPanel
 	
 	
 	/**
-	 * 
+	 * Clears the JPanel
 	 */
 	public void clear()
 	{
@@ -46,6 +57,9 @@ public class EncounterView extends JPanel
 		revalidate();
 	}
 	
+	/**
+	 * Sets "controller options text" to the JPanle 
+	 */
 	public void setConOp()
 	{
 		JLabel commandLabel = new JLabel("<html><font color='red'>Press A to ATTACK<br>Press B to BLOCK<br>Press R to RUN</font></html>", SwingConstants.CENTER);		//Fyll i tangent-alternativen för encounter
@@ -53,6 +67,9 @@ public class EncounterView extends JPanel
 		add(commandLabel); 
 	}
 	
+	/**
+	 * Sets the monster- and player-stats to the JPanel
+	 */
 	public void setStats()
 	{
 		JLabel hpLabel = new JLabel("<html><font color='red'>"+ "Player<br>"+ encounterModel.playerString() + "<br><br>"+encounterModel.monsterStringName()+"<br>"+encounterModel.monsterStringStats()+"</font></html>"); //Skall visa hälsa (player och monster)
@@ -60,6 +77,9 @@ public class EncounterView extends JPanel
 		add(hpLabel);
 	}
 	
+	/**
+	 * Sets the players image to the JPanel
+	 */
 	public void setPlayerImage()
 	{
 		try {
@@ -74,6 +94,9 @@ public class EncounterView extends JPanel
 		add(playerLabel);
 	}
 	
+	/**
+	 * Set the monsters image to the JPanek
+	 */
 	public void setMonsterImage()
 	{
 		monsterImage = encounterModel.loadMonsterImage();
@@ -84,6 +107,10 @@ public class EncounterView extends JPanel
 		add(monsterLabel);
 	}
 
+	/**
+	 * Loads the background image
+	 * @return Background image
+	 */
 	public Image loadBackground(){
 		
 		try {
@@ -93,6 +120,7 @@ public class EncounterView extends JPanel
 		}
 		return background;
 	}
+	
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
