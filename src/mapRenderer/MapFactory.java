@@ -6,6 +6,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 
+/**MapFactory reads map-files and constructs 2D char arrays used by
+ * MapRenderModel.
+ * @author Joakim Schmidt
+ * @version 2015-03-09
+ */
 public class MapFactory 
 {
 	public MapFactory()
@@ -13,6 +18,10 @@ public class MapFactory
 		
 	}
 	
+	/**Reads parameter map-file and constructs a 2D char array
+	 * @param mapName
+	 * @return The 2D char array
+	 */
 	public char[][] readMap(String mapName) 
 	{
 		BufferedReader reader = null;
@@ -51,6 +60,11 @@ public class MapFactory
 		return worldMap;
 	}
 	
+	/**Counts the rows and columns of the map. This is so readMap() can
+	 * create correctly sized 2D char arrays
+	 * @param filename
+	 * @return int-array containing amount of rows and columns
+	 */
 	private int[] countRowsAndColumns(String filename) 
 	{
 	    BufferedReader reader = null;

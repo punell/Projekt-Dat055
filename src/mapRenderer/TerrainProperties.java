@@ -7,7 +7,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-
+/**TerrainProperties is basically a struct to allow for multiple values in a
+ * single element (used in Lists)
+ * @author Joakim Schmidt
+ * @version 2015-03-09
+ */
 public class TerrainProperties 
 {
 	public boolean walkable = false;
@@ -18,6 +22,12 @@ public class TerrainProperties
 	public Image terrainImage;
 	public ImageIcon terrainIcon;
 	
+	/**Constructor
+	 * @param properties is a list of all properties the
+	 * terrain type will have
+	 * @param screenWidth
+	 * @param screenHeight
+	 */
 	public TerrainProperties(String[] properties, int screenWidth, int screenHeight)
 	{
 		if(properties[0].equals("true"))

@@ -4,12 +4,18 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 
+/**MapRenderView displays the TerrainTilegrid that makes up the terrain
+ * @author Joakim Schmidt
+ * @version 2015-03-09
+ */
 public class MapRenderView extends JPanel 
 {
-	/** MapRenderView displays the gameworld
-	 * 
-	 */
 	private MapRenderModel mapModel;
+	/**Constructor
+	 * @param MapRenderModel-object
+	 * @param screenResolutionWidth
+	 * @param screenResolutionHeight
+	 */
 	public MapRenderView(MapRenderModel mRM, int screenResolutionWidth, int screenResolutionHeight)
 	{
 		super();
@@ -19,6 +25,9 @@ public class MapRenderView extends JPanel
 		updateMapRenderView();
 	}
 	
+	/**Gets the latest TerrainTilegrid from the MapRenderModel
+	 * and displays it.
+	 */
 	public void updateMapRenderView()
 	{
 		removeAll(); // remove to allow a refill

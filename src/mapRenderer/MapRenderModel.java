@@ -8,6 +8,10 @@ import java.util.HashMap;
 
 
 
+/**MapRenderModel creates the terrain that makes up the world
+ * @author Joakim Schmidt
+ * @version 2015-03-09
+ */
 public class MapRenderModel
 {	
 	/** Reads the text-documents that makes up the world, and creates the
@@ -28,6 +32,10 @@ public class MapRenderModel
 	private int screenWidth;
 	private int screenHeight;
 	
+	/**Constructor
+	 * @param screenWidth
+	 * @param screenHeight
+	 */
 	public MapRenderModel(int screenWidth, int screenHeight)
 	{
 		this.screenWidth = screenWidth;
@@ -48,18 +56,26 @@ public class MapRenderModel
 		
 	}
 	
+	/**@return the current area MapRenderModel works with
+	 */
 	public String getCurrentArea()
 	{
 		return currentArea;
 	}
+	/**Sets the current area to parameter
+	 * @param area
+	 */
 	public void setCurrentArea(String area)
 	{
 		currentArea = area;
 	}
 	
+	/**Creates TerrainProperties objects for all types of terrain found in
+	 * terrainDesignations.txt, and puts them into a HashMap to be used by
+	 * TerrainTiles later on. 
+	 */
 	private void populateTerrainSet()
 	{
-		//Fills the HashMap with references to all types of terrain
 		BufferedReader reader = null;
 		char terrainSetKey;
 		String[] terrainSetValue;
@@ -88,6 +104,12 @@ public class MapRenderModel
 		}
 	}
 	
+	/**Creates a new terrainGrid for the MapRenderView to display.
+	 * The grid is then filled with TerrainTiles. Parameters are
+	 * location to display.
+	 * @param roomX
+	 * @param roomY
+	 */
 	public void updateMapRenderModel(int roomX, int roomY)
 	{
 		currentRoom[0] = roomX;
@@ -121,28 +143,48 @@ public class MapRenderModel
 		}
 	}
 	
+	/**@return The terrainGrid
+	 */
 	public TerrainTile[][] getUpdatedMap()
 	{
 		return terrainGrid;
 	}
 	
+	/**@return Currently built room coordinates
+	 */
 	public int[] getCurrentRoom()
 	{
 		return currentRoom;
 	}
 
+	/**Checks if parameter location is walkable by the player
+	 * @param playerCoords
+	 * @return true/false
+	 */
 	public boolean isWalkable(int cellX, int cellY)
 	{
 		return terrainGrid[cellX][cellY].isWalkable();
 	}
+	/**Checks if parameter location is a link to another area
+	 * @param playerCoords
+	 * @return true/false
+	 */
 	public boolean isLink(int cellX, int cellY)
 	{
 		return terrainGrid[cellX][cellY].isLink();
 	}
+	/**Checks where parameter location links to
+	 * @param playerCoords
+	 * @return name of the area the location links to
+	 */
 	public String linksTo(int cellX, int cellY)
 	{
 		return terrainGrid[cellX][cellY].linksTo();
 	}
+	/**Gets the chance of encountering a monster at parameter location
+	 * @param playerCoords
+	 * @return chance of encounter
+	 */
 	public int encounterChance(int cellX, int cellY)
 	{
 		return terrainGrid[cellX][cellY].encounterChance();
