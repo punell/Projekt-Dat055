@@ -16,16 +16,23 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 
+/**
+ * @author 
+ *
+ */
 public class DialogueView extends JFrame implements KeyListener
 {
-	/** 
-	 *  Displays dialogue windows
-	 **/
 	private DialogueModel dialogueModel; 
 	private JTextArea textArea;
 	private int sRW;
 	private int sRH;
 	
+	/**
+	 * This constructor creates the dialogue window, with a TextArea, then adds text to the TextArea.
+	 * @param dM Creates the DialogueModel
+	 * @param screenResolutionWidth Sets the resolution 
+	 * @param screenResolutionHeight Sets the resolution
+	 */
 	public DialogueView(DialogueModel dM, int screenResolutionWidth, int screenResolutionHeight)
 	{
 		super();
@@ -48,6 +55,10 @@ public class DialogueView extends JFrame implements KeyListener
 		add(textArea); 
 	}
 	
+	/**
+	 * Adds the text to the dialogue window.
+	 * @param key Fetches the text related to the specific key, to be added to the dialogue window
+	 */
 	public void Text(String key)
 	{
 		HashMap<String, String> map = dialogueModel.getMap(); 
