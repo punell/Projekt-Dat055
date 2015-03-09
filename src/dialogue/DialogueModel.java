@@ -9,8 +9,9 @@ import java.util.HashMap;
 
 
 /**
- * @author
- * 
+ * Reads from a textfile, links these lines of text to specific keys in a HashMap, then sends these to DialogueView which displays the text on the screen.
+ * @author Jesper Kjellqvist
+ * @version 2015-03-09
  */
 public class DialogueModel
 {

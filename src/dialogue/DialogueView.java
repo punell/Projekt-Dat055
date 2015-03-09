@@ -17,7 +17,9 @@ import javax.swing.JTextArea;
 
 
 /**
- * @author 
+ * Displays the dialogue window and it's textarea. Receives a HashMap from DialogueModel
+ * @author Jesper Kjellqvist
+ * @version 2015-03-09
  *
  */
 public class DialogueView extends JFrame implements KeyListener

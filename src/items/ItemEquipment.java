@@ -3,12 +3,23 @@ import java.awt.Image;
 import java.io.Serializable;
 
 
+/**
+ * Defines items the player can equip, like weapons and armor
+ * @author Jesper Kjellqvist
+ * @version 2015-03-09
+ *
+ */
 public class ItemEquipment extends Item implements Serializable
 {
 	private String[] slot;
 	private String[] effect;
 	private int[] effectValue;
 	
+	/**
+	 * This is the constructor 
+	 * @param properties The properties of the item
+	 * @param itemImage The image of the item
+	 */
 	public ItemEquipment(String[] properties, Image itemImage) 
 	{
 		super(properties[0], itemImage, "ToggleEquip");
@@ -23,16 +34,25 @@ public class ItemEquipment extends Item implements Serializable
 		
 	}
 	
+	/**
+	 * @return Returns the item slot
+	 */
 	public String[] getSlot()
 	{
 		return slot;
 	}
 	
+	/**
+	 * @return Returns the item effect
+	 */
 	public String[] getEffect()
 	{
 		return effect;
 	}
 	
+	/**
+	 * @return Returns the value of the effect
+	 */
 	public int[] getEffectValue()
 	{
 		return effectValue;

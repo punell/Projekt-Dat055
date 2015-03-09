@@ -5,9 +5,17 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
+/**
+ * Inherits from JButton to create a button capable of "containing a item"
+ * @author Jesper Kjellqvist
+ * @version 2015-03-09
+ */
 public class ItemButton extends JButton 
 {
 	private Item item;
+	/**
+	 * Creates the item button and sets it to be visible to the player
+	 */
 	public ItemButton() 
 	{
 		super();
@@ -17,6 +25,9 @@ public class ItemButton extends JButton
 		setFocusable(false);
 	}
 	
+	/**
+	 * @return Removes and returns the item in this button 
+	 */
 	public Item getItem()
 	{
 		Item temp = item;
@@ -27,6 +38,10 @@ public class ItemButton extends JButton
 		return temp;
 	}
 	
+	/**
+	 * Adds an item to the button and sets the buttons tooltip do the items stats/data.
+	 * @param item The item we want to set the button to. 
+	 */
 	public void setItem(Item item)
 	{
 		this.item = item;
@@ -70,6 +85,9 @@ public class ItemButton extends JButton
 		
 	}
 	
+	/**
+	 * Clears the button
+	 */
 	public void clear()
 	{
 		item = null;
@@ -78,6 +96,9 @@ public class ItemButton extends JButton
 		setToolTipText(null);
 	}
 	
+	/**
+	 *  Removes the ActionListeners from the button 
+	 */
 	public void removeAllActionListeners()
 	{
 		for(ActionListener al : this.getActionListeners())

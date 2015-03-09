@@ -1,7 +1,9 @@
 package dialogue;
 
 /**
- * @author
+ * Initiates DialogueModel and DialogueView and makes sure that the dialogue window gets visible when its supposed to.
+ * @author Jesper Kjellqvist
+ * @version 2015-03-09
  * 
  */
 public class DialogueController 
