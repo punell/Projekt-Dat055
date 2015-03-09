@@ -25,8 +25,8 @@ public class TerrainProperties
 	/**Constructor
 	 * @param properties is a list of all properties the
 	 * terrain type will have
-	 * @param screenWidth
-	 * @param screenHeight
+	 * @param screenWidth The width of the screen
+	 * @param screenHeight The height of the screen
 	 */
 	public TerrainProperties(String[] properties, int screenWidth, int screenHeight)
 	{

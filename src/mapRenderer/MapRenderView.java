@@ -12,9 +12,9 @@ public class MapRenderView extends JPanel
 {
 	private MapRenderModel mapModel;
 	/**Constructor
-	 * @param MapRenderModel-object
-	 * @param screenResolutionWidth
-	 * @param screenResolutionHeight
+	 * @param mRM MapRenderModel-object
+	 * @param screenResolutionWidth The width of the screen
+	 * @param screenResolutionHeight The height of the screen
 	 */
 	public MapRenderView(MapRenderModel mRM, int screenResolutionWidth, int screenResolutionHeight)
 	{

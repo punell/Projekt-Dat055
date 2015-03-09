@@ -19,7 +19,7 @@ public class MapFactory
 	}
 	
 	/**Reads parameter map-file and constructs a 2D char array
-	 * @param mapName
+	 * @param mapName name of map-file
 	 * @return The 2D char array
 	 */
 	public char[][] readMap(String mapName) 

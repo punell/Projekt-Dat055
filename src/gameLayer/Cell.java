@@ -16,7 +16,7 @@ public class Cell extends JLabel
 	
 	/**Constructor. Each Cell is capable of displaying the 
 	 * player character image, or hold an Item.
-	 * @param playerCharacterIcon
+	 * @param playerCharacterIcon image of playercharacter
 	 */
 	public Cell(ImageIcon playerCharacterIcon)
 	{
@@ -28,7 +28,7 @@ public class Cell extends JLabel
 	
 	/**Sets this Cells contents to parameter Item
 	 * Also sets Cells Icon to Items Icon to display it
-	 * @param item
+	 * @param item Item to place in this Cell
 	 */
 	public void setContents(Item item)
 	{
@@ -59,7 +59,7 @@ public class Cell extends JLabel
 	
 	
 	/**Turns display of player character image in this Cell to parameter
-	 * @param isVisible
+	 * @param isVisible true/false
 	 */
 	public void showPlayerCharacter(boolean isVisible)
 	{

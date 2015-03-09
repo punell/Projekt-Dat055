@@ -34,10 +34,10 @@ public class CharacterView extends JPanel
 	private int screenHeight;
 	
 	/** Constructor
-	 * @param CharacterModel to work with
-	 * @param PlayerModel to work with
-	 * @param screenWidth
-	 * @param screenHeight
+	 * @param cM CharacterModel to work with
+	 * @param pM PlayerModel to work with
+	 * @param screenWidth The width of the screen
+	 * @param screenHeight The height of the screen
 	 */
 	public CharacterView(CharacterModel cM, PlayerModel pM, int screenWidth, int screenHeight)
 	{
@@ -70,7 +70,7 @@ public class CharacterView extends JPanel
 	
 	/**Gets whatever contents are in the parameter specified cell, if any
 	 * Also removes the Item from that cell
-	 * @param cellCoordinates
+	 * @param cellCoords coordinates
 	 * @return Item found, if any
 	 */
 	public Item getCellContents(int[] cellCoords)
@@ -83,7 +83,7 @@ public class CharacterView extends JPanel
 	
 	/**Gets whatever contents are in the parameter specified cell, if any
 	 * Does not remove the Item in that cell
-	 * @param cellCoordinates
+	 * @param cellCoords coordinates
 	 * @return Item found, if any
 	 */
 	public Item checkCellContents(int[] cellCoords)
@@ -122,8 +122,8 @@ public class CharacterView extends JPanel
 	}
 	
 	/**Used to restore the game when loading a game
-	 * @param CharacterModel to restore to
-	 * @param PlayerModel to restore to
+	 * @param cM CharacterModel to restore to
+	 * @param pM PlayerModel to restore to
 	 */
 	public void updateCharacterViewModels(CharacterModel cM, PlayerModel pM)
 	{

@@ -61,7 +61,7 @@ public class InventoryModel implements Serializable
 	}
 	/**
 	 * Get wanted item
-	 * @param itemName Name of the wanted item
+	 * @param name Name of the wanted item
 	 * @return Wanted item, null if empty
 	 */
 	public Item get(String name)

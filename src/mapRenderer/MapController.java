@@ -15,8 +15,8 @@ public class MapController
 	private int screenHeight;
 	
 	/**Constructor
-	 * @param screenResolutionWidth
-	 * @param screenResolutionHeight
+	 * @param screenResolutionWidth The width of the screen
+	 * @param screenResolutionHeight The height of the screen
 	 */
 	public MapController(int screenResolutionWidth, int screenResolutionHeight)
 	{
@@ -34,7 +34,7 @@ public class MapController
 	}
 	
 	/**Sets the current area to parameter
-	 * @param area
+	 * @param area name of area
 	 */
 	public void setCurrentArea(String area)
 	{
@@ -47,7 +47,7 @@ public class MapController
 		return mapModel.getCurrentArea();
 	}
 	/**Tells the map to display the parameter location
-	 * @param coords
+	 * @param coords coordinates
 	 */
 	public void updateMapRenderView(int[] coords)
 	{	
@@ -55,7 +55,7 @@ public class MapController
 			mapView.updateMapRenderView();
 	}
 	/**Checks if parameter location is a link to another area
-	 * @param playerCoords
+	 * @param playerCoords coordinates
 	 * @return true/false
 	 */
 	public boolean isLink(int[] playerCoords)
@@ -63,7 +63,7 @@ public class MapController
 		return mapModel.isLink(playerCoords[0], playerCoords[1]);
 	}
 	/**Checks where parameter location links to
-	 * @param playerCoords
+	 * @param playerCoords coordinates
 	 * @return name of the area the location links to
 	 */
 	public String linksTo(int[] playerCoords)
@@ -72,7 +72,7 @@ public class MapController
 	}
 	
 	/**Checks if parameter location is walkable by the player
-	 * @param playerCoords
+	 * @param playerCoords coordinates
 	 * @return true/false
 	 */
 	public boolean isWalkable(int[] playerCoords)
@@ -81,7 +81,7 @@ public class MapController
 	}
 	
 	/**Gets the chance of encountering a monster at parameter location
-	 * @param playerCoords
+	 * @param playerCoords coordinates
 	 * @return chance of encounter
 	 */
 	public int encounterChance(int[] playerCoords)
@@ -90,8 +90,8 @@ public class MapController
 	}
 	
 	/**Used to restore the game to an earlier saved state
-	 * @param area
-	 * @param coords
+	 * @param area name of area
+	 * @param coords coordinates
 	 */
 	public void restoreFromLoad(String area, int[] coords)
 	{

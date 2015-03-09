@@ -88,7 +88,7 @@ public class MenuView extends Observable implements ActionListener, KeyListener
 	
 	/**
 	 * Sets the menu frame to parameter
-	 * @param isVisible 
+	 * @param isVisible true/false
 	 */
 	public void setVisible(boolean isVisible)
 	{

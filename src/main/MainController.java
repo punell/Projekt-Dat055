@@ -252,8 +252,8 @@ public class MainController implements KeyListener, Observer
 		mainWindow.setVisible(isVisible);
 	}
 	/** Main-method, execution starts here
-	 * @param args
-	 * @throws IOException
+	 * @param args arguments from commandline
+	 * @throws IOException may throw IOException
 	 */
 	public static void main(String[] args) throws IOException 
 	{

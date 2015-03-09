@@ -15,7 +15,7 @@ public class TerrainTile extends JLabel
 	private String description;
 	
 	/**Constructor
-	 * @param A TerrainProperties object that details the behaviour of
+	 * @param TP A TerrainProperties object that details the behaviour of
 	 * the TerrainTile
 	 */
 	public TerrainTile(TerrainProperties TP)

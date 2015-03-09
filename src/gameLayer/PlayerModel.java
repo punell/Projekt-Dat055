@@ -54,7 +54,7 @@ public class PlayerModel implements Serializable
 	}
 	
 	/**Gets players current location
-	 * @param flag
+	 * @param flag a flag
 	 * @return coordinates in different forms depending on the flag
 	 */
 	public int[] getPlayerCoords(char flag)
@@ -91,15 +91,15 @@ public class PlayerModel implements Serializable
 		return currentArea;
 	}
 	/**Sets players current area-location to parameter
-	 * @param area
+	 * @param area name of area
 	 */
 	public void setPlayerArea(String area)
 	{
 		currentArea = area;
 	}
 	/**Return one stat from stats HashMap
-	 * @param key
-	 * @return value
+	 * @param key hash-key
+	 * @return value hash-value
 	 */
 	public int getStats(String key)
 	{		
@@ -113,7 +113,7 @@ public class PlayerModel implements Serializable
 		return currentHealth;
 	}
 	/**Gets an item depending on parameter item name
-	 * @param itemName
+	 * @param itemName name of item
 	 * @return Item found, if any
 	 */
 	public Item getItem(String itemName)
@@ -133,7 +133,7 @@ public class PlayerModel implements Serializable
 		return inventory.checkBackpack();
 	}
 	/**Sets players current health to parameter
-	 * @param health
+	 * @param health amount to set
 	 */
 	public void setPlayerHealth(int health)
 	{
@@ -147,14 +147,14 @@ public class PlayerModel implements Serializable
 		calculateEquipmentBonus();
 	}
 	/**Puts parameter Item in players inventory
-	 * @param item
+	 * @param item an Item
 	 */
 	public void addItem(Item item)
 	{
 		inventory.put(item);
 	}
 	/**Heals player for parameter amount
-	 * @param heal
+	 * @param heal amount to heal
 	 */
 	public void healPlayer(int heal)
 	{
@@ -163,7 +163,7 @@ public class PlayerModel implements Serializable
 			currentHealth = stats.get("maxhealth");
 	}
 	/**Damages player for parameter amount
-	 * @param damage
+	 * @param damage amount of damage
 	 * @return true if player died from damage, otherwise false
 	 */
 	public boolean damagePlayer(int damage)
@@ -223,7 +223,7 @@ public class PlayerModel implements Serializable
 	/**Consumes item with parameter name, if any found. 
 	 * Is supposed to work for more than just heal, such as mana, but is not
 	 * yet implemented
-	 * @param itemName
+	 * @param itemName name of item
 	 */
 	public void useItem(String itemName) 
 	{

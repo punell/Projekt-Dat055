@@ -26,8 +26,8 @@ public class GameController
 	private DialogueController dialogueControl;
 	
 	/**Constructor
-	 * @param screenWidth
-	 * @param screenHeight
+	 * @param screenWidth The width of the screen
+	 * @param screenHeight The height of the screen
 	 */
 	public GameController(int screenWidth, int screenHeight)
 	{
@@ -62,7 +62,7 @@ public class GameController
 		return playerModel.getPlayerArea();
 	}
 	/**Sets players current area to parameter
-	 * @param area
+	 * @param area name of area
 	 */
 	public void setPlayerArea(String area)
 	{
@@ -76,7 +76,7 @@ public class GameController
 		return playerModel.getHealth();
 	}
 	/**Gets an Item from the players inventory
-	 * @param itemName
+	 * @param itemName name of item
 	 * @return the Item, if found
 	 */
 	public Item getItem(String itemName)
@@ -84,14 +84,14 @@ public class GameController
 		return playerModel.getItem(itemName);
 	}
 	/**Heals player for parameter amount
-	 * @param heal
+	 * @param heal amount to heal
 	 */
 	public void healPlayer(int heal) //heals cannot go above maxHealth
 	{
 		playerModel.healPlayer(heal);
 	}
 	/**Damages player for parameter amount
-	 * @param damage
+	 * @param damage amount of damage
 	 * @return true if player died from damage, false if not
 	 */
 	public boolean damagePlayer(int damage)
@@ -106,7 +106,7 @@ public class GameController
 		playerModel.checkInventory();
 	}
 	/**Makes player "use" item with parameter name (potions)
-	 * @param itemName
+	 * @param itemName name of item
 	 */
 	public void playerUseItem(String itemName)
 	{
@@ -127,7 +127,7 @@ public class GameController
 		return playerModel.getBackpack();
 	}
 	/**Sets players health to parameter
-	 * @param health
+	 * @param health amount
 	 */
 	public void setPlayerHealth(int health)
 	{
@@ -140,7 +140,7 @@ public class GameController
 		playerModel.calculateEquipmentBonus();
 	}
 	/** Makes the player move in parameter direction
-	 * @param direction
+	 * @param direction N/E/S/W
 	 */
 	public void move(String direction) 
 	{
@@ -209,7 +209,7 @@ public class GameController
 	}
 
 	/**Restores gamestate from parameter SaveGame-file
-	 * @param fromLoad
+	 * @param fromLoad from the load method
 	 */
 	public void restoreFromLoad(SaveGame fromLoad) 
 	{

@@ -14,10 +14,14 @@ import java.util.Observer;
  */
 public class MainView extends JFrame
 {
-	/** MainView creates the JFrame everything hangs on and also
+	
+	/**MainView creates the JFrame everything hangs on and also
 	 *  displays the different view-objects in the JFrames different layers
 	 *  It also listens for input
-	 *  @param Window-title, screenSize X-axis, screenSize Y-axis
+	 * @param title Title of the frame
+	 * @param screenResolutionWidth The width of the screen
+	 * @param screenResolutionHeight The height of the screen
+	 * @throws IOException may throw IOException
 	 */
 	public MainView(String title, int screenResolutionWidth, int screenResolutionHeight) throws IOException
 	{

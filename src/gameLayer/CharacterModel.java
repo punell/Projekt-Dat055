@@ -35,8 +35,8 @@ public class CharacterModel implements Serializable
 	private int screenHeight;
 	
 	/**Constructor. Creates HashMaps for the different Item-types
-	 * @param screenWidth
-	 * @param screenHeight
+	 * @param screenWidth The width of the screen
+	 * @param screenHeight The height of the screen
 	 */
 	public CharacterModel(int screenWidth, int screenHeight)
 	{
@@ -62,8 +62,8 @@ public class CharacterModel implements Serializable
 	}
 	
 	/**Removes an Item from the map at parameter location
-	 * @param playerCoordinates
-	 * @param playerArea
+	 * @param playerCoords coordinates
+	 * @param playerArea area
 	 */
 	public void removeItemFromMap(int[] playerCoords, String playerArea) 
 	{

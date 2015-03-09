@@ -33,8 +33,8 @@ public class MapRenderModel
 	private int screenHeight;
 	
 	/**Constructor
-	 * @param screenWidth
-	 * @param screenHeight
+	 * @param screenWidth The width of the screen
+	 * @param screenHeight The height of the screen
 	 */
 	public MapRenderModel(int screenWidth, int screenHeight)
 	{
@@ -63,7 +63,7 @@ public class MapRenderModel
 		return currentArea;
 	}
 	/**Sets the current area to parameter
-	 * @param area
+	 * @param area name of area
 	 */
 	public void setCurrentArea(String area)
 	{
@@ -107,8 +107,8 @@ public class MapRenderModel
 	/**Creates a new terrainGrid for the MapRenderView to display.
 	 * The grid is then filled with TerrainTiles. Parameters are
 	 * location to display.
-	 * @param roomX
-	 * @param roomY
+	 * @param roomX x-coordinate of room
+	 * @param roomY y-coordinate of room
 	 */
 	public void updateMapRenderModel(int roomX, int roomY)
 	{
@@ -158,7 +158,8 @@ public class MapRenderModel
 	}
 
 	/**Checks if parameter location is walkable by the player
-	 * @param playerCoords
+	 * @param cellX x-coordinate
+	 * @param cellY y-coordinate
 	 * @return true/false
 	 */
 	public boolean isWalkable(int cellX, int cellY)
@@ -166,7 +167,8 @@ public class MapRenderModel
 		return terrainGrid[cellX][cellY].isWalkable();
 	}
 	/**Checks if parameter location is a link to another area
-	 * @param playerCoords
+	 * @param cellX x-coordinate
+	 * @param cellY y-coordinate
 	 * @return true/false
 	 */
 	public boolean isLink(int cellX, int cellY)
@@ -174,7 +176,8 @@ public class MapRenderModel
 		return terrainGrid[cellX][cellY].isLink();
 	}
 	/**Checks where parameter location links to
-	 * @param playerCoords
+	 * @param cellX x-coordinate
+	 * @param cellY y-coordinate
 	 * @return name of the area the location links to
 	 */
 	public String linksTo(int cellX, int cellY)
@@ -182,7 +185,8 @@ public class MapRenderModel
 		return terrainGrid[cellX][cellY].linksTo();
 	}
 	/**Gets the chance of encountering a monster at parameter location
-	 * @param playerCoords
+	 * @param cellX x-coordinate
+	 * @param cellY y-coordinate
 	 * @return chance of encounter
 	 */
 	public int encounterChance(int cellX, int cellY)

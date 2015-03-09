@@ -18,8 +18,8 @@ public class CellProperties implements Serializable
 	public Item item;
 	
 	/**Constructor
-	 * @param location (coordinates and area)
-	 * @param item
+	 * @param properties (coordinates and area)
+	 * @param item Item to store
 	 */
 	public CellProperties(String[] properties, Item item)
 	{
