@@ -11,6 +11,10 @@ import java.util.LinkedList;
 
 
 
+/**Manages everything about the player; stats, location, inventory, etc
+ * @author Joakim Schmidt
+ * @version 2015-03-09
+ */
 public class PlayerModel implements Serializable
 {
 	/** PlayerModel is the player character class
@@ -28,6 +32,8 @@ public class PlayerModel implements Serializable
 	private int cellY;
 	private String currentArea;
 	
+	/**Constructor 
+	 */
 	public PlayerModel()
 	{
 		name = "Blade";
@@ -47,6 +53,10 @@ public class PlayerModel implements Serializable
 		currentArea = "overworld"; 
 	}
 	
+	/**Gets players current location
+	 * @param flag
+	 * @return coordinates in different forms depending on the flag
+	 */
 	public int[] getPlayerCoords(char flag)
 	{
 		if(flag == 'r')
@@ -74,55 +84,89 @@ public class PlayerModel implements Serializable
 		}
 		
 	}
+	/**@return players current area-location
+	 */
 	public String getPlayerArea()
 	{
 		return currentArea;
 	}
+	/**Sets players current area-location to parameter
+	 * @param area
+	 */
 	public void setPlayerArea(String area)
 	{
 		currentArea = area;
 	}
+	/**Return one stat from stats HashMap
+	 * @param key
+	 * @return value
+	 */
 	public int getStats(String key)
 	{		
 		return stats.get(key);
 	}
 	
+	/**@return players current health
+	 */
 	public int getHealth()
 	{
 		return currentHealth;
 	}
+	/**Gets an item depending on parameter item name
+	 * @param itemName
+	 * @return Item found, if any
+	 */
 	public Item getItem(String itemName)
 	{
 		return inventory.get(itemName);
 	}
+	/**@return whole stats HashMap
+	 */
 	public HashMap<String, Integer> getPlayerStats()
 	{
 		return stats;
 	}
+	/**@return players inventory
+	 */
 	public LinkedList<Item> getBackpack()
 	{
 		return inventory.checkBackpack();
 	}
+	/**Sets players current health to parameter
+	 * @param health
+	 */
 	public void setPlayerHealth(int health)
 	{
 		currentHealth = health;
 	}
+	/**Shows and updates players inventory
+	 */
 	public void checkInventory()
 	{
 		inventory.show();
 		calculateEquipmentBonus();
 	}
+	/**Puts parameter Item in players inventory
+	 * @param item
+	 */
 	public void addItem(Item item)
 	{
 		inventory.put(item);
 	}
-	public void healPlayer(int heal) //heals cannot go above maxHealth
+	/**Heals player for parameter amount
+	 * @param heal
+	 */
+	public void healPlayer(int heal)
 	{
 		currentHealth += heal;
 		if(currentHealth >= stats.get("maxhealth"))
 			currentHealth = stats.get("maxhealth");
 	}
-	public boolean damagePlayer(int damage) //returns true on death
+	/**Damages player for parameter amount
+	 * @param damage
+	 * @return true if player died from damage, otherwise false
+	 */
+	public boolean damagePlayer(int damage)
 	{
 		currentHealth -= damage;
 		if(currentHealth <= 0)
@@ -131,6 +175,8 @@ public class PlayerModel implements Serializable
 			return false;
 	}
 
+	/**Moves the player one step north
+	 */
 	protected void moveNorth() //protected because we can... no real reason
 	{
 		//X=0, Y=0 is Top Left (because everything always is in graphical programming (for some reason))
@@ -141,6 +187,8 @@ public class PlayerModel implements Serializable
 			roomY--; //and change room...
 		}
 	}
+	/**Moves the player one step east
+	 */
 	protected void moveEast()
 	{
 		cellX++;
@@ -150,6 +198,8 @@ public class PlayerModel implements Serializable
 			roomX++;
 		}
 	}
+	/**Moves the player one step south
+	 */
 	protected void moveSouth()
 	{
 		cellY++;
@@ -159,6 +209,8 @@ public class PlayerModel implements Serializable
 			roomY++;
 		}
 	}
+	/**Moves the player one step west
+	 */
 	protected void moveWest()
 	{
 		cellX--;
@@ -168,6 +220,11 @@ public class PlayerModel implements Serializable
 			roomX--;
 		}
 	}
+	/**Consumes item with parameter name, if any found. 
+	 * Is supposed to work for more than just heal, such as mana, but is not
+	 * yet implemented
+	 * @param itemName
+	 */
 	public void useItem(String itemName) 
 	{
 		ItemConsumable item = (ItemConsumable)inventory.get(itemName); //holding in hand...
@@ -180,6 +237,8 @@ public class PlayerModel implements Serializable
 		}
 	}
 	
+	/**Calculates all bonuses from currently equipped equipment
+	 */
 	public void calculateEquipmentBonus()
 	{
 		LinkedList<ItemEquipment> equipment = inventory.checkEquipment();
@@ -203,6 +262,8 @@ public class PlayerModel implements Serializable
 		stats.put("armor", armor);
 	}
 	
+	/**Used when loading a previously saved game, to restore the inventory
+	 */
 	public void restoreFromLoad()
 	{
 		inventory.restoreFromLoad(this);

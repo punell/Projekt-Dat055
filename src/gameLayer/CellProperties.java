@@ -4,6 +4,11 @@ import items.Item;
 import java.io.Serializable;
 
 
+/**CellProperties is basically a struct to allow for multiple values in a
+ * single element (used in Lists)
+ * @author Joakim Schmidt
+ * @version 2015-03-09
+ */
 public class CellProperties implements Serializable
 {
 	public int[] cellCoords;
@@ -12,6 +17,10 @@ public class CellProperties implements Serializable
 	public String area;
 	public Item item;
 	
+	/**Constructor
+	 * @param location (coordinates and area)
+	 * @param item
+	 */
 	public CellProperties(String[] properties, Item item)
 	{
 		cellCoords = new int[2];

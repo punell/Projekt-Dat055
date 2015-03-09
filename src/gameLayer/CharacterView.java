@@ -16,11 +16,13 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+/**CharacterView displays the "cellgrid" which is an invisible layer
+ * on which the game paints item and the player character
+ * @author Joakim Schmidt
+ * @version 2015-03-09
+ */
 public class CharacterView extends JPanel
 {
-	/** Controls the display of the player character as well as things such as
-	 *  monsters, chests, non-player characters
-	 */
 	private CharacterModel charModel;
 	private PlayerModel playerModel;
 	private Cell[][] cellGrid;
@@ -31,6 +33,12 @@ public class CharacterView extends JPanel
 	private int screenWidth;
 	private int screenHeight;
 	
+	/** Constructor
+	 * @param CharacterModel to work with
+	 * @param PlayerModel to work with
+	 * @param screenWidth
+	 * @param screenHeight
+	 */
 	public CharacterView(CharacterModel cM, PlayerModel pM, int screenWidth, int screenHeight)
 	{
 		super();
@@ -51,6 +59,8 @@ public class CharacterView extends JPanel
 		updateCellGrid();
 	}
 	
+	/**Displays the player-image in the correct cell
+	 */
 	public void updatePlayerPosition() //this method either updates everything = easy, or it can have a parameter to decide what to update...
 	{
 		cellGrid[previousPlayerCoords[0]][previousPlayerCoords[1]].showPlayerCharacter(false); //turn off the old icon at the old coords
@@ -58,6 +68,11 @@ public class CharacterView extends JPanel
 		cellGrid[previousPlayerCoords[0]][previousPlayerCoords[1]].showPlayerCharacter(true); //turn on the old icon at the new coords
 	}
 	
+	/**Gets whatever contents are in the parameter specified cell, if any
+	 * Also removes the Item from that cell
+	 * @param cellCoordinates
+	 * @return Item found, if any
+	 */
 	public Item getCellContents(int[] cellCoords)
 	{
 		int cellX = cellCoords[0];
@@ -66,6 +81,11 @@ public class CharacterView extends JPanel
 		return cellGrid[cellX][cellY].pickUpContents();
 	}
 	
+	/**Gets whatever contents are in the parameter specified cell, if any
+	 * Does not remove the Item in that cell
+	 * @param cellCoordinates
+	 * @return Item found, if any
+	 */
 	public Item checkCellContents(int[] cellCoords)
 	{
 		int cellX = cellCoords[0];
@@ -73,6 +93,9 @@ public class CharacterView extends JPanel
 		return cellGrid[cellX][cellY].checkContents();
 	}
 	
+	/**Removes all Items from the cellgrid, and then gets an updated list
+	 * of Items which are then displayed
+	 */
 	public void updateCellGrid()
 	{
 		int cellX, cellY;
@@ -98,12 +121,19 @@ public class CharacterView extends JPanel
 		}
 	}
 	
-	public void updateCharacterViewModels(CharacterModel cM, PlayerModel pM) //used for loading SaveGame
+	/**Used to restore the game when loading a game
+	 * @param CharacterModel to restore to
+	 * @param PlayerModel to restore to
+	 */
+	public void updateCharacterViewModels(CharacterModel cM, PlayerModel pM)
 	{
 		charModel = cM;
 		playerModel = pM;
 	}
 	
+	/**Creates all 576 Cell-objects and places them in the cellgrid. 
+	 * Also loads the playercharacter-image-file for the cells to use
+	 */
 	private void fillCellGrid()
 	{
 		int cellX = 0;

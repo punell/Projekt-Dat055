@@ -20,6 +20,11 @@ import java.util.LinkedList;
 import javax.imageio.ImageIO;
 
 
+/**CharacterModel maintains the cellgrid. It handles placement and removal
+ * of Items from the map
+ * @author Joakim Schmidt
+ * @version 2015-03-09
+ */
 public class CharacterModel implements Serializable
 {
 	private HashMap<String, String[]> itemConsumableSet;
@@ -29,6 +34,10 @@ public class CharacterModel implements Serializable
 	private int screenWidth;
 	private int screenHeight;
 	
+	/**Constructor. Creates HashMaps for the different Item-types
+	 * @param screenWidth
+	 * @param screenHeight
+	 */
 	public CharacterModel(int screenWidth, int screenHeight)
 	{
 		this.screenWidth = screenWidth;
@@ -43,12 +52,19 @@ public class CharacterModel implements Serializable
 	}
 	
 	
-	// Everything about the CellGrid below
+	/**
+	 * @return A list of all Items currently in the world
+	 * (not necessarily displayed)
+	 */
 	public LinkedList<CellProperties> getItemList()
 	{
 		return cellGridItems;
 	}
 	
+	/**Removes an Item from the map at parameter location
+	 * @param playerCoordinates
+	 * @param playerArea
+	 */
 	public void removeItemFromMap(int[] playerCoords, String playerArea) 
 	{
 		// Must remove items from the list, otherwise they respawn after reloading the game
@@ -64,6 +80,9 @@ public class CharacterModel implements Serializable
 		}
 	}
 	
+	/**Creates all different types of Items, puts them in 
+	 * different HashMaps depending on type
+	 */
 	private void populateItemSet()
 	{
 		
@@ -103,6 +122,8 @@ public class CharacterModel implements Serializable
 		{
 		}
 	}
+	/**Reads the itemmap.txt file and creates Items for all locations specified
+	 */
 	private void readMapItems()
 	{
 		try 
@@ -127,7 +148,6 @@ public class CharacterModel implements Serializable
 			
 			while(line != null)
 			{
-				
 				while(line.charAt(0) == '#')
 					line = reader.readLine();
 				splittedLine = line.split(", |:"); //split on "comma space" OR "colon"
@@ -156,7 +176,6 @@ public class CharacterModel implements Serializable
 				
 				else if(itemEquipmentSet.containsKey(itemName)) // everything that isn't consumable is EQ...
 				{
-					
 					String filename = itemEquipmentSet.get(itemName)[4];
 					itemImage = ImageIO.read(getClass().getClassLoader().getResource("resource/textures/"+filename));
 					itemImage = itemImage.getScaledInstance(screenWidth/32, screenHeight/18, Image.SCALE_DEFAULT);
@@ -165,8 +184,6 @@ public class CharacterModel implements Serializable
 				
 				else //(itemUnpickableSet.containsKey(itemName))
 				{
-					
-					
 					item = new ItemUnpickable(itemUnpickableSet.get(itemName), signImage);
 				}
 				
