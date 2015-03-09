@@ -4,7 +4,7 @@
 # OBS, all spaces matter VERY much, don't forget them
 # and there can be NO empty lines, and no comments after the list (don't know why yet, is a bug, will be fixed)
 #
-B= true, false, dracula.png, null, 1, Dracula
+B= true, false, smalldracula.jpg, null, 1, Dracula
 G= true, false, grass.jpg, null, 20, Grass
 M= false, false, mountain.jpg, null, 0, Mountain
 W= false, false, water.jpg, null, 0, Water
