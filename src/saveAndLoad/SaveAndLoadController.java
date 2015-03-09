@@ -11,10 +11,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 
+/**
+ * Controls the reading and writing of the SaveGame object to files
+ * @author Jesper Kjellqvist
+ * @version 2015-03-09
+ */
 public class SaveAndLoadController 
 {
 	private SaveGame fromLoad;
 	private String savePath;
+	/**
+	 * The constructor 
+	 */
 	public SaveAndLoadController()
 	{
 		Path currentRelativePath = Paths.get("");
@@ -28,6 +36,11 @@ public class SaveAndLoadController
 		
 	}
 	
+	/**
+	 * Saves the game as a "quicksave"
+	 * @param packageForSave The game that's going to be saved 
+	 * @return Return on success
+	 */
 	public boolean save(SaveGame packageForSave)
 	{
 		try
@@ -44,6 +57,12 @@ public class SaveAndLoadController
 		}
 	}
 	
+	/**
+	 * Saves the game with a name of players own choosing
+	 * @param packageForSave The game that's going to be saved
+	 * @param filename The name of the save file
+	 * @return Return on success
+	 */
 	public boolean save(SaveGame packageForSave, String filename)
 	{
 		
@@ -62,6 +81,10 @@ public class SaveAndLoadController
 	
 	}
 	
+	/**
+	 * Loads a saved game from a quicksave file
+	 * @return The quicksaved game
+	 */
 	public SaveGame load()
 	{
 		try
@@ -84,6 +107,11 @@ public class SaveAndLoadController
 		
 	}
 	
+	/**
+	 * Loads a saved game from a specific file
+	 * @param savename The name of the saved file
+	 * @return Returns the saved game
+	 */
 	public SaveGame load(String savename)
 	{
 		try
