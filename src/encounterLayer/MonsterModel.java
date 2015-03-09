@@ -12,7 +12,6 @@ import javax.imageio.ImageIO;
 /**
  * This class creates a monster.
  * @author 
- * @version
  *
  */
 public class MonsterModel 
@@ -26,7 +25,7 @@ public class MonsterModel
 	private int scale;
 	
 	/**
-	 * The constructor creates different monsters based on input.
+	 * Constructor - Creates different monsters based on input.
 	 * @param monsterLevel Tells the constructor which type of monster it should create. (Dracula == 99)
 	 */
 	public MonsterModel(int monsterLevel)

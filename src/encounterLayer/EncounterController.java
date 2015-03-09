@@ -5,6 +5,11 @@ import java.util.Observable;
 
 
 
+/**
+ * Holds methods for input and output of the encounter. Creates encounterModel and encounterView. Extends Observable.
+ * @author 
+ *
+ */
 public class EncounterController extends Observable
 {
 
@@ -12,6 +17,11 @@ public class EncounterController extends Observable
 	private EncounterView encounterView;
 	
 
+	/**
+	 * Constructor - Creates EncounterModel and EncounterView. Attach the created EncounterModel object in the EncounterView
+	 * @param screenResolutionWidth	The screen resolution width of the screen
+	 * @param screenResolutionHeight The screen resolution height of the screen
+	 */
 	public EncounterController(int screenResolutionWidth, int screenResolutionHeight)
 	{
 
@@ -19,6 +29,10 @@ public class EncounterController extends Observable
 		encounterView = new EncounterView(encounterModel, screenResolutionWidth, screenResolutionHeight);
 			
 	}
+	/**
+	 * Executes the wanted action based on input. Updates the view to show updated stats etc.
+	 * @param input Wanted action
+	 */
 	public void input(String input)
 	{
 		boolean validAction = false;
@@ -63,21 +77,37 @@ public class EncounterController extends Observable
 		setView();
 	}
 	
+	/**
+	 * Gets the view from the EncounterView-class
+	 * @return The view of the encounter
+	 */
 	public EncounterView getView()
 	{
 		return encounterView;
 	}
 	
-	public void setPlayerStats(int h, HashMap<String, Integer> s, LinkedList bp)
+	/**
+	 * Sets the players stats
+	 * @param h	Health
+	 * @param s	Stats
+	 */
+	public void setPlayerStats(int h, HashMap<String, Integer> s)
 	{
-		encounterModel.setPlayerStats(h, s, bp);
+		encounterModel.setPlayerStats(h, s);
 	}
 	
-	public void setMonsterLevel(int level) //Monster level-intput (dracula = 99)
+	/**
+	 * Sets the level of the wanted monster or boss
+	 * @param level Level of monster. Level 99 creates Dracula
+	 */
+	public void setMonsterLevel(int level) 
 	{
 			encounterModel.setMonsterLevel(level);	
 	}
 	
+	/**
+	 * Sets the start-screen of the encounterView
+	 */
 	public void setView()
 	{
 		encounterView.clear();
@@ -86,6 +116,4 @@ public class EncounterController extends Observable
 		encounterView.setPlayerImage();
 		encounterView.setMonsterImage();
 	}
-	
-
 }
